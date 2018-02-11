@@ -1,8 +1,38 @@
-<ul>
-  <li *ngFor="let skill of skills">
-    <div>{{name}}</div>
-  </li>
-</ul>
+<div class="row">
+  <div class="col-md-5">
+    <h4>{{trait.attribute.name}}</h4>
+  </div>
+  <div class="col-md">
+    <input type="text"
+           [value]="trait.attribute.dieCount"
+           class="col-md-3"
+           placeholder="# of dice" />
+    <span>d</span>
+    <input type="text"
+           [value]="trait.attribute.dieType"
+           class="col-md-3"
+           placeholder="# of sides to each die" />
+  </div>
+</div>
+<div class="row">
+  <ul >
+    <li *ngFor="let skill of skills">
+      <div>
+        <span class="col-md-9">{{skill.name}}</span>
+        <input type="text"
+               [value]="skill.dieCount"
+               class="col-md-3 float-right" />
+        <div>
+          <input type="text"
+                 [value]="skill.specialization"/>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
 <input class="add-skill"
        type="button"
-       (click)="addSkill()"/>
+       (click)="addSkill()"
+       value="&#10133;" />

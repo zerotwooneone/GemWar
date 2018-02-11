@@ -9,23 +9,21 @@ import { SkillFactory } from '../skill/skill-factory';
   styleUrls: ['./trait.component.css']
 })
 export class TraitComponent implements OnInit {
-  get skills(): Skill[] {
-    return this.trait.skills;
-  }
-  get name(): string {
-    return this.trait.attribute.name;
-  }
-
+  
   @Input() trait: Trait;
+  skills: Skill[];
 
   constructor(private skillFactory: SkillFactory) { }
 
   ngOnInit() {
+    this.skills = this.trait.skills.sort((skilla, skillb) => {
+      return skilla.sortOrder - skillb.sortOrder;
+    });
   }
 
   addSkill() {
-    let sortOrder = this.skills.length + 1;
+    let sortOrder = this.trait.skills.length + 1;
     let skill = this.skillFactory.CreateSkill(sortOrder);
-    this.skills.push(skill);
+    this.trait.skills.push(skill);
   }
 }
