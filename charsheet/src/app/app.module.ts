@@ -3,16 +3,19 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { SkillBlockComponent } from './src/app/skill-block/skill-block.component';
+import { SkillFactory } from './src/app/skill/skill-factory';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SkillBlockComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [SkillFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
