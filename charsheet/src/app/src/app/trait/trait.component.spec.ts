@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SkillBlockComponent } from './skill-block.component';
+import { TraitComponent } from './trait.component';
 import { Skill } from '../skill/skill';
-import { SkillGroup } from '../skill/skill-group';
+import { Trait } from '../trait/trait';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { click } from '../../../../testing/index';
@@ -16,30 +16,30 @@ let skillFactoryStub = {
 };
 
 describe('SkillBlockComponent', () => {
-  let component: SkillBlockComponent;
-  let fixture: ComponentFixture<SkillBlockComponent>;
+  let component: TraitComponent;
+  let fixture: ComponentFixture<TraitComponent>;
   let firstExpectedSkill: Skill;
   let expectedSkills: Skill[];
   let addSkillElement: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SkillBlockComponent],
+      declarations: [TraitComponent],
       providers: [{ provide: SkillFactory, useValue: skillFactoryStub }]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SkillBlockComponent);
+    fixture = TestBed.createComponent(TraitComponent);
     component = fixture.componentInstance;
 
     firstExpectedSkill = new Skill('firstExpectedSkill', 1, 0);
     expectedSkills = [firstExpectedSkill];
 
     let attribute = new Attribute(9, 'test attribute', 4);
-    let skillGroup = new SkillGroup(attribute, expectedSkills, 0);
-    component.skillGroup = skillGroup;
+    let trait = new Trait(attribute, expectedSkills, 0);
+    component.trait = trait;
 
     addSkillElement = fixture.debugElement.query(By.css('.add-skill'));
 

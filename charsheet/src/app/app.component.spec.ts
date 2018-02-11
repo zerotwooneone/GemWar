@@ -1,13 +1,13 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { SkillBlockComponent } from './src/app/skill-block/skill-block.component';
+import { TraitComponent } from './src/app/trait/trait.component';
 import { SkillFactory } from './src/app/skill/skill-factory';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        SkillBlockComponent
+        TraitComponent
       ],
       providers: [SkillFactory]
     }).compileComponents();

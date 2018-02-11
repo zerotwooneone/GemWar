@@ -1,7 +1,7 @@
 import { Attribute } from "../attribute/attribute";
-import { Skill } from "./skill";
+import { Skill } from "../skill/skill";
 
-export class SkillGroup {
+export class Trait {
   attribute: Attribute;
   skills: Skill[];
   sortOrder: number;

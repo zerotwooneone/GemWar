@@ -1,22 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Skill } from '../skill/skill';
-import { SkillGroup } from '../skill/skill-group';
+import { Trait } from '../trait/trait';
 import { SkillFactory } from '../skill/skill-factory';
 
 @Component({
-  selector: 'skill-block',
-  templateUrl: './skill-block.component.html',
-  styleUrls: ['./skill-block.component.css']
+  selector: 'trait',
+  templateUrl: './trait.component.html',
+  styleUrls: ['./trait.component.css']
 })
-export class SkillBlockComponent implements OnInit {
+export class TraitComponent implements OnInit {
   get skills(): Skill[] {
-    return this.skillGroup.skills;
+    return this.trait.skills;
   }
   get name(): string {
-    return this.skillGroup.attribute.name;
+    return this.trait.attribute.name;
   }
 
-  @Input() skillGroup: SkillGroup;
+  @Input() trait: Trait;
 
   constructor(private skillFactory: SkillFactory) { }
 

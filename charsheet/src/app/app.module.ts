@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { SkillBlockComponent } from './src/app/skill-block/skill-block.component';
+import { TraitComponent } from './src/app/trait/trait.component';
 import { SkillFactory } from './src/app/skill/skill-factory';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SkillBlockComponent
+    TraitComponent
   ],
   imports: [
     BrowserModule
