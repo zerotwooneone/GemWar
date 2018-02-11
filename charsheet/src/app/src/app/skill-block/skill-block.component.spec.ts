@@ -25,7 +25,7 @@ describe('SkillBlockComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SkillBlockComponent],
-      providers: [{ provide: SkillFactory, useValue: skillFactoryStub}]
+      providers: [{ provide: SkillFactory, useValue: skillFactoryStub }]
     })
       .compileComponents();
   }));
@@ -37,8 +37,8 @@ describe('SkillBlockComponent', () => {
     firstExpectedSkill = new Skill('firstExpectedSkill', 1, 0);
     expectedSkills = [firstExpectedSkill];
 
-    let attribute = new Attribute();
-    let skillGroup = new SkillGroup(attribute, expectedSkills,0);
+    let attribute = new Attribute(9, 'test attribute', 4);
+    let skillGroup = new SkillGroup(attribute, expectedSkills, 0);
     component.skillGroup = skillGroup;
 
     addSkillElement = fixture.debugElement.query(By.css('.add-skill'));

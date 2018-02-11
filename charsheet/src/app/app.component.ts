@@ -10,9 +10,11 @@ import { Skill } from './src/app/skill/skill';
 })
 export class AppComponent {
   title = 'app';
-  skillGroup: SkillGroup;
+  mentalSkillGroups: SkillGroup[];
+  corporealSkillGroups: SkillGroup[];
 
   constructor() {
-    this.skillGroup = new SkillGroup(new Attribute(), [new Skill('first', 3, 0, 'specialization')], 0);
+    this.mentalSkillGroups = [new SkillGroup(new Attribute(3,'Cognition',4), [new Skill('first', 3, 0, 'specialization')], 0)];
+    this.corporealSkillGroups = [new SkillGroup(new Attribute(12,'Deftness',2), [new Skill('first', 3, 0, 'specialization')], 0)];
   }
 }

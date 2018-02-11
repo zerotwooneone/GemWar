@@ -4,8 +4,31 @@
       Welcome to {{ title }}!
     </h1>
   </div>
-  <div class="col-md-4">
-    <skill-block [skillGroup]="skillGroup"></skill-block>
-  </div>
-
+  <div class="row">
+    <div class="col-md-3">
+      <div class="skill-block">
+        <h3>Mental Traits</h3>
+        <div *ngFor="let skillGroup of mentalSkillGroups"
+             class="skillbock-list">
+          <skill-block [skillGroup]="skillGroup"></skill-block>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="skill-block">
+        <h3>Coporeal Traits</h3>
+        <div *ngFor="let skillGroup of corporealSkillGroups"
+             class="skillbock-list">
+          <skill-block [skillGroup]="skillGroup"></skill-block>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div >
+        <h3>Edges 'n' Hinderances</h3>
+      </div>
+      <div >
+        <h3>Chips 'n' Grit</h3>
+      </div>
+    </div></div>
 </div>

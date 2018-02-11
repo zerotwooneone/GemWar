@@ -12,6 +12,9 @@ export class SkillBlockComponent implements OnInit {
   get skills(): Skill[] {
     return this.skillGroup.skills;
   }
+  get name(): string {
+    return this.skillGroup.attribute.name;
+  }
 
   @Input() skillGroup: SkillGroup;
 
