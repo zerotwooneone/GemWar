@@ -6,7 +6,7 @@ import { SkillFactory } from '../skill/skill-factory';
 @Component({
   selector: 'trait',
   templateUrl: './trait.component.html',
-  styleUrls: ['./trait.component.css']
+  styleUrls: ['./trait.component.scss']
 })
 export class TraitComponent implements OnInit {
   
