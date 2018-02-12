@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TraitComponent } from './src/app/trait/trait.component';
-import { SkillFactory } from './src/app/skill/skill-factory';
+import { TraitSkillFactory } from './src/app/trait/trait-skill-factory';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { SkillFactory } from './src/app/skill/skill-factory';
     BrowserModule,
     FormsModule             
   ],
-  providers: [SkillFactory],
+  providers: [TraitSkillFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

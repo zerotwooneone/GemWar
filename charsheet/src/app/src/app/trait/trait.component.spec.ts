@@ -6,25 +6,27 @@ import { Trait } from '../trait/trait';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { click } from '../../../../testing/index';
-import { SkillFactory } from '../skill/skill-factory';
 import { Attribute } from '../attribute/attribute';
-import { TraitSkillFactory } from './traitSkillFactory';
+import { TraitSkillFactory } from './trait-skill-factory';
 import { TraitSkill } from './traitSkill';
 import { FormsModule } from '@angular/forms';
 
-let skillFactoryStub = {
-  CreateSkill(sortOrder: number): Skill {
-    return new Skill('stub skill factory skill', 99, sortOrder);
-  }
-};
+let expectedTraitSkill: TraitSkill = new TraitSkill('name', 2, 0, 'specialization', true);
+let nextTraitSkill: TraitSkill = null;
 
 let traitSkillFactoryStub = {
   Create(skill: Skill): TraitSkill {
-    return new TraitSkill('name', 2, 0, 'specialization', true);
+    let result = nextTraitSkill || expectedTraitSkill;
+    nextTraitSkill = null;
+    return result;
+  },
+  CreateBase(dieCount: number, name: string, sortOrder: number, specialization: string, displaySpecialization: boolean =
+  false): TraitSkill {
+    return this.Create(null);
   }
 };
 
-describe('SkillBlockComponent', () => {
+describe('TraitComponent', () => {
   let component: TraitComponent;
   let fixture: ComponentFixture<TraitComponent>;
   let firstExpectedSkill: Skill;
@@ -34,9 +36,8 @@ describe('SkillBlockComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TraitComponent],
-      imports:[FormsModule],
-      providers: [{ provide: SkillFactory, useValue: skillFactoryStub },
-      { provide: TraitSkillFactory, useValue: traitSkillFactoryStub }]
+      imports: [FormsModule],
+      providers: [{ provide: TraitSkillFactory, useValue: traitSkillFactoryStub }]
     })
       .compileComponents();
   }));
@@ -63,16 +64,18 @@ describe('SkillBlockComponent', () => {
 
   it('should have first skill',
     () => {
-      expect(component.skills).toContain(firstExpectedSkill);
+      expect(component.skills).toContain(expectedTraitSkill);
     });
 
-  it('should add new skill when clicked',
+  it('should add new skill in order',
     () => {
-      let initialSkillCount = component.skills.length;
-      let expected = initialSkillCount + 1;
-
+      let expected = component.skills[component.skills.length - 1].sortOrder + 1;
+      nextTraitSkill = Object.assign({}, expectedTraitSkill);
+      nextTraitSkill.sortOrder = expected;
+      
       click(addSkillElement);
-      let actual = component.skills.length;
+      let skill = component.skills[component.skills.length - 1];
+      let actual = skill.sortOrder;
 
       expect(actual).toBe(expected);
     });
