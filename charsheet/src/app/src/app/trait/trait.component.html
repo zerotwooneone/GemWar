@@ -1,41 +1,46 @@
-<div class="container-fluid">
+<div class="container-fluid trait-wrapper">
   <div class="row">
     <div class="col-md-5">
       <h4>{{trait.attribute.name}}</h4>
     </div>
-    <div class="col-md">
+    <div class="col-md float-right die-wrapper">
       <input type="text"
              [value]="trait.attribute.dieCount"
-             class="col-md-3 float-right"
+             class="die-count"
              placeholder="# of dice" />
-      <span class="float-right">d</span>
+      <span class="die-seperator">d</span>
       <input type="text"
-             [value]="trait.attribute.dieType"
-             class="col-md-3 float-right"
+             [(ngModel)]="trait.attribute.dieType"
+             class="die-type"
              placeholder="# of sides to each die" />
     </div>
   </div>
-  <div >
-    <ul style="width: 100%">
+  <div>
+    <ul class="skill-list">
       <li *ngFor="let skill of skills">
         <div class="row">
-          <span class="col-md-9">{{skill.name}}</span>
-          <input type="text"
-                 [value]="skill.dieCount"
-                 class="col-md-3 float-right" />
+          <span class="col-md-8">{{skill.name}}</span>
+          <div class="col-md-4 float-right die-wrapper">
+            <input type="text"
+                   [value]="skill.dieCount"
+                   class="die-count" />
+            <span class="die-seperator">d</span>
+            <div class="die-type">{{trait.attribute.dieType}}</div>
+          </div>
           <div>
             <input type="text"
                    [value]="skill.specialization"
-                   [hidden]="!skill.specialization"/>
+                   [hidden]="!skill.specialization" />
           </div>
         </div>
       </li>
     </ul>
   </div>
+  <input class="add-skill"
+         type="button"
+         (click)="addSkill()"
+         value="&#10133;" />
 </div>
 
 
-<input class="add-skill"
-       type="button"
-       (click)="addSkill()"
-       value="&#10133;" />
+

@@ -1,0 +1,16 @@
+.trait-wrapper {
+  .skill-list {
+    width: 100%;
+  }
+
+  .die-wrapper {
+    text-align: right;
+    $die-input-width: 30px;
+
+    .die-type, .die-count {
+      text-align: center; /*override user agent styling*/
+      width: $die-input-width;
+      display: inline-block;
+    }
+  }
+}
