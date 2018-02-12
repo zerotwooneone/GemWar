@@ -1,3 +1,5 @@
+@import '~scss/variables';
+
 .trait-wrapper {
   .skill-list {
     width: 100%;
@@ -12,5 +14,9 @@
       width: $die-input-width;
       display: inline-block;
     }
+  }
+
+  .add-skill {
+    color: $positive-color;
   }
 }
