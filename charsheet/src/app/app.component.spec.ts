@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TraitComponent } from './src/app/trait/trait.component';
 import { SkillFactory } from './src/app/skill/skill-factory';
+import { FormsModule } from '@angular/forms';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -9,6 +10,7 @@ describe('AppComponent', () => {
         AppComponent,
         TraitComponent
       ],
+      imports: [FormsModule],
       providers: [SkillFactory]
     }).compileComponents();
   }));

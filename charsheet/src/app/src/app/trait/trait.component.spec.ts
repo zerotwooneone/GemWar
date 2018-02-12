@@ -8,10 +8,19 @@ import { By } from '@angular/platform-browser';
 import { click } from '../../../../testing/index';
 import { SkillFactory } from '../skill/skill-factory';
 import { Attribute } from '../attribute/attribute';
+import { TraitSkillFactory } from './traitSkillFactory';
+import { TraitSkill } from './traitSkill';
+import { FormsModule } from '@angular/forms';
 
 let skillFactoryStub = {
   CreateSkill(sortOrder: number): Skill {
     return new Skill('stub skill factory skill', 99, sortOrder);
+  }
+};
+
+let traitSkillFactoryStub = {
+  Create(skill: Skill): TraitSkill {
+    return new TraitSkill('name', 2, 0, 'specialization', true);
   }
 };
 
@@ -25,7 +34,9 @@ describe('SkillBlockComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TraitComponent],
-      providers: [{ provide: SkillFactory, useValue: skillFactoryStub }]
+      imports:[FormsModule],
+      providers: [{ provide: SkillFactory, useValue: skillFactoryStub },
+      { provide: TraitSkillFactory, useValue: traitSkillFactoryStub }]
     })
       .compileComponents();
   }));
