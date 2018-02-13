@@ -1,0 +1,6 @@
+<div>
+  <span *ngFor="let bubble of bubbles">
+    <zer-wind-bubble [checked]="bubble.checked"
+                     (onClicked)="bubble.onClick"></zer-wind-bubble>
+  </span>
+</div>

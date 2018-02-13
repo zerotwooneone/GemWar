@@ -8,6 +8,8 @@ import { Attribute } from './src/app/attribute/attribute';
 import { Skill } from './src/app/skill/skill';
 import { DefaultTraitFactory } from './src/app/trait/default-trait-factory';
 import { TraitSkill } from './src/app/trait/traitSkill';
+import { WindSelectorComponent } from './wind/wind-selector/wind-selector.component';
+import { WindBubbleComponent } from './wind/wind-bubble/wind-bubble.component';
 
 describe('AppComponent', () => {
 
@@ -42,7 +44,9 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        TraitComponent
+        TraitComponent,
+        WindSelectorComponent,
+        WindBubbleComponent
       ],
       imports: [FormsModule],
       providers: [{ provide: TraitSkillFactory, useValue: traitSkillFactoryStub },
