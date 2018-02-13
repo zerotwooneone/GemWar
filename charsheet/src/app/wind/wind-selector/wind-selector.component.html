@@ -1,6 +1,7 @@
 <div>
-  <span *ngFor="let bubble of bubbles">
+  <span *ngFor="let bubble of bubbles; index as index">
+    <span>{{index+1}}</span>
     <zer-wind-bubble [checked]="bubble.checked"
-                     (onClicked)="bubble.onClick"></zer-wind-bubble>
+                     (onClicked)="bubble.onClick()"></zer-wind-bubble>
   </span>
 </div>

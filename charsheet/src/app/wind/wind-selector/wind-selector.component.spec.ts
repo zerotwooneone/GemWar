@@ -26,14 +26,14 @@ describe('WindSelectorComponent', () => {
   });
   it('should create two wind bubbles',
     () => {
-      component.maxIndex = 1;
-      component.ngOnChanges({ maxIndex: new SimpleChange(null, component.maxIndex, false) });
-      expect(component.bubbles.length).toBe(2);
+      component.count = 1;
+      component.ngOnChanges({ count: new SimpleChange(null, component.count, false) });
+      expect(component.bubbles.length).toBe(1);
     });
   it('should create 35 wind bubbles',
     () => {
-      component.maxIndex = 35;
-      component.ngOnChanges({ maxIndex: new SimpleChange(null, component.maxIndex, false) });
-      expect(component.bubbles.length).toBe(36);
+      component.count = 35;
+      component.ngOnChanges({ count: new SimpleChange(null, component.count, false) });
+      expect(component.bubbles.length).toBe(35);
     });
 });
