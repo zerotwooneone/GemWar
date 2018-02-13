@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TraitComponent } from './src/app/trait/trait.component';
 import { TraitSkillFactory } from './src/app/trait/trait-skill-factory';
+import { DefaultTraitFactory } from './src/app/trait/default-trait-factory';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TraitSkillFactory } from './src/app/trait/trait-skill-factory';
     BrowserModule,
     FormsModule             
   ],
-  providers: [TraitSkillFactory],
+  providers: [TraitSkillFactory,
+    DefaultTraitFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
