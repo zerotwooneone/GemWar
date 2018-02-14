@@ -1,4 +1,5 @@
-<div>
+<div [ngClass]="{pulse:pulse}"
+     class="wind-selector-wrapper">
   <span *ngFor="let bubble of bubbles; index as index; let odd=odd;"
         class="bubble-container">
     <label [for]="'bubble'+index"

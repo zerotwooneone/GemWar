@@ -8,12 +8,15 @@ import { BubbleModel } from './bubble-model';
 })
 export class WindSelectorComponent implements OnInit, OnChanges {
   @Input() count: number;
+  @Input() windTotal: number;
   bubbles: BubbleModel[];
+  pulse: boolean;
+  pulsePoint: number;
 
   constructor() { }
 
   ngOnInit() {
-    
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -29,6 +32,7 @@ export class WindSelectorComponent implements OnInit, OnChanges {
             bubbleModel.onClick = this.createClickHandler(index, bubbleModel);
             this.bubbles.push(bubbleModel);
           }
+          this.pulsePoint = count / 2;
         }
       }
     }
@@ -47,11 +51,12 @@ export class WindSelectorComponent implements OnInit, OnChanges {
       let bubble = this.bubbles[bi];
       bubble.checked = doCheck;
     }
+    this.pulse = index >= this.pulsePoint;
   }
 
   createClickHandler(index: number, bubbleModel: BubbleModel): () => void {
     return () => {
-       this.onBubbleClick(index, bubbleModel);
+      this.onBubbleClick(index, bubbleModel);
     }
   }
 

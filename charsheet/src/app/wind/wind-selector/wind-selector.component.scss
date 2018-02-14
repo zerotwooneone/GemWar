@@ -1,15 +1,44 @@
-.bubble-container {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
+@import '~scss/mixins';
 
-  .bubble-label {
-    margin-bottom: 0px;
+.wind-selector-wrapper {
+  display: inline-block;
+
+  .bubble-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+
+    .bubble-label {
+      margin-bottom: 0px;
+    }
+
+    .bubble {
+      $bubble-horiz_margin: 3px;
+      margin-left: $bubble-horiz_margin;
+      margin-right: $bubble-horiz_margin;
+    }
   }
 
-  .bubble {
-    $bubble-horiz_margin: 3px;
-    margin-left: $bubble-horiz_margin;
-    margin-right: $bubble-horiz_margin;
+  &.pulse {
+    @include box-shadow(0, 0, 0, rgba(204,169,44, 0.4));
+    @include animation(pulse 2s infinite);
+  }
+
+  &.pulse:hover {
+    @include animation(none);
+  }
+}
+
+@include keyframes(pulse) {
+  0% {
+    @include box-shadow(0, 0, 0, 0, rgba(204,169,44, 0.8));
+  }
+
+  70% {
+    @include box-shadow(0, 0, 0, 10px, rgba(204,169,44, 0));
+  }
+
+  100% {
+    @include box-shadow(0, 0, 0, 0, rgba(204,169,44, 0));
   }
 }

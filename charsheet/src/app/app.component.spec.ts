@@ -11,18 +11,23 @@ import { DefaultTraitFactory } from './trait/default-trait-factory';
 
 describe('AppComponent', () => {
 
+  let spiritDieType = 1;
+  let vigorDieType = 2;
   let defaultTraitFactoryStub = {
     GetMentalDefaults(): Trait[] {
-      let attribute = new Attribute(null, "dummy attr", null);
+      let attribute = new Attribute(spiritDieType, 'Spirit', null);
       let skills = [new Skill('dummy skill', null, null)];
       let sortOrder = 0;
       return [new Trait(attribute, skills, sortOrder)];
     },
     GetCorporealDefaults(): Trait[] {
-      return this.GetMentalDefaults();
+      let attribute = new Attribute(vigorDieType, 'Vigor', null);
+      let skills = [new Skill('dummy skill', null, null)];
+      let sortOrder = 0;
+      return [new Trait(attribute, skills, sortOrder)];
     }
   }
-  
+
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
 
@@ -53,5 +58,10 @@ describe('AppComponent', () => {
   it('should load corporeal traits',
     () => {
       expect(app.corporealTraits).toBeTruthy();
+    });
+  it('should provide wind total',
+    () => {
+      let expected = spiritDieType + vigorDieType;
+      expect(app.windTotal).toBe(expected);
     });
 });
