@@ -96,7 +96,7 @@ export class DefaultTraitFactory {
   addSkill(skills: Skill[], name: string, displaySpecialization?: boolean): Skill;
   addSkill(skills: Skill[], name: string, displaySpecialization: boolean = false, dieCount: number = 0, specialization: string = null): Skill {
     let sortOrder = skills.length;
-    let skill = new Skill(name, dieCount, sortOrder, null, displaySpecialization);
+    let skill = new Skill(name, dieCount, sortOrder, specialization, displaySpecialization);
     skills.push(skill);
     return skill;
   }
