@@ -1,9 +1,11 @@
 <div>
-  <span *ngFor="let bubble of bubbles; index as index"
-        class="bubble">
-    <label [for]="'bubble'+index">{{index+1}}</label>
+  <span *ngFor="let bubble of bubbles; index as index; let odd=odd;"
+        class="bubble-container">
+    <label [for]="'bubble'+index"
+           class="bubble-label">{{index+1}}</label>
     <zer-wind-bubble [checked]="bubble.checked"
                      (onClicked)="bubble.onClick()"
-                     [id]="'bubble'+index"></zer-wind-bubble>
+                     [id]="'bubble'+index"
+                     class="bubble"></zer-wind-bubble>
   </span>
 </div>
