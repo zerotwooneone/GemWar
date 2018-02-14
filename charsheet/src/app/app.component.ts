@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Trait } from './src/app/trait/trait';
-import { Attribute } from './src/app/attribute/attribute';
-import { Skill } from './src/app/skill/skill';
-import { DefaultTraitFactory } from './src/app/trait/default-trait-factory';
+import { Trait } from './trait/trait';
+import { DefaultTraitFactory } from './trait/default-trait-factory';
+
 
 @Component({
   selector: 'app-root',
