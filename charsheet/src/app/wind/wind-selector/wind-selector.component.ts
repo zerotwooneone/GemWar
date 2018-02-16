@@ -1,18 +1,26 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, forwardRef } from '@angular/core';
 import { BubbleModel } from './bubble-model';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'zer-wind-selector',
   templateUrl: './wind-selector.component.html',
-  styleUrls: ['./wind-selector.component.scss']
+  styleUrls: ['./wind-selector.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => WindSelectorComponent),
+      multi: true
+    }
+  ]
 })
-export class WindSelectorComponent implements OnInit, OnChanges {
+export class WindSelectorComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() count: number;
   @Input() windTotal: number;
   bubbles: BubbleModel[];
   pulse: boolean;
   pulsePoint: number;
-
+  
   constructor() { }
 
   ngOnInit() {
@@ -52,6 +60,10 @@ export class WindSelectorComponent implements OnInit, OnChanges {
       bubble.checked = doCheck;
     }
     this.pulse = index >= this.pulsePoint;
+
+    let bubble = this.bubbles[index];
+    let newSelectedValue = bubble.checked ? index + 1 : index;
+    this.propagateChange(newSelectedValue);
   }
 
   createClickHandler(index: number, bubbleModel: BubbleModel): () => void {
@@ -59,5 +71,19 @@ export class WindSelectorComponent implements OnInit, OnChanges {
       this.onBubbleClick(index, bubbleModel);
     }
   }
+
+  writeValue(value: any) {
+    if (value !== undefined) {
+      this.windTotal = value;
+    }
+  }
+
+  registerOnChange(fn) {
+    this.propagateChange = fn;
+  }
+
+  propagateChange = (_: any) => { };
+
+  registerOnTouched() { }
 
 }

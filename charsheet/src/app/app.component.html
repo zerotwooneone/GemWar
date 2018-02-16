@@ -1,42 +1,46 @@
 <div class="container-fluid">
-  <div style="text-align: center">
-    <h1>
-      Welcome to {{ title }}!
-    </h1>
-  </div>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="trait-block">
-        <h3>Mental Traits</h3>
-        <div *ngFor="let trait of mentalTraits"
-             class="skillbock-list">
-          <trait [trait]="trait"></trait>
+  <form #form="ngForm">
+    <div style="text-align: center">
+      <h1>
+        Welcome to {{ title }}!
+      </h1>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="trait-block">
+          <h3>Mental Traits</h3>
+          <div *ngFor="let trait of mentalTraits"
+               class="skillbock-list">
+            <trait [trait]="trait"></trait>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="trait-block">
+          <h3>Coporeal Traits</h3>
+          <div *ngFor="let trait of corporealTraits"
+               class="skillbock-list">
+            <trait [trait]="trait"></trait>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div>
+          <h3>Edges 'n' Hinderances</h3>
+        </div>
+        <div>
+          <h3>Chips 'n' Grit</h3>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="trait-block">
-        <h3>Coporeal Traits</h3>
-        <div *ngFor="let trait of corporealTraits"
-             class="skillbock-list">
-          <trait [trait]="trait"></trait>
-        </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Wind</h4>
+        <zer-wind-selector [count]="34"
+                           name="windTotal"
+                           [(ngModel)]="windTotal"></zer-wind-selector>
       </div>
     </div>
-    <div class="col-md-4">
-      <div>
-        <h3>Edges 'n' Hinderances</h3>
-      </div>
-      <div>
-        <h3>Chips 'n' Grit</h3>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h4>Wind</h4>
-      <zer-wind-selector [count]="34"
-                         [windTotal]="windTotal"></zer-wind-selector>
-    </div>
-  </div>
+  </form>
+  <pre>{{ form.value | json }}</pre>
 </div>
