@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <form #form="ngForm">
+  <form [formGroup]="form">
     <div style="text-align: center">
       <h1>
         Welcome to {{ title }}!
@@ -37,8 +37,8 @@
       <div class="col-md-12">
         <h4>Wind</h4>
         <zer-wind-selector [count]="34"
-                           name="windTotal"
-                           [(ngModel)]="windTotal"></zer-wind-selector>
+                           [windTotal]="windTotal"
+                           formControlName="currentWind"></zer-wind-selector>
       </div>
     </div>
   </form>

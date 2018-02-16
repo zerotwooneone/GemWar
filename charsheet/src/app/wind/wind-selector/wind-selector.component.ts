@@ -20,7 +20,17 @@ export class WindSelectorComponent implements OnInit, OnChanges, ControlValueAcc
   bubbles: BubbleModel[];
   pulse: boolean;
   pulsePoint: number;
-  
+  _currentWind: number = 0;
+
+  get currentWind(): number {
+    return this._currentWind;
+  }
+  @Input() set currentWind(val) {
+    this._currentWind = val;
+    this.propagateChange(this._currentWind);
+  }
+
+
   constructor() { }
 
   ngOnInit() {
@@ -61,9 +71,8 @@ export class WindSelectorComponent implements OnInit, OnChanges, ControlValueAcc
     }
     this.pulse = index >= this.pulsePoint;
 
-    let bubble = this.bubbles[index];
-    let newSelectedValue = bubble.checked ? index + 1 : index;
-    this.propagateChange(newSelectedValue);
+    let newSelectedValue = bubbleModel.checked ? index + 1 : index;
+    this.currentWind = newSelectedValue;
   }
 
   createClickHandler(index: number, bubbleModel: BubbleModel): () => void {
@@ -74,7 +83,11 @@ export class WindSelectorComponent implements OnInit, OnChanges, ControlValueAcc
 
   writeValue(value: any) {
     if (value !== undefined) {
-      this.windTotal = value;
+      this.currentWind = value;
+      if (this._currentWind > 0) {
+        let bubbleModel = this.bubbles[this._currentWind - 1];
+        bubbleModel.onClick();
+      }
     }
   }
 

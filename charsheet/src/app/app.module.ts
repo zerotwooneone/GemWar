@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -19,7 +19,8 @@ import { DefaultTraitFactory } from './trait/default-trait-factory';
   ],
   imports: [
     BrowserModule,
-    FormsModule             
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [DefaultTraitFactory],
   bootstrap: [AppComponent]
