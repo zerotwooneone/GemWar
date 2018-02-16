@@ -28,31 +28,27 @@ describe('WindSelectorComponent', () => {
   it('should create two wind bubbles',
     () => {
       component.count = 1;
-      component.ngOnChanges({ count: new SimpleChange(null, component.count, false) });
+      component.ngOnInit();
       expect(component.bubbles.length).toBe(1);
     });
   it('should create 35 wind bubbles',
     () => {
       component.count = 35;
-      component.ngOnChanges({ count: new SimpleChange(null, component.count, false) });
+      component.ngOnInit();
       expect(component.bubbles.length).toBe(35);
     });
-  it('should pulse when wind total > 50%',
+  it('should pulse when current wind > 50% wind total',
     () => {
-      component.count = 5;
-      component.ngOnChanges({ count: new SimpleChange(null, component.count, false) });
-      let bubbleModel: BubbleModel = component.bubbles[3];
-      bubbleModel.onClick();
-
+      component.windTotal = 5;
+      component._currentWind = 3;
+      
       expect(component.pulse).toBeTruthy();
     });
-  it('should not pulse when wind total < 50%',
+  it('should not pulse when current wind  < 50% wind total',
     () => {
-      component.count = 5;
-      component.ngOnChanges({ count: new SimpleChange(null, component.count, false) });
-      let bubbleModel: BubbleModel = component.bubbles[1];
-      bubbleModel.onClick();
-
+      component.windTotal = 5;
+      component._currentWind = 2;
+      
       expect(component.pulse).toBeFalsy();
     });
 });

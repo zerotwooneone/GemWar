@@ -1,6 +1,6 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WindSelectorComponent } from './wind/wind-selector/wind-selector.component';
 import { WindBubbleComponent } from './wind/wind-bubble/wind-bubble.component';
 import { Attribute } from './attribute/attribute';
@@ -39,7 +39,7 @@ describe('AppComponent', () => {
         WindSelectorComponent,
         WindBubbleComponent
       ],
-      imports: [FormsModule],
+      imports: [FormsModule, ReactiveFormsModule],
       providers: [{ provide: DefaultTraitFactory, useValue: defaultTraitFactoryStub }]
     }).compileComponents();
   }));

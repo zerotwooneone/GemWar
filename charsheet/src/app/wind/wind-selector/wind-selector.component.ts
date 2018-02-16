@@ -14,12 +14,16 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class WindSelectorComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class WindSelectorComponent implements OnInit, ControlValueAccessor {
   @Input() count: number;
   @Input() windTotal: number;
   bubbles: BubbleModel[];
-  pulse: boolean;
-  pulsePoint: number;
+  get pulse(): boolean {
+    return this.pulsePoint && this._currentWind >= this.pulsePoint;
+  }
+  get pulsePoint(): number {
+    return this.windTotal / 2;
+  }
   _currentWind: number = 0;
 
   get currentWind(): number {
@@ -34,25 +38,11 @@ export class WindSelectorComponent implements OnInit, OnChanges, ControlValueAcc
   constructor() { }
 
   ngOnInit() {
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    for (let propName in changes) {
-      if (changes.hasOwnProperty(propName)) {
-        const maxindexKey = 'count';
-        if (propName === maxindexKey) {
-          this.bubbles = [];
-          const countChange = changes[maxindexKey];
-          const count = countChange.currentValue;
-          for (var index = 0; index < count; index++) {
-            const bubbleModel = new BubbleModel();
-            bubbleModel.onClick = this.createClickHandler(index, bubbleModel);
-            this.bubbles.push(bubbleModel);
-          }
-          this.pulsePoint = count / 2;
-        }
-      }
+    this.bubbles = [];
+    for (var index = 0; index < this.count; index++) {
+      const bubbleModel = new BubbleModel();
+      bubbleModel.onClick = this.createClickHandler(index, bubbleModel);
+      this.bubbles.push(bubbleModel);
     }
   }
 
@@ -69,7 +59,6 @@ export class WindSelectorComponent implements OnInit, OnChanges, ControlValueAcc
       let bubble = this.bubbles[bi];
       bubble.checked = doCheck;
     }
-    this.pulse = index >= this.pulsePoint;
 
     let newSelectedValue = bubbleModel.checked ? index + 1 : index;
     this.currentWind = newSelectedValue;
