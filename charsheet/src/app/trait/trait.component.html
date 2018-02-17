@@ -1,36 +1,46 @@
-<div class="container-fluid trait-wrapper">
+<div [formGroup]="trait"
+  class="container-fluid trait-wrapper">
   <div class="row">
     <div class="col-md-5">
-      <h4>{{trait.attribute.name}}</h4>
+      <h4>{{traitName}}</h4>
     </div>
     <div class="col-md float-right die-wrapper">
       <input type="text"
-             [value]="trait.attribute.dieCount"
+             formControlName="dieCount"
              class="die-count"
              placeholder="# of dice" />
       <span class="die-seperator">d</span>
       <input type="text"
-             [(ngModel)]="trait.attribute.dieType"
+             formControlName="dieType"
              class="die-type"
              placeholder="# of sides to each die" />
+      <span class="die-seperator">+</span>
+      <input type="text"
+             formControlName="rollModifier"
+             class="die-type"
+             placeholder="roll modifier" />
     </div>
   </div>
   <div>
-    <ul class="skill-list">
-      <li *ngFor="let skill of skills">
-        <div class="row">
-          <span class="col-md-7">{{skill.name}}</span>
+    <ul formArrayName="skills"
+      class="skill-list">
+      <li *ngFor="let skill of trait.controls.skills.controls; let index=index">
+        <div [formGroup]="trait.controls.skills.controls[index]"
+          class="row">
+          <span class="col-md-7">{{getSkillName(index)}}</span>
           <div class="col-md-5 float-right die-wrapper">
             <input type="text"
-                   [value]="skill.dieCount"
+                   formControlName="dieCount"
                    class="die-count" />
             <span class="die-seperator">d</span>
-            <div class="die-type">{{trait.attribute.dieType}}</div>
+            <div class="die-type">{{getDieType()}}</div>
+            <span class="die-seperator">+</span>
+            <div class="die-type">{{getRollModifier()}}</div>
           </div>
           <div>
             <input type="text"
-                   [value]="skill.specialization"
-                   [hidden]="!skill.displaySpecialization" />
+                   formControlName="specialization"
+                   [hidden]="hideSpecialization(index)" />
           </div>
         </div>
       </li>

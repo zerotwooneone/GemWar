@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Trait } from './trait/trait';
-import { DefaultTraitFactory } from './trait/default-trait-factory';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { TraitGroupFactory } from './trait/trait-group-factory';
 
 @Component({
   selector: 'app-root',
@@ -10,26 +10,32 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  mentalTraits: Trait[];
-  corporealTraits: Trait[];
+  mentalTraits: FormArray;
+  corporealTraits: FormArray;
   windTotal: number;
-  form:FormGroup;
+  form: FormGroup;
 
-  constructor(private defaultTraitFactory: DefaultTraitFactory,
+  constructor(private traitGroupFactory: TraitGroupFactory,
     private formBuilder: FormBuilder) {
 
   }
 
   ngOnInit(): void {
-    this.mentalTraits = this.defaultTraitFactory.GetMentalDefaults();
-    this.corporealTraits = this.defaultTraitFactory.GetCorporealDefaults();
-    let vigorTrait = this.corporealTraits.find(t => t.attribute.name === 'Vigor');
-    let vigorDieType = vigorTrait ? vigorTrait.attribute.dieType : 0;
-    let spiritTrait = this.mentalTraits.find(t => t.attribute.name === 'Spirit');
-    let spiritDieType = spiritTrait ? spiritTrait.attribute.dieType : 0;
+    this.mentalTraits = this.traitGroupFactory.GetMentalDefaults();
+    this.corporealTraits = this.traitGroupFactory.GetCorporealDefaults();
+    let vigorTrait = this.getTrait(this.corporealTraits, 'Vigor');
+    let vigorDieType = vigorTrait ? vigorTrait.get('dieType').value : 0;
+    let spiritTrait = this.getTrait(this.mentalTraits, 'Spirit');
+    let spiritDieType = spiritTrait ? spiritTrait.get('dieType').value : 0;
     this.form = this.formBuilder.group({
-      currentWind : 0
+      currentWind: 0,
+      mentalTraits: this.mentalTraits,
+      corporealTraits: this.corporealTraits
     });
     this.windTotal = vigorDieType + spiritDieType;
+  }
+
+  getTrait(traitArray: FormArray, name: string): FormGroup {
+    return <FormGroup>traitArray.controls.find(g => g.get('traitName').value === name);
   }
 }

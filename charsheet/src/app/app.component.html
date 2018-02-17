@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <form [formGroup]="form">
+  <form [formGroup]="form" novalidate>
     <div style="text-align: center">
       <h1>
         Welcome to {{ title }}!
@@ -7,18 +7,20 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-        <div class="trait-block">
+        <div formArrayName="mentalTraits"
+          class="trait-block">
           <h3>Mental Traits</h3>
-          <div *ngFor="let trait of mentalTraits"
+          <div *ngFor="let trait of form.controls.mentalTraits.controls"
                class="skillbock-list">
             <trait [trait]="trait"></trait>
           </div>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="trait-block">
+        <div formArrayName="corporealTraits"
+          class="trait-block">
           <h3>Coporeal Traits</h3>
-          <div *ngFor="let trait of corporealTraits"
+          <div *ngFor="let trait of form.controls.corporealTraits.controls"
                class="skillbock-list">
             <trait [trait]="trait"></trait>
           </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Skill } from '../skill/skill';
 import { Trait } from '../trait/trait';
+import { FormGroup, FormArray } from '@angular/forms';
+import { TraitGroupFactory } from './trait-group-factory';
 
 @Component({
   selector: 'trait',
@@ -9,25 +11,40 @@ import { Trait } from '../trait/trait';
 })
 export class TraitComponent implements OnInit {
 
-  @Input() trait: Trait;
-  skills: Skill[];
+  @Input() trait: FormGroup;
+  get skills(): FormArray {
+    return <FormArray>this.trait.get('skills');
+  }
+  get traitName(): string {
+    return this.trait.get('traitName').value;
+  }
 
-  constructor() { }
+  constructor(private traitGroupFactory: TraitGroupFactory) { }
 
   ngOnInit() {
-    this.skills = this.trait.skills
-      .sort((skilla, skillb) => {
-        return skilla.sortOrder - skillb.sortOrder;
-      });
+
   }
 
   addSkill() {
-    let sortOrder = this.trait.skills && this.trait.skills.length ? this.trait.skills[this.trait.skills.length - 1].sortOrder + 1 : 0;
-    const dieCount = 0;
     const name = "";
-    const specialization = "";
-    const displaySpecialization = false;
-    let skill = new Skill(name, dieCount, sortOrder, specialization, displaySpecialization);
+    let skill = this.traitGroupFactory.buildSkillGroup(name);
     this.skills.push(skill);
+  }
+
+  getSkillName(index: number): string {
+    return this.getSkill(index).get('skillName').value;
+  }
+  hideSpecialization(index: number): boolean {
+    let value = this.getSkill(index).get('specialization').value;
+    return value == undefined || value == null;
+  }
+  getSkill(index: number): FormGroup {
+    return <FormGroup>this.skills.controls[index];
+  }
+  getDieType(): number {
+    return this.trait.get('dieType').value;
+  }
+  getRollModifier(): number {
+    return this.trait.get('rollModifier').value;
   }
 }
