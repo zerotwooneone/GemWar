@@ -89,12 +89,13 @@ export class TraitGroupFactory {
   }
 
   buildSkillGroup(name: string, spec?: string, count?: number, type?: number, mod?: number): FormGroup {
+    let specializtionValue = spec == undefined || spec == null ? null : spec;
     let result = this.formBuilder.group({
       'skillName': this.formBuilder.control(name, Validators.compose([Validators.required, CustomValidators.skillName]), CustomValidators.uniqueSkillName),
       //'dieType': this.formBuilder.control(type || 0, CustomValidators.dieType),
       'dieCount': this.formBuilder.control(count || 0, CustomValidators.dieCount),
       //'rollModifier': this.formBuilder.control(mod || null, CustomValidators.rollModifier),
-      'specialization': this.formBuilder.control(spec || null, CustomValidators.specialization)
+      'specialization': this.formBuilder.control(specializtionValue, CustomValidators.specialization)
     });
     return result;
   }

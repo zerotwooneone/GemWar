@@ -35,7 +35,9 @@ export class TraitComponent implements OnInit {
     return this.getSkill(index).get('skillName').value;
   }
   hideSpecialization(index: number): boolean {
-    let value = this.getSkill(index).get('specialization').value;
+    let skill = this.getSkill(index);
+    let value = skill.get('specialization').value;
+
     return value == undefined || value == null;
   }
   getSkill(index: number): FormGroup {
