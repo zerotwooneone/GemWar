@@ -21,8 +21,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mentalTraits = this.traitGroupFactory.GetMentalDefaults();
-    this.corporealTraits = this.traitGroupFactory.GetCorporealDefaults();
+    this.mentalTraits = this.traitGroupFactory.getMentalDefaults();
+    this.corporealTraits = this.traitGroupFactory.getCorporealDefaults();
     let vigorTrait = this.getTrait(this.corporealTraits, 'Vigor');
     let vigorDieType = vigorTrait ? vigorTrait.get('dieType').value : 0;
     let spiritTrait = this.getTrait(this.mentalTraits, 'Spirit');

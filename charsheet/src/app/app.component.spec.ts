@@ -1,30 +1,38 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { WindSelectorComponent } from './wind/wind-selector/wind-selector.component';
 import { WindBubbleComponent } from './wind/wind-bubble/wind-bubble.component';
 import { Attribute } from './attribute/attribute';
 import { Skill } from './skill/skill';
 import { Trait } from './trait/trait';
 import { TraitComponent } from './trait/trait.component';
-import { DefaultTraitFactory } from './trait/default-trait-factory';
+import { TraitGroupFactory } from './trait/trait-group-factory';
 
 describe('AppComponent', () => {
 
   let spiritDieType = 1;
   let vigorDieType = 2;
-  let defaultTraitFactoryStub = {
-    GetMentalDefaults(): Trait[] {
-      let attribute = new Attribute(spiritDieType, 'Spirit', null);
-      let skills = [new Skill('dummy skill', null, null)];
-      let sortOrder = 0;
-      return [new Trait(attribute, skills, sortOrder)];
+  let traitGroupFactoryStub = {
+    getMentalDefaults(): FormArray {
+      let spiritFormGroup = new FormGroup({
+        traitName: new FormControl('Spirit'),
+        dieType: new FormControl(spiritDieType),
+        dieCount: new FormControl(0),
+        rollModifier: new FormControl(0),
+        skills: new FormArray([])
+      });
+      return new FormArray([spiritFormGroup]);
     },
-    GetCorporealDefaults(): Trait[] {
-      let attribute = new Attribute(vigorDieType, 'Vigor', null);
-      let skills = [new Skill('dummy skill', null, null)];
-      let sortOrder = 0;
-      return [new Trait(attribute, skills, sortOrder)];
+    getCorporealDefaults(): FormArray {
+      let vigorFormGroup = new FormGroup({
+        traitName: new FormControl('Vigor'),
+        dieType: new FormControl(vigorDieType),
+        dieCount: new FormControl(0),
+        rollModifier: new FormControl(0),
+        skills: new FormArray([])
+      });
+      return new FormArray([vigorFormGroup]);
     }
   }
 
@@ -40,7 +48,7 @@ describe('AppComponent', () => {
         WindBubbleComponent
       ],
       imports: [FormsModule, ReactiveFormsModule],
-      providers: [{ provide: DefaultTraitFactory, useValue: defaultTraitFactoryStub }]
+      providers: [{ provide: TraitGroupFactory, useValue: traitGroupFactoryStub }]
     }).compileComponents();
   }));
   beforeEach(() => {

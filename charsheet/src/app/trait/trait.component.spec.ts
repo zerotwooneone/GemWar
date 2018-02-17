@@ -1,26 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TraitComponent } from './trait.component';
 import { Skill } from '../skill/skill';
 import { Trait } from '../trait/trait';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Attribute } from '../attribute/attribute';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { click } from '../../testing/index';
+import { TraitGroupFactory } from './trait-group-factory';
 
 describe('TraitComponent', () => {
   let component: TraitComponent;
   let fixture: ComponentFixture<TraitComponent>;
-  let firstExpectedSkill: Skill;
-  let expectedSkills: Skill[];
+  let firstExpectedSkill: FormGroup;
+  let expectedSkills: FormGroup[];
   let addSkillElement: DebugElement;
   
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TraitComponent],
-      imports: [FormsModule],
-      providers: []
+      imports: [FormsModule, ReactiveFormsModule],
+      providers: [TraitGroupFactory]
     })
       .compileComponents();
   }));
@@ -29,11 +29,20 @@ describe('TraitComponent', () => {
     fixture = TestBed.createComponent(TraitComponent);
     component = fixture.componentInstance;
 
-    firstExpectedSkill = new Skill('firstExpectedSkill', 1, 0);
+    firstExpectedSkill = new FormGroup({
+      skillName: new FormControl('firstExpectedSkill'),
+      dieCount: new FormControl(0)
+      specialization: new FormControl(0)
+    });
     expectedSkills = [firstExpectedSkill];
 
-    let attribute = new Attribute(9, 'test attribute', 4);
-    let trait = new Trait(attribute, expectedSkills, 0);
+    let trait = new FormGroup({
+      traitName: new FormControl('test attribute'),
+      skills: new FormArray(expectedSkills),
+      dieType: new FormControl(0),
+      dieCount: new FormControl(0),
+      rollModifier: new FormControl(0)
+    });
     component.trait = trait;
 
     addSkillElement = fixture.debugElement.query(By.css('.add-skill'));
@@ -47,16 +56,16 @@ describe('TraitComponent', () => {
 
   it('should have first skill',
     () => {
-      expect(component.skills).toContain(firstExpectedSkill);
+      expect(component.skills.controls).toContain(firstExpectedSkill);
     });
 
-  it('should add new skill in order',
+  it('should add new skill',
     () => {
-      let expected = component.skills[component.skills.length - 1].sortOrder + 1;
+      let expected = new FormGroup({});
+      let spy = spyOn((<any>component).traitGroupFactory, 'buildSkillGroup').and.returnValue(expected);
       
       click(addSkillElement);
-      let skill = component.skills[component.skills.length - 1];
-      let actual = skill.sortOrder;
+      let actual = component.skills.controls[component.skills.length - 1];
 
       expect(actual).toBe(expected);
     });

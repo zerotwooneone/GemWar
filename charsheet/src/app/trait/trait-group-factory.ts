@@ -10,7 +10,7 @@ export class TraitGroupFactory {
 
   constructor(private formBuilder: FormBuilder) { }
 
-  GetMentalDefaults(): FormArray {
+  getMentalDefaults(): FormArray {
     let traits: FormGroup[] = [];
 
     let trait = this.buildTraitGroup('Cognition',
@@ -100,7 +100,7 @@ export class TraitGroupFactory {
     return result;
   }
 
-  GetCorporealDefaults(): FormArray {
+  getCorporealDefaults(): FormArray {
     let traits: FormGroup[] = [];
 
     let trait = this.buildTraitGroup('Deftness',
@@ -143,12 +143,4 @@ export class TraitGroupFactory {
     return this.formBuilder.array(traits, null, CustomValidators.uniqueTraitName);
   }
 
-  addSkill(skills: Skill[], name: string, displaySpecialization?: boolean, dieCount?: number, specialization?: string): Skill;
-  addSkill(skills: Skill[], name: string, displaySpecialization?: boolean): Skill;
-  addSkill(skills: Skill[], name: string, displaySpecialization: boolean = false, dieCount: number = 0, specialization: string = null): Skill {
-    let sortOrder = skills.length;
-    let skill = new Skill(name, dieCount, sortOrder, specialization, displaySpecialization);
-    skills.push(skill);
-    return skill;
-  }
 }
