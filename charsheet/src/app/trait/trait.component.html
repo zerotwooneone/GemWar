@@ -10,6 +10,15 @@
                    class="form-control"
                    [hidden]="!isEditable"/>
             <span [hidden]="isEditable">{{traitName}}</span>
+            <input class="edit-trait h6"
+                   type="button"
+                   (click)="toggleEdit()"
+                   value="&#9998;" />
+            <input class="add-skill h6"
+                   type="button"
+                   (click)="addSkill()"
+                   value="&#43;"
+                   [hidden]="!isEditable" />
           </h4>
         </div>
       </div>
@@ -44,17 +53,6 @@
       </div>
     </div>
 
-  </div>
-  <div>
-    <input class="edit-trait"
-           type="button"
-           (click)="toggleEdit()"
-           value="&#9998;" />
-    <input class="add-skill"
-           type="button"
-           (click)="addSkill()"
-           value="&#43;"
-           [hidden]="!isEditable" />
   </div>
   <div>
     <ul formArrayName="skills"
