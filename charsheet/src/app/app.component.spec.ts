@@ -72,4 +72,9 @@ describe('AppComponent', () => {
       let expected = spiritDieType + vigorDieType;
       expect(app.windTotal).toBe(expected);
     });
+  it('should provide strain maximum',
+    () => {
+      let expected = vigorDieType;
+      expect(app.strainMax).toBe(expected);
+    });
 });

@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-md-4">
         <div formArrayName="mentalTraits"
-          class="trait-block">
+             class="trait-block">
           <h3>Mental Traits</h3>
           <div *ngFor="let trait of form.controls.mentalTraits.controls"
                class="skillbock-list">
@@ -18,7 +18,7 @@
       </div>
       <div class="col-md-4">
         <div formArrayName="corporealTraits"
-          class="trait-block">
+             class="trait-block">
           <h3>Coporeal Traits</h3>
           <div *ngFor="let trait of form.controls.corporealTraits.controls"
                class="skillbock-list">
@@ -36,11 +36,17 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
-        <h4>Wind</h4>
+      <div class="col=md-12 col-lg-6">
+        <h4><abbr title="Vigor + Spirit die type">Wind</abbr></h4>
         <zer-wind-selector [count]="34"
                            [windTotal]="windTotal"
                            formControlName="currentWind"></zer-wind-selector>
+      </div>
+      <div class="col=md-12 col-lg-6">
+        <h4><abbr title="Vigor die type">Strain</abbr></h4>
+        <zer-wind-selector [count]="22"
+                           [windTotal]="strainMax"
+                           formControlName="currentStrain"></zer-wind-selector>
       </div>
     </div>
   </form>

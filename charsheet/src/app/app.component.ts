@@ -15,6 +15,9 @@ export class AppComponent implements OnInit {
   get windTotal(): number {
     return this.vigorDieType + this.spiritDieType;
   }
+  get strainMax(): number {
+    return this.vigorDieType;
+  }
   form: FormGroup;
 
   constructor(private traitGroupFactory: TraitGroupFactory,
@@ -27,6 +30,7 @@ export class AppComponent implements OnInit {
     this.corporealTraits = this.traitGroupFactory.getCorporealDefaults();
     this.form = this.formBuilder.group({
       currentWind: 0,
+      currentStrain: 0,
       mentalTraits: this.mentalTraits,
       corporealTraits: this.corporealTraits
     });
