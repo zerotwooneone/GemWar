@@ -15,6 +15,7 @@ describe('TraitComponent', () => {
   let firstExpectedSkill: FormGroup;
   let expectedSkills: FormGroup[];
   let addSkillElement: DebugElement;
+  let editElement: DebugElement;
   
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,6 +47,7 @@ describe('TraitComponent', () => {
     component.trait = trait;
 
     addSkillElement = fixture.debugElement.query(By.css('.add-skill'));
+    editElement = fixture.debugElement.query(By.css('.edit-trait'));
 
     fixture.detectChanges();
   });
@@ -68,5 +70,22 @@ describe('TraitComponent', () => {
       let actual = component.skills.controls[component.skills.length - 1];
 
       expect(actual).toBe(expected);
+    });
+  it('should default isEditable',
+    () => {
+      expect(component.isEditable).toBe(false);
+    });
+  it('should set isEditable',
+    () => {
+      click(editElement);
+      
+      expect(component.isEditable).toBe(true);
+    });
+  it('should unset isEditable',
+    () => {
+      click(editElement);
+      click(editElement);
+
+      expect(component.isEditable).toBe(false);
     });
 });

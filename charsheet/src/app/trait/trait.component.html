@@ -7,7 +7,9 @@
           <h4>
             <input type="text"
                    formControlName="traitName"
-                   class="form-control" />
+                   class="form-control"
+                   [hidden]="!isEditable"/>
+            <span [hidden]="isEditable">{{traitName}}</span>
           </h4>
         </div>
       </div>
@@ -15,24 +17,44 @@
     <div class="col-md-5">
       <div class="form-inline">
         <div class="form-group die-wrapper">
+          <span class="die-count"
+                [hidden]="isEditable">{{dieCount}}</span>
           <input type="text"
                  formControlName="dieCount"
                  class="die-count form-control"
-                 placeholder="# of dice" />
+                 placeholder="# of dice"
+                 [hidden]="!isEditable"/>
           <span class="die-seperator">d</span>
+          <span class="die-type"
+                [hidden]="isEditable">{{getDieType()}}</span>
           <input type="text"
                  formControlName="dieType"
                  class="die-type form-control"
-                 placeholder="# of sides to each die" />
+                 placeholder="# of sides to each die"
+                 [hidden]="!isEditable" />
           <span class="die-seperator">+</span>
+          <span class="die-type"
+                [hidden]="isEditable">{{getRollModifier()}}</span>
           <input type="text"
                  formControlName="rollModifier"
                  class="die-type form-control"
-                 placeholder="roll modifier" />
+                 placeholder="modify roll value"
+                 [hidden]="!isEditable" />
         </div>
       </div>
     </div>
 
+  </div>
+  <div>
+    <input class="edit-trait"
+           type="button"
+           (click)="toggleEdit()"
+           value="&#9998;" />
+    <input class="add-skill"
+           type="button"
+           (click)="addSkill()"
+           value="&#43;"
+           [hidden]="!isEditable" />
   </div>
   <div>
     <ul formArrayName="skills"
@@ -44,14 +66,18 @@
           <div class="col-md-7">
             <div class="form-inline">
               <div class="form-group skill-wrapper">
+                <span [hidden]="isEditable">{{getSkillName(skill)}}</span>
                 <input type="text"
                        formControlName="skillName"
-                       class="form-control" />
+                       class="form-control"
+                       [hidden]="!isEditable"/>
                 <div [hidden]="hideSpecialization(index)">
                   <span class="spec-seperator form-text">:</span>
+                  <span [hidden]="isEditable">{{getSpecialization(skill)}}</span>
                   <input type="text"
                          formControlName="specialization"
-                         class="form-control" />
+                         class="form-control"
+                         [hidden]="!isEditable"/>
                 </div>
               </div>
             </div>
@@ -59,9 +85,13 @@
           <div class="col-md-5">
             <div class="form-inline">
               <div class="form-group die-wrapper">
+                <span class="die-count"
+                      [hidden]="isEditable">{{getSkillDieCount(skill)}}</span>
                 <input type="text"
                        formControlName="dieCount"
-                       class="die-count form-control" />
+                       class="die-count form-control"
+                       placeholder="# of dice"
+                       [hidden]="!isEditable"/>
                 <div class="form-text">
                   <span class="die-seperator">d</span>
                   <span class="die-type">{{getDieType()}}</span>
@@ -75,10 +105,6 @@
       </li>
     </ul>
   </div>
-  <input class="add-skill"
-         type="button"
-         (click)="addSkill()"
-         value="&#43;" />
 </div>
 
 
