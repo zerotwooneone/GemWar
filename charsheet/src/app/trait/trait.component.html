@@ -77,6 +77,11 @@
                          class="form-control"
                          [hidden]="!isEditable"/>
                 </div>
+                <input type="button"
+                       class="remove-skill"
+                       value="del"
+                       [hidden]="!isEditable"
+                       (click)="removeSkill(index)"/> 
               </div>
             </div>
           </div>

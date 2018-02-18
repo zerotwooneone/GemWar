@@ -65,4 +65,8 @@ export class TraitComponent implements OnInit {
   getSkillDieCount(skill: FormGroup): number {
     return Number(skill.get('dieCount').value);
   }
+
+  removeSkill(index: number):void {
+    this.skills.controls.splice(index, 1);
+  }
 }
