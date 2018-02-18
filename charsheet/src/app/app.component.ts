@@ -12,7 +12,9 @@ export class AppComponent implements OnInit {
   title = 'app';
   mentalTraits: FormArray;
   corporealTraits: FormArray;
-  windTotal: number;
+  get windTotal(): number {
+    return this.vigorDieType + this.spiritDieType;
+  }
   form: FormGroup;
 
   constructor(private traitGroupFactory: TraitGroupFactory,
@@ -23,19 +25,32 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.mentalTraits = this.traitGroupFactory.getMentalDefaults();
     this.corporealTraits = this.traitGroupFactory.getCorporealDefaults();
-    let vigorTrait = this.getTrait(this.corporealTraits, 'Vigor');
-    let vigorDieType = vigorTrait ? vigorTrait.get('dieType').value : 0;
-    let spiritTrait = this.getTrait(this.mentalTraits, 'Spirit');
-    let spiritDieType = spiritTrait ? spiritTrait.get('dieType').value : 0;
     this.form = this.formBuilder.group({
       currentWind: 0,
       mentalTraits: this.mentalTraits,
       corporealTraits: this.corporealTraits
     });
-    this.windTotal = vigorDieType + spiritDieType;
   }
 
   getTrait(traitArray: FormArray, name: string): FormGroup {
     return <FormGroup>traitArray.controls.find(g => g.get('traitName').value === name);
+  }
+
+  get vigorTrait(): FormGroup {
+    return this.getTrait(this.corporealTraits, 'Vigor');
+  }
+
+  get vigorDieType(): number {
+    let vigorTrait = this.vigorTrait;
+    return vigorTrait ? Number(vigorTrait.get('dieType').value) : null;
+  }
+
+  get spiritTrait(): FormGroup {
+    return this.getTrait(this.mentalTraits, 'Spirit');
+  }
+
+  get spiritDieType(): number {
+    let spiritTrait = this.spiritTrait;
+    return spiritTrait ? Number(spiritTrait.get('dieType').value) : null;
   }
 }
