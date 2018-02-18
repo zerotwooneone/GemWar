@@ -31,7 +31,7 @@ describe('TraitComponent', () => {
 
     firstExpectedSkill = new FormGroup({
       skillName: new FormControl('firstExpectedSkill'),
-      dieCount: new FormControl(0)
+      dieCount: new FormControl(0),
       specialization: new FormControl(0)
     });
     expectedSkills = [firstExpectedSkill];

@@ -6,8 +6,9 @@
   }
 
   .die-wrapper {
-    text-align: right;
-    $die-input-width: 30px;
+    width: 100%;
+    justify-content: flex-end;
+    $die-input-width: 45px;
 
     .die-type, .die-count {
       text-align: center; /*override user agent styling*/
@@ -19,5 +20,21 @@
   .add-skill {
     color: $positive-color;
     font-weight: bolder;
+  }
+
+  .spec-seperator {
+    $spec-sep-marg: 2px;
+    margin-left: $spec-sep-marg;
+    margin-right: $spec-sep-marg;
+  }
+
+  .skill-wrapper {
+    max-width: 100%;
+  }
+}
+
+.form-inline {
+  .form-text {
+    display: inline-block;
   }
 }
