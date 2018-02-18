@@ -68,20 +68,30 @@
                 <input type="text"
                        formControlName="skillName"
                        class="form-control"
-                       [hidden]="!isEditable"/>
+                       [hidden]="!isEditable" />
                 <div [hidden]="hideSpecialization(index)">
                   <span class="spec-seperator form-text">:</span>
                   <span [hidden]="isEditable">{{getSpecialization(skill)}}</span>
                   <input type="text"
                          formControlName="specialization"
                          class="form-control"
-                         [hidden]="!isEditable"/>
+                         [hidden]="!isEditable" />
+                  <input type="button"
+                         class="remove-spec"
+                         value=" del :"
+                         [hidden]="!isEditable || hideSpecialization(index)"
+                         (click)="removeSpec(skill)"/>
                 </div>
                 <input type="button"
                        class="remove-skill"
                        value="del"
                        [hidden]="!isEditable"
-                       (click)="removeSkill(index)"/> 
+                       (click)="removeSkill(index)" />
+                <input type="button"
+                       class="add-spec"
+                       value=":"
+                       [hidden]="!isEditable || !hideSpecialization(index)"
+                       (click)="addSpec(skill)"/>
               </div>
             </div>
           </div>

@@ -17,7 +17,9 @@ describe('TraitComponent', () => {
   let addSkillElement: DebugElement;
   let editElement: DebugElement;
   let removeSkillElement: DebugElement;
-  
+  let addSpecElement: DebugElement;
+  let removeSpecElement: DebugElement;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TraitComponent],
@@ -49,9 +51,11 @@ describe('TraitComponent', () => {
 
     addSkillElement = fixture.debugElement.query(By.css('.add-skill'));
     editElement = fixture.debugElement.query(By.css('.edit-trait'));
-    
+
     fixture.detectChanges();
     removeSkillElement = fixture.debugElement.query(By.css('.remove-skill'));
+    addSpecElement = fixture.debugElement.query(By.css('.add-spec'));
+    removeSpecElement = fixture.debugElement.query(By.css('.remove-spec'));
   });
 
   it('should create', () => {
@@ -67,7 +71,7 @@ describe('TraitComponent', () => {
     () => {
       let expected = new FormGroup({});
       let spy = spyOn((<any>component).traitGroupFactory, 'buildSkillGroup').and.returnValue(expected);
-      
+
       click(addSkillElement);
       let actual = component.skills.controls[component.skills.length - 1];
 
@@ -80,7 +84,7 @@ describe('TraitComponent', () => {
   it('should set isEditable',
     () => {
       click(editElement);
-      
+
       expect(component.isEditable).toBe(true);
     });
   it('should unset isEditable',
@@ -98,5 +102,25 @@ describe('TraitComponent', () => {
       let actual = component.skills.length;
 
       expect(actual).toBe(expected);
+    });
+  it('should add specialization',
+    () => {
+      let specializationControl = firstExpectedSkill.get('specialization');
+      specializationControl.setValue(null);
+
+      click(addSpecElement);
+      let actual = specializationControl.value;
+
+      expect(actual).toBe('');
+    });
+  it('should remove specialization',
+    () => {
+      let specializationControl = firstExpectedSkill.get('specialization');
+      specializationControl.setValue('something');
+
+      click(removeSpecElement);
+      let actual = specializationControl.value;
+
+      expect(actual).toBe(null);
     });
 });
