@@ -26,10 +26,9 @@ export class TraitGroupFactory {
     trait = this.buildTraitGroup('Knowledge',
       [
         { name: 'Academia', spec: '' },
-        { name: 'Area Knowledge', spec: 'Home County' },
+        { name: 'Area Knowledge', spec: 'Home County', count: 2 },
         { name: 'Demolition' },
         { name: 'Disguise' },
-        { name: 'Language', spec: '' },
         { name: 'Language', count: 2, spec: 'Native Tongue' },
         { name: 'Medicine' },
         { name: 'Professional', spec: '' },
