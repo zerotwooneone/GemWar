@@ -28,8 +28,9 @@ export class TraitComponent implements OnInit {
 
   addSkill() {
     const name = "";
-    let skill = this.traitGroupFactory.buildSkillGroup(name);
-    this.skills.push(skill);
+    let skill = this.traitGroupFactory.buildSkill(name);
+    let skillGroup = this.traitGroupFactory.buildSkillGroup(skill);
+    this.skills.push(skillGroup);
   }
 
   hideSpecialization(index: number): boolean {

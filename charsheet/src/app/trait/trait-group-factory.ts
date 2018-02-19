@@ -1,5 +1,4 @@
 import { Trait } from './trait';
-import { Attribute } from '../attribute/attribute';
 import { Skill } from '../skill/skill';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { CustomValidators } from './custom.validators';
@@ -11,9 +10,9 @@ export class TraitGroupFactory {
   constructor(private formBuilder: FormBuilder) { }
 
   getMentalDefaults(): FormArray {
-    let traits: FormGroup[] = [];
+    let traits: Trait[] = [];
 
-    let trait = this.buildTraitGroup('Cognition',
+    let trait = this.buildTrait('Cognition',
       [
         { name: 'Artillery' },
         { name: 'Arts', spec: '' },
@@ -23,7 +22,7 @@ export class TraitGroupFactory {
       ]);
     traits.push(trait);
 
-    trait = this.buildTraitGroup('Knowledge',
+    trait = this.buildTrait('Knowledge',
       [
         { name: 'Academia', spec: '' },
         { name: 'Area Knowledge', spec: 'Home County', count: 2 },
@@ -37,7 +36,7 @@ export class TraitGroupFactory {
       ]);
     traits.push(trait);
 
-    trait = this.buildTraitGroup('Mien',
+    trait = this.buildTrait('Mien',
       [
         { name: 'Animal Handlin\'' },
         { name: 'Leadership' },
@@ -48,7 +47,7 @@ export class TraitGroupFactory {
       ]);
     traits.push(trait);
 
-    trait = this.buildTraitGroup('Smarts',
+    trait = this.buildTrait('Smarts',
       [
         { name: 'Bluff' },
         { name: 'Gamblin\'' },
@@ -60,49 +59,72 @@ export class TraitGroupFactory {
       ]);
     traits.push(trait);
 
-    trait = this.buildTraitGroup('Spirit',
+    trait = this.buildTrait('Spirit',
       [
         { name: 'Faith' },
         { name: 'Guts' }
       ]);
     traits.push(trait);
 
-    return this.formBuilder.array(traits, null, CustomValidators.uniqueTraitName);
+    let array = this.buildTraitGroups(traits);
+    return this.formBuilder.array(array, null, CustomValidators.uniqueTraitName);
   }
 
-  buildTraitGroup(traitName: string, skills: { name: string, spec?: string, count?: number, type?: number, mod?: number }[],
-    count?: number, type?: number, mod?: number
-  ): FormGroup {
+  buildTraitGroups(traits: Trait[]): FormGroup[] {
+    let array: FormGroup[] = [];
+    for (let trait of traits) {
+      let traitGroup = this.buildTraitGroup(trait);
+      array.push(traitGroup);
+    }
+    return array;
+  }
+
+  buildTraitGroup(trait:Trait): FormGroup {
     let skillsArray = [];
-    for (var skill of skills) {
-      skillsArray.push(this.buildSkillGroup(skill.name, skill.spec, skill.count, skill.type, skill.mod));
+    for (var skill of trait.skills) {
+      skillsArray.push(this.buildSkillGroup(skill));
     }
     let result = this.formBuilder.group({
-      'traitName': this.formBuilder.control(traitName, Validators.compose([Validators.required, CustomValidators.traitName]), CustomValidators.uniqueTraitName),
-      'dieType': this.formBuilder.control(type || 0, CustomValidators.dieType),
-      'dieCount': this.formBuilder.control(count || 0, CustomValidators.dieCount),
-      'rollModifier': this.formBuilder.control(mod || null, CustomValidators.rollModifier),
+      'traitName': this.formBuilder.control(trait.traitName, Validators.compose([Validators.required, CustomValidators.traitName]), CustomValidators.uniqueTraitName),
+      'dieType': this.formBuilder.control(trait.dieType || 0, CustomValidators.dieType),
+      'dieCount': this.formBuilder.control(trait.dieCount || 0, CustomValidators.dieCount),
+      'rollModifier': this.formBuilder.control(trait.rollModifier || null, CustomValidators.rollModifier),
       'skills': this.formBuilder.array(skillsArray, null, CustomValidators.uniqueSkillName)
     });
     return result;
   }
 
-  buildSkillGroup(name: string, spec?: string, count?: number, type?: number, mod?: number): FormGroup {
+  buildTrait(traitName: string, skillsData: { name: string, spec?: string, count?: number}[],
+    count?: number, type?: number, mod?: number): Trait {
+    let skills: Skill[]=[];
+    for (let skillData of skillsData) {
+      let skill = this.buildSkill(skillData.name, skillData.spec, skillData.count);
+      skills.push(skill);
+    }
+    let result = new Trait(traitName, type || 0, count || 0, mod || null, skills);
+    return result;
+  }
+
+  buildSkill(name: string, spec?: string, count?: number): Skill {
     let specializtionValue = spec == undefined || spec == null ? null : spec;
+    let result = new Skill(name, count || 0, specializtionValue);
+    return result;
+  }
+
+  buildSkillGroup(skill:Skill): FormGroup {
+    let specializtionValue = skill.specialization == undefined || skill.specialization == null ? null : skill.specialization;
     let result = this.formBuilder.group({
-      'skillName': this.formBuilder.control(name, Validators.compose([Validators.required, CustomValidators.skillName]), CustomValidators.uniqueSkillName),
-      //'dieType': this.formBuilder.control(type || 0, CustomValidators.dieType),
-      'dieCount': this.formBuilder.control(count || 0, CustomValidators.dieCount),
-      //'rollModifier': this.formBuilder.control(mod || null, CustomValidators.rollModifier),
+      'skillName': this.formBuilder.control(skill.skillName, Validators.compose([Validators.required, CustomValidators.skillName]), CustomValidators.uniqueSkillName),
+      'dieCount': this.formBuilder.control(skill.dieCount || 0, CustomValidators.dieCount),
       'specialization': this.formBuilder.control(specializtionValue, CustomValidators.specialization)
     });
     return result;
   }
 
   getCorporealDefaults(): FormArray {
-    let traits: FormGroup[] = [];
+    let traits: Trait[] = [];
 
-    let trait = this.buildTraitGroup('Deftness',
+    let trait = this.buildTrait('Deftness',
       [
         { name: 'Bow' },
         { name: 'Filchin\'' },
@@ -114,7 +136,7 @@ export class TraitGroupFactory {
       ]);
     traits.push(trait);
 
-    trait = this.buildTraitGroup('Nimbleness',
+    trait = this.buildTrait('Nimbleness',
       [
         { name: 'Climbin\'', count: 1 },
         { name: 'Dodge' },
@@ -127,19 +149,20 @@ export class TraitGroupFactory {
       ]);
     traits.push(trait);
 
-    trait = this.buildTraitGroup('Strength', []);
+    trait = this.buildTrait('Strength', []);
     traits.push(trait);
 
-    trait = this.buildTraitGroup('Quickness',
+    trait = this.buildTrait('Quickness',
       [
         { name: 'Quick Draw' }
       ]);
     traits.push(trait);
 
-    trait = this.buildTraitGroup('Vigor', []);
+    trait = this.buildTrait('Vigor', []);
     traits.push(trait);
 
-    return this.formBuilder.array(traits, null, CustomValidators.uniqueTraitName);
+    let array = this.buildTraitGroups(traits);
+    return this.formBuilder.array(array, null, CustomValidators.uniqueTraitName);
   }
 
 }

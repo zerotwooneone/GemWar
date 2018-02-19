@@ -3,7 +3,6 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { WindSelectorComponent } from './wind/wind-selector/wind-selector.component';
 import { WindBubbleComponent } from './wind/wind-bubble/wind-bubble.component';
-import { Attribute } from './attribute/attribute';
 import { Skill } from './skill/skill';
 import { Trait } from './trait/trait';
 import { TraitComponent } from './trait/trait.component';

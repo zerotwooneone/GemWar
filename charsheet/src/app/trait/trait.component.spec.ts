@@ -4,7 +4,6 @@ import { Skill } from '../skill/skill';
 import { Trait } from '../trait/trait';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Attribute } from '../attribute/attribute';
 import { FormsModule, FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { click } from '../../testing/index';
 import { TraitGroupFactory } from './trait-group-factory';
