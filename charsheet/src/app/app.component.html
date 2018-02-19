@@ -49,6 +49,9 @@
                            formControlName="currentStrain"></zer-wind-selector>
       </div>
     </div>
+    <input type="button"
+           class="btn btn-lg btn-success save-form"
+           (click)="onSave()"
+           value="Save" />
   </form>
-  <pre>{{ form.value | json }}</pre>
 </div>

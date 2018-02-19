@@ -6,6 +6,7 @@ import { WindBubbleComponent } from './wind/wind-bubble/wind-bubble.component';
 import { WindSelectorComponent } from './wind/wind-selector/wind-selector.component';
 import { TraitComponent } from './trait/trait.component';
 import { TraitGroupFactory } from './trait/trait-group-factory';
+import { FormStorageService } from './storage/form-storage.service';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { TraitGroupFactory } from './trait/trait-group-factory';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [TraitGroupFactory],
+  providers: [TraitGroupFactory, FormStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
