@@ -11,37 +11,17 @@ import { FormStorageService } from './storage/form-storage.service';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { click } from '../testing/index';
+import { TraitFactoryService } from './trait/trait-factory.service';
 
 describe('AppComponent', () => {
 
   let spiritDieType = 1;
   let vigorDieType = 2;
   let saveElement: DebugElement;
-  let traitGroupFactoryStub = {
-    getMentalDefaults(): FormArray {
-      let spiritFormGroup = new FormGroup({
-        traitName: new FormControl('Spirit'),
-        dieType: new FormControl(spiritDieType),
-        dieCount: new FormControl(0),
-        rollModifier: new FormControl(0),
-        skills: new FormArray([])
-      });
-      return new FormArray([spiritFormGroup]);
-    },
-    getCorporealDefaults(): FormArray {
-      let vigorFormGroup = new FormGroup({
-        traitName: new FormControl('Vigor'),
-        dieType: new FormControl(vigorDieType),
-        dieCount: new FormControl(0),
-        rollModifier: new FormControl(0),
-        skills: new FormArray([])
-      });
-      return new FormArray([vigorFormGroup]);
-    }
-  }
-
+  
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
+  let formStorageService: FormStorageService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -52,21 +32,52 @@ describe('AppComponent', () => {
         WindBubbleComponent
       ],
       imports: [FormsModule, ReactiveFormsModule],
-      providers: [{ provide: TraitGroupFactory, useValue: traitGroupFactoryStub },
-        FormStorageService]
+      providers: [TraitGroupFactory,
+        FormStorageService,
+        TraitFactoryService]
     }).compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.debugElement.componentInstance;
     saveElement = fixture.debugElement.query(By.css('.save-form'));
-    spyOn((<any>app).formStorageService, 'saveForm');
-    spyOn((<any>app).formStorageService, 'loadForm').and.returnValue({
-      "currentWind": 9,
-      "currentStrain": 0,
-      "mentalTraits": traitGroupFactoryStub.getMentalDefaults().value,
-      "corporealTraits": traitGroupFactoryStub.getCorporealDefaults().value
-    });
+    let traitFactoryService: TraitFactoryService = (<any>app).traitFactoryService;
+    spyOn(traitFactoryService, 'getFormDefault').and.returnValue({});
+    let traitGroupFactory: TraitGroupFactory = (<any>app).traitGroupFactory;
+    spyOn(traitGroupFactory, 'getFormGroup').and.returnValue(new FormGroup({
+      "currentWind": new FormControl(0),
+      "currentStrain": new FormControl(0),
+      "mentalTraits": new FormArray([
+        new FormGroup({
+          "traitName": new FormControl('Spirit'),
+          "dieType": new FormControl(spiritDieType),
+          "dieCount": new FormControl(0),
+          "rollModifier": new FormControl(null),
+          "skills": new FormArray([new FormGroup({
+            "skillName": new FormControl('Faith'),
+            "specialization": new FormControl(null),
+            "dieCount": new FormControl(0)
+          })])
+        })
+      ]),
+      "corporealTraits": new FormArray([
+        new FormGroup({
+          "traitName": new FormControl('Vigor'),
+          "dieType": new FormControl(vigorDieType),
+          "dieCount": new FormControl(0),
+          "rollModifier": new FormControl(null),
+          "skills": new FormArray([new FormGroup({
+            "skillName": new FormControl('Faith'),
+            "specialization": new FormControl(null),
+            "dieCount": new FormControl(0)
+          })])
+        })
+      ])
+    }));
+
+    formStorageService= (<any>app).formStorageService;
+    spyOn(formStorageService, 'saveForm');
+
     fixture.detectChanges();
   });
   it('should create the app', async(() => {
@@ -94,6 +105,6 @@ describe('AppComponent', () => {
     () => {
       click(saveElement);
 
-      expect((<any>app).formStorageService.saveForm).toHaveBeenCalled();
+      expect(formStorageService.saveForm).toHaveBeenCalled();
     });
 });

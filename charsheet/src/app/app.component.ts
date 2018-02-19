@@ -3,6 +3,7 @@ import { Trait } from './trait/trait';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TraitGroupFactory } from './trait/trait-group-factory';
 import { FormStorageService } from './storage/form-storage.service';
+import { TraitFactoryService } from './trait/trait-factory.service';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,12 @@ import { FormStorageService } from './storage/form-storage.service';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  mentalTraits: FormArray;
-  corporealTraits: FormArray;
+  get mentalTraits(): FormArray {
+    return <FormArray>this.form.get('mentalTraits');
+  }
+  get corporealTraits(): FormArray {
+    return <FormArray>this.form.get('corporealTraits');
+  }
   get windTotal(): number {
     return this.vigorDieType + this.spiritDieType;
   }
@@ -23,22 +28,14 @@ export class AppComponent implements OnInit {
 
   constructor(private traitGroupFactory: TraitGroupFactory,
     private formBuilder: FormBuilder,
-    private formStorageService: FormStorageService) {
+    private formStorageService: FormStorageService,
+    private traitFactoryService: TraitFactoryService) {
 
   }
 
   ngOnInit(): void {
-    let saved: any = this.formStorageService.loadForm('test') || {};
-
-    this.mentalTraits = this.traitGroupFactory.getMentalDefaults();
-    this.corporealTraits = this.traitGroupFactory.getCorporealDefaults();
-    this.form = this.formBuilder.group({
-      currentWind: saved.currentWind || 0,
-      currentStrain: saved.currentStrain || 0,
-      mentalTraits: this.mentalTraits,
-      corporealTraits: this.corporealTraits
-    });
-
+    let formModel = this.traitFactoryService.getFormDefault();
+    this.form = this.traitGroupFactory.getFormGroup(formModel);
   }
 
   getTrait(traitArray: FormArray, name: string): FormGroup {

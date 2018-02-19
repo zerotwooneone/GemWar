@@ -3,6 +3,7 @@ import { Skill } from '../skill/skill';
 import { Trait } from '../trait/trait';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
 import { TraitGroupFactory } from './trait-group-factory';
+import { TraitFactoryService } from './trait-factory.service';
 
 @Component({
   selector: 'trait',
@@ -20,7 +21,8 @@ export class TraitComponent implements OnInit {
   }
   isEditable: boolean;
 
-  constructor(private traitGroupFactory: TraitGroupFactory) { }
+  constructor(private traitGroupFactory: TraitGroupFactory,
+    private traitFactoryService: TraitFactoryService) { }
 
   ngOnInit() {
     this.isEditable = false;
@@ -28,7 +30,7 @@ export class TraitComponent implements OnInit {
 
   addSkill() {
     const name = "";
-    let skill = this.traitGroupFactory.buildSkill(name);
+    let skill = this.traitFactoryService.buildSkill(name);
     let skillGroup = this.traitGroupFactory.buildSkillGroup(skill);
     this.skills.push(skillGroup);
   }

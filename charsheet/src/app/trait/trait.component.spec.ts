@@ -7,6 +7,7 @@ import { By } from '@angular/platform-browser';
 import { FormsModule, FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { click } from '../../testing/index';
 import { TraitGroupFactory } from './trait-group-factory';
+import { TraitFactoryService } from './trait-factory.service';
 
 describe('TraitComponent', () => {
   let component: TraitComponent;
@@ -23,7 +24,7 @@ describe('TraitComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TraitComponent],
       imports: [FormsModule, ReactiveFormsModule],
-      providers: [TraitGroupFactory]
+      providers: [TraitGroupFactory, TraitFactoryService]
     })
       .compileComponents();
   }));
@@ -47,6 +48,9 @@ describe('TraitComponent', () => {
       rollModifier: new FormControl(0)
     });
     component.trait = trait;
+
+    let traitFactoryService: TraitFactoryService = (<any>component).traitFactoryService;
+    spyOn(traitFactoryService, 'buildSkill');
 
     addSkillElement = fixture.debugElement.query(By.css('.add-skill'));
     editElement = fixture.debugElement.query(By.css('.edit-trait'));
