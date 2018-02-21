@@ -10,14 +10,14 @@
                    class="form-control"
                    [hidden]="!isEditable"/>
             <span [hidden]="isEditable">{{traitName}}</span>
-            <input class="edit-trait h6"
+            <input class="edit-trait btn btn-sm"
                    type="button"
                    (click)="toggleEdit()"
                    value="&#9998;" />
-            <input class="add-skill h6"
+            <input class="add-skill btn btn-success"
                    type="button"
                    (click)="addSkill()"
-                   value="&#43;"
+                   value="+"
                    [hidden]="!isEditable" />
           </h4>
         </div>
@@ -69,6 +69,11 @@
                        formControlName="skillName"
                        class="form-control"
                        [hidden]="!isEditable" />
+                <input type="button"
+                       class="remove-skill btn btn-danger"
+                       value="del"
+                       [hidden]="!isEditable"
+                       (click)="removeSkill(index)" />
                 <div [hidden]="hideSpecialization(index)">
                   <span class="spec-seperator form-text">:</span>
                   <span [hidden]="isEditable">{{getSpecialization(skill)}}</span>
@@ -77,21 +82,16 @@
                          class="form-control"
                          [hidden]="!isEditable" />
                   <input type="button"
-                         class="remove-spec"
+                         class="remove-spec btn btn-danger"
                          value=" del :"
                          [hidden]="!isEditable || hideSpecialization(index)"
-                         (click)="removeSpec(skill)"/>
+                         (click)="removeSpec(skill)" />
                 </div>
                 <input type="button"
-                       class="remove-skill"
-                       value="del"
-                       [hidden]="!isEditable"
-                       (click)="removeSkill(index)" />
-                <input type="button"
-                       class="add-spec"
+                       class="add-spec btn btn-success"
                        value=":"
                        [hidden]="!isEditable || !hideSpecialization(index)"
-                       (click)="addSpec(skill)"/>
+                       (click)="addSpec(skill)" />
               </div>
             </div>
           </div>
