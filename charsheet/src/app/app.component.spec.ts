@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, inject, fakeAsync, tick } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { WindSelectorComponent } from './wind/wind-selector/wind-selector.component';
@@ -12,16 +12,18 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { click } from '../testing/index';
 import { TraitFactoryService } from './trait/trait-factory.service';
+import { NgbModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 describe('AppComponent', () => {
 
   let spiritDieType = 1;
   let vigorDieType = 2;
   let saveElement: DebugElement;
-  
+
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
   let formStorageService: FormStorageService;
+  let modalService: NgbModal;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,7 +33,7 @@ describe('AppComponent', () => {
         WindSelectorComponent,
         WindBubbleComponent
       ],
-      imports: [FormsModule, ReactiveFormsModule],
+      imports: [FormsModule, ReactiveFormsModule, NgbModule.forRoot()],
       providers: [TraitGroupFactory,
         FormStorageService,
         TraitFactoryService]
@@ -75,8 +77,10 @@ describe('AppComponent', () => {
       ])
     }));
 
-    formStorageService= (<any>app).formStorageService;
+    formStorageService = (<any>app).formStorageService;
     spyOn(formStorageService, 'saveForm');
+
+    modalService = (<any>app).modalService;
 
     fixture.detectChanges();
   });
@@ -107,4 +111,55 @@ describe('AppComponent', () => {
 
       expect(formStorageService.saveForm).toHaveBeenCalled();
     });
+  it('should call back with false when popup resolved false',
+    fakeAsync(() => () => {
+      spyOn(modalService, 'open').and.returnValue({
+        result: Promise.resolve(false)
+      });
+      let actual: boolean = null;
+      let callback: (doRemove: boolean) => void = (doRemove: boolean) => {
+        actual = doRemove;
+      };
+
+      let content = {};
+      app.confirmRemoveSkill(callback, content);
+      tick();
+      expect(actual).toBe(false);
+
+    }));
+  it('should call back with false when popup rejected',
+    fakeAsync(() => () => {
+      spyOn(modalService, 'open').and.returnValue({
+        result: Promise.reject(null)
+      });
+      let actual: boolean = null;
+      let callback: (doRemove: boolean) => void = (doRemove: boolean) => {
+        actual = doRemove;
+      };
+
+      let content = {};
+      app.confirmRemoveSkill(callback, content);
+      tick();
+      expect(actual).toBe(false);
+
+    }));
+  it('should call back with true when popup resolved true',
+    fakeAsync(() => () => {
+      spyOn(modalService, 'open').and.returnValue({
+        result: Promise.resolve(true)
+      });
+      let actual: boolean = null;
+      let callback: (doRemove: boolean) => void = (doRemove: boolean) => {
+        actual = doRemove;
+      };
+
+      let content = {};
+      app.confirmRemoveSkill(callback, content);
+      tick();
+      expect(actual).toBe(true);
+
+    }));
+
+
+
 });

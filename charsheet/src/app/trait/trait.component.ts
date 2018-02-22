@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Skill } from '../skill/skill';
 import { Trait } from '../trait/trait';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
@@ -13,6 +13,7 @@ import { TraitFactoryService } from './trait-factory.service';
 export class TraitComponent implements OnInit {
 
   @Input() trait: FormGroup;
+  @Output() confirmRemoveSkill= new EventEmitter<(doRemove: boolean) => void>();
   get skills(): FormArray {
     return <FormArray>this.trait.get('skills');
   }
@@ -73,8 +74,16 @@ export class TraitComponent implements OnInit {
     return Number(skill.get('dieCount').value);
   }
 
-  removeSkill(index: number): void {
+  removeSkillByIndex(index: number): void {
     this.skills.controls.splice(index, 1);
+  }
+
+  removeSkill(index: number): void {
+    this.confirmRemoveSkill.emit((doRemove: boolean) => {
+      if (doRemove) {
+        this.removeSkillByIndex(index);
+      }
+    });
   }
 
   addSpec(skill: FormGroup): void {

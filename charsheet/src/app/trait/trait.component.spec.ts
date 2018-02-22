@@ -97,9 +97,35 @@ describe('TraitComponent', () => {
 
       expect(component.isEditable).toBe(false);
     });
-  it('should remove clicked skill',
+  it('should emit remove',
+    () => {
+      let actual: boolean = null;
+      component.confirmRemoveSkill.subscribe(f => {
+        actual = true;
+      });
+
+      click(removeSkillElement);
+      
+      expect(actual).toBeTruthy();
+    });
+  it('should remove skill when called with true',
     () => {
       let expected = component.skills.length - 1;
+      component.confirmRemoveSkill.subscribe(f => {
+        f(true);
+      });
+
+      click(removeSkillElement);
+      let actual = component.skills.length;
+
+      expect(actual).toBe(expected);
+    });
+  it('should not remove skill when called with false',
+    () => {
+      let expected = component.skills.length;
+      component.confirmRemoveSkill.subscribe(f => {
+        f(false);
+      });
 
       click(removeSkillElement);
       let actual = component.skills.length;

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Trait } from './trait/trait';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TraitGroupFactory } from './trait/trait-group-factory';
 import { FormStorageService } from './storage/form-storage.service';
 import { TraitFactoryService } from './trait/trait-factory.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -29,9 +30,10 @@ export class AppComponent implements OnInit {
   constructor(private traitGroupFactory: TraitGroupFactory,
     private formBuilder: FormBuilder,
     private formStorageService: FormStorageService,
-    private traitFactoryService: TraitFactoryService) {
+    private traitFactoryService: TraitFactoryService,
+    private modalService: NgbModal) {
 
-  }
+  } 
 
   ngOnInit(): void {
     let formModel = this.traitFactoryService.getFormDefault();
@@ -63,4 +65,15 @@ export class AppComponent implements OnInit {
   onSave(): void {
     this.formStorageService.saveForm('test', this.form);
   }
+
+  confirmRemoveSkill(callback: (doRemove: boolean) => void, content:any): void {
+    let modalRef = this.modalService.open(content);
+    modalRef.result.then((closedValue: any) => {
+      callback(Boolean(closedValue));
+    },
+      (dismissedReason: any) => {
+        callback(Boolean(false));
+      })
+  }
+  
 }
