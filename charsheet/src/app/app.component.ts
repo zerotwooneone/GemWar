@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { TraitGroupFactory } from './trait/trait-group-factory';
 import { FormStorageService } from './storage/form-storage.service';
 import { TraitFactoryService } from './trait/trait-factory.service';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -31,9 +31,9 @@ export class AppComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formStorageService: FormStorageService,
     private traitFactoryService: TraitFactoryService,
-    private modalService: NgbModal) {
+    private snackBar: MatSnackBar) {
 
-  } 
+  }
 
   ngOnInit(): void {
     let formModel = this.traitFactoryService.getFormDefault();
@@ -66,14 +66,13 @@ export class AppComponent implements OnInit {
     this.formStorageService.saveForm('test', this.form);
   }
 
-  confirmRemoveSkill(callback: (doRemove: boolean) => void, content:any): void {
-    let modalRef = this.modalService.open(content);
-    modalRef.result.then((closedValue: any) => {
-      callback(Boolean(closedValue));
-    },
-      (dismissedReason: any) => {
-        callback(Boolean(false));
-      })
+  confirmRemoveSkill(callback: (doRemove: boolean) => void, content: any): void {
+    let ref = this.snackBar.open("Skill deleted", "Undo", {
+      duration: 6000
+    });
+    ref.afterDismissed().subscribe((dismiss: MatSnackBarDismiss) => {
+      callback(!dismiss.dismissedByAction);
+    });
   }
-  
+
 }

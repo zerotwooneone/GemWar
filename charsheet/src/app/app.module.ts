@@ -8,7 +8,8 @@ import { TraitComponent } from './trait/trait.component';
 import { TraitGroupFactory } from './trait/trait-group-factory';
 import { FormStorageService } from './storage/form-storage.service';
 import { TraitFactoryService } from './trait/trait-factory.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule.forRoot()
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService],
   bootstrap: [AppComponent]
