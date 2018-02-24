@@ -11,6 +11,8 @@ import { TraitFactoryService } from './trait/trait-factory.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material';
 import { SkillComponentComponent } from './skill/skill-component/skill-component.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { SkillComponentComponent } from './skill/skill-component/skill-component
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule,
+    MatListModule
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService],
   bootstrap: [AppComponent]

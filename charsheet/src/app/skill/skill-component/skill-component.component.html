@@ -1,10 +1,32 @@
-<div [formGroup]="form"
+<mat-list-item [formGroup]="form"
      [hidden]="hidden">
-  <div>
+  <h4 matLine>
     <span [hidden]="isEditable">{{skillName}}</span>
     <input type="text"
            formControlName="skillName"
            [hidden]="!isEditable" />
+    <span [hidden]="hideSpecialization">
+      <span class="spec-seperator">:</span>
+      <span [hidden]="isEditable">{{specialization}}</span>
+      <input type="text"
+             formControlName="specialization"
+             [hidden]="!isEditable" />
+    </span>
+    <span class="die-count"
+          [hidden]="isEditable">{{dieCount}}</span>
+    <input type="text"
+           formControlName="dieCount"
+           class="die-count "
+           placeholder="# of dice"
+           [hidden]="!isEditable" />
+    <span>
+      <span class="die-seperator">d</span>
+      <span class="die-type">{{dieType}}</span>
+      <span class="die-seperator">+</span>
+      <span class="die-type">{{rollModifier}}</span>
+    </span>
+  </h4>
+  <p matLine>
     <input type="button"
            value="&#9998;"
            class="edit-skill"
@@ -14,37 +36,15 @@
            value="del"
            [hidden]="!isEditable"
            (click)="removeSkill()" />
-    <div [hidden]="hideSpecialization">
-      <span class="spec-seperator">:</span>
-      <span [hidden]="isEditable">{{specialization}}</span>
-      <input type="text"
-             formControlName="specialization"
-             [hidden]="!isEditable" />
-      <input type="button"
-             class="remove-spec"
-             value=" del :"
-             [hidden]="!isEditable || hideSpecialization"
-             (click)="removeSpecialization()" />
-    </div>
+    <input type="button"
+           class="remove-spec"
+           value=" del :"
+           [hidden]="!isEditable || hideSpecialization"
+           (click)="removeSpecialization()" />
     <input type="button"
            class="add-spec"
            value=":"
            [hidden]="!isEditable || !hideSpecialization"
            (click)="addSpecialization()" />
-  </div>
-  <div class="die-wrapper">
-    <span class="die-count"
-          [hidden]="isEditable">{{dieCount}}</span>
-    <input type="text"
-           formControlName="dieCount"
-           class="die-count "
-           placeholder="# of dice"
-           [hidden]="!isEditable" />
-    <div >
-      <span class="die-seperator">d</span>
-      <span class="die-type">{{dieType}}</span>
-      <span class="die-seperator">+</span>
-      <span class="die-type">{{rollModifier}}</span>
-    </div>
-  </div>
-</div>
+  </p>
+</mat-list-item>

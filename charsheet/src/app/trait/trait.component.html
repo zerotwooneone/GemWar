@@ -1,71 +1,58 @@
-<div [formGroup]="trait"
-     class="container-fluid trait-wrapper form-group">
-  <div class="row">
-    <div class="col-md-7">
-      <div class="form-inline">
-        <div class="form-group">
-          <h4>
-            <input type="text"
-                   formControlName="traitName"
-                   class="form-control"
-                   [hidden]="!isEditable" />
-            <span [hidden]="isEditable">{{traitName}}</span>
-            <input class="edit-trait btn btn-sm"
-                   type="button"
-                   (click)="toggleEdit()"
-                   value="&#9998;" />
-            <input class="add-skill btn btn-success"
-                   type="button"
-                   (click)="addSkill()"
-                   value="+"
-                   [hidden]="!isEditable"/>
-          </h4>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-5">
-      <div class="form-inline">
-        <div class="form-group die-wrapper">
-          <span class="die-count"
-                [hidden]="isEditable">{{dieCount}}</span>
-          <input type="text"
-                 formControlName="dieCount"
-                 class="die-count form-control"
-                 placeholder="# of dice"
-                 [hidden]="!isEditable" 
-                 [ngClass]="{something:isEditable}"/>
-          <span class="die-seperator">d</span>
-          <span class="die-type"
-                [hidden]="isEditable">{{getDieType()}}</span>
-          <input type="text"
-                 formControlName="dieType"
-                 class="die-type form-control"
-                 placeholder="# of sides to each die"
-                 [hidden]="!isEditable" />
-          <span class="die-seperator">+</span>
-          <span class="die-type"
-                [hidden]="isEditable">{{getRollModifier()}}</span>
-          <input type="text"
-                 formControlName="rollModifier"
-                 class="die-type form-control"
-                 placeholder="modify roll value"
-                 [hidden]="!isEditable" />
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div>
-    <ul formArrayName="skills"
-        class="skill-list">
-      <li *ngFor="let skill of trait.controls.skills.controls; let index=index">
-        <app-skill-component [form]="skill"
+<mat-card [formGroup]="trait"
+          class="container-fluid trait-wrapper form-group">
+  <mat-card-title>
+    <input type="text"
+           formControlName="traitName"
+           class="form-control"
+           [hidden]="!isEditable" />
+    <span [hidden]="isEditable">{{traitName}}</span>
+    <span class="die-count"
+          [hidden]="isEditable">{{dieCount}}</span>
+    <input type="text"
+           formControlName="dieCount"
+           class="die-count form-control"
+           placeholder="# of dice"
+           [hidden]="!isEditable"
+           [ngClass]="{something:isEditable}" />
+    <span class="die-seperator">d</span>
+    <span class="die-type"
+          [hidden]="isEditable">{{getDieType()}}</span>
+    <input type="text"
+           formControlName="dieType"
+           class="die-type form-control"
+           placeholder="# of sides to each die"
+           [hidden]="!isEditable" />
+    <span class="die-seperator">+</span>
+    <span class="die-type"
+          [hidden]="isEditable">{{getRollModifier()}}</span>
+    <input type="text"
+           formControlName="rollModifier"
+           class="die-type form-control"
+           placeholder="modify roll value"
+           [hidden]="!isEditable" />
+  </mat-card-title>
+  <mat-card-content>
+    <mat-list formArrayName="skills">
+      <div *ngFor="let skill of trait.controls.skills.controls; let index=index">
+        <app-skill-component matLine
+                             [form]="skill"
                              [dieType]="getDieType()"
                              [rollModifier]="getRollModifier()"></app-skill-component>
-      </li>
-    </ul>
-  </div>
-</div>
+      </div>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <input class="edit-trait btn btn-sm"
+           type="button"
+           (click)="toggleEdit()"
+           value="&#9998;" />
+    <input class="add-skill btn btn-success"
+           type="button"
+           (click)="addSkill()"
+           value="+"
+           [hidden]="!isEditable" />
+  </mat-card-actions>
+</mat-card>
 
 
 

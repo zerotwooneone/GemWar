@@ -10,6 +10,8 @@ import { TraitGroupFactory } from './trait-group-factory';
 import { TraitFactoryService } from './trait-factory.service';
 import { SkillComponentComponent } from '../skill/skill-component/skill-component.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 
 describe('TraitComponent', () => {
   let component: TraitComponent;
@@ -24,7 +26,9 @@ describe('TraitComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TraitComponent,
         SkillComponentComponent],
-      imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule],
+      imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule,
+        MatCardModule,
+        MatListModule],
       providers: [TraitGroupFactory, TraitFactoryService, MatSnackBar]
     })
       .compileComponents();

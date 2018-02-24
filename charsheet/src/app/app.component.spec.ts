@@ -12,6 +12,8 @@ import { click } from '../testing/index';
 import { TraitFactoryService } from './trait/trait-factory.service';
 import { MatSnackBarModule } from '@angular/material';
 import { SkillComponentComponent } from './skill/skill-component/skill-component.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 
 describe('AppComponent', () => {
 
@@ -32,7 +34,9 @@ describe('AppComponent', () => {
         WindBubbleComponent,
         SkillComponentComponent
       ],
-      imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule],
+      imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule,
+        MatCardModule,
+        MatListModule],
       providers: [TraitGroupFactory,
         FormStorageService,
         TraitFactoryService]

@@ -10,8 +10,7 @@
         <div formArrayName="mentalTraits"
              class="trait-block">
           <h3>Mental Traits</h3>
-          <div *ngFor="let trait of form.controls.mentalTraits.controls"
-               class="skillbock-list">
+          <div *ngFor="let trait of form.controls.mentalTraits.controls">
             <trait [trait]="trait"
                    (confirmRemoveSkill)="confirmRemoveSkill($event, content)"></trait>
           </div>
@@ -21,8 +20,7 @@
         <div formArrayName="corporealTraits"
              class="trait-block">
           <h3>Coporeal Traits</h3>
-          <div *ngFor="let trait of form.controls.corporealTraits.controls"
-               class="skillbock-list">
+          <div *ngFor="let trait of form.controls.corporealTraits.controls">
             <trait [trait]="trait"></trait>
           </div>
         </div>
@@ -56,18 +54,3 @@
            value="Save" />
   </form>
 </div>
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-body">
-    <p>Are you sure you want to delete this skill?</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="c(true)">Yes</button>
-    <button type="button" class="btn ml-3" (click)="c(false)">No</button>
-  </div>
-</ng-template>
-
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-
-<hr>
-
-<pre>{{closeResult}}</pre>
