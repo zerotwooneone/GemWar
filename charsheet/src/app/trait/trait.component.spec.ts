@@ -18,9 +18,7 @@ describe('TraitComponent', () => {
   let expectedSkills: FormGroup[];
   let addSkillElement: DebugElement;
   let editElement: DebugElement;
-  let removeSkillElement: DebugElement;
-  let addSpecElement: DebugElement;
-  let removeSpecElement: DebugElement;
+  
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -59,9 +57,7 @@ describe('TraitComponent', () => {
     editElement = fixture.debugElement.query(By.css('.edit-trait'));
 
     fixture.detectChanges();
-    removeSkillElement = fixture.debugElement.query(By.css('.remove-skill'));
-    addSpecElement = fixture.debugElement.query(By.css('.add-spec'));
-    removeSpecElement = fixture.debugElement.query(By.css('.remove-spec'));
+    
   });
 
   it('should create', () => {
@@ -109,24 +105,18 @@ describe('TraitComponent', () => {
 
       expect(actual).toBe(expected);
     });
-  it('should add specialization',
+  it('should toggle editable to true',
     () => {
-      let specializationControl = firstExpectedSkill.get('specialization');
-      specializationControl.setValue(null);
-
-      click(addSpecElement);
-      let actual = specializationControl.value;
-
-      expect(actual).toBe('');
+      component.toggleEdit();;
+      
+      expect(component.isEditable).toBe(true);
     });
-  it('should remove specialization',
+  it('should toggle editable to false',
     () => {
-      let specializationControl = firstExpectedSkill.get('specialization');
-      specializationControl.setValue('something');
+      component.isEditable = true;
 
-      click(removeSpecElement);
-      let actual = specializationControl.value;
+      component.toggleEdit();;
 
-      expect(actual).toBe(null);
+      expect(component.isEditable).toBe(false);
     });
 });

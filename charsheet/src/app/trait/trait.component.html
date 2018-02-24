@@ -18,7 +18,7 @@
                    type="button"
                    (click)="addSkill()"
                    value="+"
-                   [hidden]="!isEditable" />
+                   [hidden]="!isEditable"/>
           </h4>
         </div>
       </div>
@@ -32,7 +32,8 @@
                  formControlName="dieCount"
                  class="die-count form-control"
                  placeholder="# of dice"
-                 [hidden]="!isEditable" />
+                 [hidden]="!isEditable" 
+                 [ngClass]="{something:isEditable}"/>
           <span class="die-seperator">d</span>
           <span class="die-type"
                 [hidden]="isEditable">{{getDieType()}}</span>

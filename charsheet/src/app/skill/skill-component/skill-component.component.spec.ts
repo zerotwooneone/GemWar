@@ -6,12 +6,18 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { click } from '../../../testing/index';
 
 describe('SkillComponentComponent', () => {
   let component: SkillComponentComponent;
   let fixture: ComponentFixture<SkillComponentComponent>;
   let matSnackBar: MatSnackBar;
   let firstExpectedSkill: FormGroup;
+  let editButton: DebugElement;
+  let addSpecElement: DebugElement;
+  let removeSpecElement: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,6 +32,9 @@ describe('SkillComponentComponent', () => {
     fixture = TestBed.createComponent(SkillComponentComponent);
     component = fixture.componentInstance;
     matSnackBar = TestBed.get(MatSnackBar);
+    editButton = fixture.debugElement.query(By.css('.edit-skill'));
+    addSpecElement = fixture.debugElement.query(By.css('.add-spec'));
+    removeSpecElement = fixture.debugElement.query(By.css('.remove-spec'));
 
     firstExpectedSkill = new FormGroup({
       skillName: new FormControl('firstExpectedSkill'),
@@ -75,5 +84,39 @@ describe('SkillComponentComponent', () => {
       component.removeSkill();
       
       expect(actual).toBe(true);
+    });
+  it('edit should set isEditable true',
+    () => {
+      click(editButton);
+
+      expect(component.isEditable).toBe(true);
+    });
+  it('edit should set isEditable false',
+    () => {
+      component.isEditable = true;
+
+      click(editButton);
+
+      expect(component.isEditable).toBe(false);
+    });
+  it('should add specialization',
+    () => {
+      let specializationControl = firstExpectedSkill.get('specialization');
+      specializationControl.setValue(null);
+
+      click(addSpecElement);
+      let actual = specializationControl.value;
+
+      expect(actual).toBe('');
+    });
+  it('should remove specialization',
+    () => {
+      let specializationControl = firstExpectedSkill.get('specialization');
+      specializationControl.setValue('something');
+
+      click(removeSpecElement);
+      let actual = specializationControl.value;
+
+      expect(actual).toBe(null);
     });
 });
