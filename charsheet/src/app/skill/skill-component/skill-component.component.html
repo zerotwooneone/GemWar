@@ -1,0 +1,49 @@
+<div [formGroup]="form"
+     [hidden]="hidden">
+  <div>
+    <span [hidden]="isEditable">{{skillName}}</span>
+    <input type="text"
+           formControlName="skillName"
+           [hidden]="!isEditable" />
+    <input type="button"
+           value="&#9998;"
+           (click)="toggleEditable()" />
+    <input type="button"
+           class="remove-skill"
+           value="del"
+           [hidden]="!isEditable"
+           (click)="removeSkill()" />
+    <div [hidden]="hideSpecialization">
+      <span class="spec-seperator">:</span>
+      <span [hidden]="isEditable">{{specialization}}</span>
+      <input type="text"
+             formControlName="specialization"
+             [hidden]="!isEditable" />
+      <input type="button"
+             class="remove-spec"
+             value=" del :"
+             [hidden]="!isEditable || hideSpecialization"
+             (click)="removeSpecialization()" />
+    </div>
+    <input type="button"
+           class="add-spec"
+           value=":"
+           [hidden]="!isEditable || !hideSpecialization"
+           (click)="addSpecialization()" />
+  </div>
+  <div class="die-wrapper">
+    <span class="die-count"
+          [hidden]="isEditable">{{dieCount}}</span>
+    <input type="text"
+           formControlName="dieCount"
+           class="die-count "
+           placeholder="# of dice"
+           [hidden]="!isEditable" />
+    <div >
+      <span class="die-seperator">d</span>
+      <span class="die-type">{{dieType}}</span>
+      <span class="die-seperator">+</span>
+      <span class="die-type">{{rollModifier}}</span>
+    </div>
+  </div>
+</div>

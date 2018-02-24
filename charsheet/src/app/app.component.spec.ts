@@ -3,8 +3,6 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { WindSelectorComponent } from './wind/wind-selector/wind-selector.component';
 import { WindBubbleComponent } from './wind/wind-bubble/wind-bubble.component';
-import { Skill } from './skill/skill';
-import { Trait } from './trait/trait';
 import { TraitComponent } from './trait/trait.component';
 import { TraitGroupFactory } from './trait/trait-group-factory';
 import { FormStorageService } from './storage/form-storage.service';
@@ -12,9 +10,8 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { click } from '../testing/index';
 import { TraitFactoryService } from './trait/trait-factory.service';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material';
-import 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
+import { MatSnackBarModule } from '@angular/material';
+import { SkillComponentComponent } from './skill/skill-component/skill-component.component';
 
 describe('AppComponent', () => {
 
@@ -25,7 +22,6 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
   let formStorageService: FormStorageService;
-  let snackBar: MatSnackBar;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -33,7 +29,8 @@ describe('AppComponent', () => {
         AppComponent,
         TraitComponent,
         WindSelectorComponent,
-        WindBubbleComponent
+        WindBubbleComponent,
+        SkillComponentComponent
       ],
       imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule],
       providers: [TraitGroupFactory,
@@ -82,8 +79,6 @@ describe('AppComponent', () => {
     formStorageService = (<any>app).formStorageService;
     spyOn(formStorageService, 'saveForm');
 
-    snackBar = TestBed.get(MatSnackBar);
-
     fixture.detectChanges();
   });
   it('should create the app', async(() => {
@@ -113,32 +108,5 @@ describe('AppComponent', () => {
 
       expect(formStorageService.saveForm).toHaveBeenCalled();
     });
-  it('should call back with true when not dismissed by action',
-    () => {
-      spyOn(snackBar, 'open').and.returnValue({
-        afterDismissed: () => Observable.of({ dismissedByAction: false })
-      });
-      let actual: boolean = null;
-      let callback: (doRemove: boolean) => void = (doRemove: boolean) => {
-        actual = doRemove;
-      };
-
-      let content = {};
-      app.confirmRemoveSkill(callback, content);
-      expect(actual).toBe(true);
-    });
-  it('should call back with false when dismissed by action',
-    () => {
-      spyOn(snackBar, 'open').and.returnValue({
-        afterDismissed: () => Observable.of({ dismissedByAction: true })
-      });
-      let actual: boolean = null;
-      let callback: (doRemove: boolean) => void = (doRemove: boolean) => {
-        actual = doRemove;
-      };
-
-      let content = {};
-      app.confirmRemoveSkill(callback, content);
-      expect(actual).toBe(false);
-    });
+  
 });

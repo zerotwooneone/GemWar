@@ -10,6 +10,7 @@ import { FormStorageService } from './storage/form-storage.service';
 import { TraitFactoryService } from './trait/trait-factory.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material';
+import { SkillComponentComponent } from './skill/skill-component/skill-component.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MatSnackBarModule } from '@angular/material';
     AppComponent,
     TraitComponent,
     WindBubbleComponent,
-    WindSelectorComponent
+    WindSelectorComponent,
+    SkillComponentComponent
   ],
   imports: [
     BrowserModule,

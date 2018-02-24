@@ -8,7 +8,7 @@
             <input type="text"
                    formControlName="traitName"
                    class="form-control"
-                   [hidden]="!isEditable"/>
+                   [hidden]="!isEditable" />
             <span [hidden]="isEditable">{{traitName}}</span>
             <input class="edit-trait btn btn-sm"
                    type="button"
@@ -32,7 +32,7 @@
                  formControlName="dieCount"
                  class="die-count form-control"
                  placeholder="# of dice"
-                 [hidden]="!isEditable"/>
+                 [hidden]="!isEditable" />
           <span class="die-seperator">d</span>
           <span class="die-type"
                 [hidden]="isEditable">{{getDieType()}}</span>
@@ -58,63 +58,9 @@
     <ul formArrayName="skills"
         class="skill-list">
       <li *ngFor="let skill of trait.controls.skills.controls; let index=index">
-
-        <div [formGroup]="trait.controls.skills.controls[index]"
-             class="row ">
-          <div class="col-md-7">
-            <div class="form-inline">
-              <div class="form-group skill-wrapper">
-                <span [hidden]="isEditable">{{getSkillName(skill)}}</span>
-                <input type="text"
-                       formControlName="skillName"
-                       class="form-control"
-                       [hidden]="!isEditable" />
-                <input type="button"
-                       class="remove-skill btn btn-danger"
-                       value="del"
-                       [hidden]="!isEditable"
-                       (click)="removeSkill(index)" />
-                <div [hidden]="hideSpecialization(index)">
-                  <span class="spec-seperator form-text">:</span>
-                  <span [hidden]="isEditable">{{getSpecialization(skill)}}</span>
-                  <input type="text"
-                         formControlName="specialization"
-                         class="form-control"
-                         [hidden]="!isEditable" />
-                  <input type="button"
-                         class="remove-spec btn btn-danger"
-                         value=" del :"
-                         [hidden]="!isEditable || hideSpecialization(index)"
-                         (click)="removeSpec(skill)" />
-                </div>
-                <input type="button"
-                       class="add-spec btn btn-success"
-                       value=":"
-                       [hidden]="!isEditable || !hideSpecialization(index)"
-                       (click)="addSpec(skill)" />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <div class="form-inline">
-              <div class="form-group die-wrapper">
-                <span class="die-count"
-                      [hidden]="isEditable">{{getSkillDieCount(skill)}}</span>
-                <input type="text"
-                       formControlName="dieCount"
-                       class="die-count form-control"
-                       placeholder="# of dice"
-                       [hidden]="!isEditable"/>
-                <div class="form-text">
-                  <span class="die-seperator">d</span>
-                  <span class="die-type">{{getDieType()}}</span>
-                  <span class="die-seperator">+</span>
-                  <span class="die-type">{{getRollModifier()}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-skill-component [form]="skill"
+                             [dieType]="getDieType()"
+                             [rollModifier]="getRollModifier()"></app-skill-component>
       </li>
     </ul>
   </div>

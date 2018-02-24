@@ -8,6 +8,8 @@ import { FormsModule, FormGroup, FormControl, FormArray, ReactiveFormsModule } f
 import { click } from '../../testing/index';
 import { TraitGroupFactory } from './trait-group-factory';
 import { TraitFactoryService } from './trait-factory.service';
+import { SkillComponentComponent } from '../skill/skill-component/skill-component.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material';
 
 describe('TraitComponent', () => {
   let component: TraitComponent;
@@ -22,9 +24,10 @@ describe('TraitComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TraitComponent],
-      imports: [FormsModule, ReactiveFormsModule],
-      providers: [TraitGroupFactory, TraitFactoryService]
+      declarations: [TraitComponent,
+        SkillComponentComponent],
+      imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule],
+      providers: [TraitGroupFactory, TraitFactoryService, MatSnackBar]
     })
       .compileComponents();
   }));
@@ -97,37 +100,11 @@ describe('TraitComponent', () => {
 
       expect(component.isEditable).toBe(false);
     });
-  it('should emit remove',
-    () => {
-      let actual: boolean = null;
-      component.confirmRemoveSkill.subscribe(f => {
-        actual = true;
-      });
-
-      click(removeSkillElement);
-      
-      expect(actual).toBeTruthy();
-    });
   it('should remove skill when called with true',
     () => {
       let expected = component.skills.length - 1;
-      component.confirmRemoveSkill.subscribe(f => {
-        f(true);
-      });
 
-      click(removeSkillElement);
-      let actual = component.skills.length;
-
-      expect(actual).toBe(expected);
-    });
-  it('should not remove skill when called with false',
-    () => {
-      let expected = component.skills.length;
-      component.confirmRemoveSkill.subscribe(f => {
-        f(false);
-      });
-
-      click(removeSkillElement);
+      component.removeSkill(0);
       let actual = component.skills.length;
 
       expect(actual).toBe(expected);

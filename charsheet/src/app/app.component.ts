@@ -30,8 +30,7 @@ export class AppComponent implements OnInit {
   constructor(private traitGroupFactory: TraitGroupFactory,
     private formBuilder: FormBuilder,
     private formStorageService: FormStorageService,
-    private traitFactoryService: TraitFactoryService,
-    private snackBar: MatSnackBar) {
+    private traitFactoryService: TraitFactoryService) {
 
   }
 
@@ -64,15 +63,6 @@ export class AppComponent implements OnInit {
 
   onSave(): void {
     this.formStorageService.saveForm('test', this.form);
-  }
-
-  confirmRemoveSkill(callback: (doRemove: boolean) => void, content: any): void {
-    let ref = this.snackBar.open("Skill deleted", "Undo", {
-      duration: 6000
-    });
-    ref.afterDismissed().subscribe((dismiss: MatSnackBarDismiss) => {
-      callback(!dismiss.dismissedByAction);
-    });
   }
 
 }
