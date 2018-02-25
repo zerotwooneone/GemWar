@@ -52,7 +52,7 @@ export class SkillComponentComponent implements OnInit {
       .subscribe((dismiss: MatSnackBarDismiss) => {
         if (dismiss.dismissedByAction) {
           this.hidden = false;
-          //this.changeDetectorRef.detectChanges();
+          this.changeDetectorRef.detectChanges();
         } else {
           this.remove.emit();
         }
