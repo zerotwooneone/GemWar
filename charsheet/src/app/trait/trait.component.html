@@ -1,35 +1,44 @@
 <mat-card [formGroup]="trait"
-          class="container-fluid trait-wrapper form-group">
+          class="trait-wrapper">
   <mat-card-title>
-    <input type="text"
-           formControlName="traitName"
-           class="form-control"
-           [hidden]="!isEditable" />
-    <span [hidden]="isEditable">{{traitName}}</span>
-    <span class="die-count"
-          [hidden]="isEditable">{{dieCount}}</span>
-    <input type="text"
-           formControlName="dieCount"
-           class="die-count form-control"
-           placeholder="# of dice"
-           [hidden]="!isEditable"
-           [ngClass]="{something:isEditable}" />
-    <span class="die-seperator">d</span>
-    <span class="die-type"
-          [hidden]="isEditable">{{getDieType()}}</span>
-    <input type="text"
-           formControlName="dieType"
-           class="die-type form-control"
-           placeholder="# of sides to each die"
-           [hidden]="!isEditable" />
-    <span class="die-seperator">+</span>
-    <span class="die-type"
-          [hidden]="isEditable">{{getRollModifier()}}</span>
-    <input type="text"
-           formControlName="rollModifier"
-           class="die-type form-control"
-           placeholder="modify roll value"
-           [hidden]="!isEditable" />
+    <div [hidden]="isEditable">
+      <span>{{traitName}}</span>
+      <span class="die-count">{{dieCount}}</span>
+      <span class="die-seperator">d</span>
+      <span class="die-type">{{getDieType()}}</span>
+      <span class="die-seperator">+</span>
+      <span class="die-type">{{getRollModifier()}}</span>
+    </div>
+    <div [hidden]="!isEditable">
+      <mat-form-field>
+        <input matInput
+               type="text"
+               formControlName="traitName" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               type="text"
+               formControlName="dieCount"
+               class="die-count"
+               placeholder="# of dice" />
+      </mat-form-field>
+      <mat-form-field>
+        <span matPrefix>d</span>
+        <input matInput
+               type="text"
+               class="die-type"
+               formControlName="dieType"
+               placeholder="# of sides to each die" />
+      </mat-form-field>
+      <mat-form-field>
+        <span matPrefix>+</span>
+        <input matInput
+               type="text"
+               formControlName="rollModifier"
+               class="die-type"
+               placeholder="modify roll value" />
+      </mat-form-field>
+    </div>
   </mat-card-title>
   <mat-card-content>
     <mat-list formArrayName="skills">
@@ -41,11 +50,11 @@
     </mat-list>
   </mat-card-content>
   <mat-card-actions>
-    <input class="edit-trait btn btn-sm"
+    <input class="edit-trait"
            type="button"
            (click)="toggleEdit()"
            value="&#9998;" />
-    <input class="add-skill btn btn-success"
+    <input class="add-skill"
            type="button"
            (click)="addSkill()"
            value="+"

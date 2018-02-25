@@ -13,6 +13,8 @@ import { MatSnackBarModule } from '@angular/material';
 import { SkillComponentComponent } from './skill/skill-component/skill-component.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { MatListModule } from '@angular/material/list';
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService],
   bootstrap: [AppComponent]

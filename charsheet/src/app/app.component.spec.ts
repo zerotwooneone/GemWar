@@ -14,6 +14,9 @@ import { MatSnackBarModule } from '@angular/material';
 import { SkillComponentComponent } from './skill/skill-component/skill-component.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AppComponent', () => {
 
@@ -36,7 +39,10 @@ describe('AppComponent', () => {
       ],
       imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule,
         MatCardModule,
-        MatListModule],
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NoopAnimationsModule],
       providers: [TraitGroupFactory,
         FormStorageService,
         TraitFactoryService]

@@ -1,24 +1,38 @@
 <mat-list-item [formGroup]="form"
-     [hidden]="hidden">
+               [hidden]="hidden">
   <h4 matLine>
-    <span [hidden]="isEditable">{{skillName}}</span>
-    <input type="text"
-           formControlName="skillName"
-           [hidden]="!isEditable" />
-    <span [hidden]="hideSpecialization">
-      <span class="spec-seperator">:</span>
-      <span [hidden]="isEditable">{{specialization}}</span>
-      <input type="text"
-             formControlName="specialization"
-             [hidden]="!isEditable" />
+    <span [hidden]="isEditable">
+      <span>{{skillName}}</span>
+      <span [hidden]="hideSpecialization">
+        <span class="spec-seperator">:</span>
+        <span [hidden]="isEditable">{{specialization}}</span>
+      </span>
+      <span class="die-count">{{dieCount}}</span>
+
     </span>
-    <span class="die-count"
-          [hidden]="isEditable">{{dieCount}}</span>
-    <input type="text"
-           formControlName="dieCount"
-           class="die-count "
-           placeholder="# of dice"
-           [hidden]="!isEditable" />
+    <span [hidden]="!isEditable">
+      <mat-form-field>
+        <input matInput
+               type="text"
+               formControlName="skillName" />
+      </mat-form-field>
+      <span [hidden]="hideSpecialization">
+        <mat-form-field>
+          <span matPrefix>:</span>
+          <input matInput
+                 type="text"
+                 formControlName="specialization"
+                 placeholder="Specialization"/>
+        </mat-form-field>
+      </span>
+      <mat-form-field>
+        <input matInput
+               type="text"
+               formControlName="dieCount"
+               class="die-count "
+               placeholder="# of dice" />
+      </mat-form-field>
+    </span>
     <span>
       <span class="die-seperator">d</span>
       <span class="die-type">{{dieType}}</span>

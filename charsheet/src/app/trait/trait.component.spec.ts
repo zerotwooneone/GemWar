@@ -12,6 +12,9 @@ import { SkillComponentComponent } from '../skill/skill-component/skill-componen
 import { MatSnackBar, MatSnackBarModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TraitComponent', () => {
   let component: TraitComponent;
@@ -28,7 +31,10 @@ describe('TraitComponent', () => {
         SkillComponentComponent],
       imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule,
         MatCardModule,
-        MatListModule],
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NoopAnimationsModule],
       providers: [TraitGroupFactory, TraitFactoryService, MatSnackBar]
     })
       .compileComponents();

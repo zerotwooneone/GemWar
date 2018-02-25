@@ -10,6 +10,9 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { click } from '../../../testing/index';
 import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SkillComponentComponent', () => {
   let component: SkillComponentComponent;
@@ -24,7 +27,10 @@ describe('SkillComponentComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SkillComponentComponent],
       imports: [ReactiveFormsModule, MatSnackBarModule, NoopAnimationsModule,
-        MatListModule],
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NoopAnimationsModule],
       providers: [MatSnackBar]
     })
     .compileComponents();
