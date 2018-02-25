@@ -51,9 +51,11 @@
                            formControlName="currentStrain"></zer-wind-selector>
       </div>
     </div>
-    <input type="button"
-           class="btn btn-lg btn-success save-form"
-           (click)="onSave()"
-           value="Save" />
+    <button mat-button
+            color="primary"
+            class="save-form"
+            (click)="onSave()">
+      Save
+    </button>
   </form>
 </div>

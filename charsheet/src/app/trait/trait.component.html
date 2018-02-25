@@ -50,15 +50,19 @@
     </mat-list>
   </mat-card-content>
   <mat-card-actions>
-    <input class="edit-trait"
-           type="button"
-           (click)="toggleEdit()"
-           value="&#9998;" />
-    <input class="add-skill"
-           type="button"
-           (click)="addSkill()"
-           value="+"
-           [hidden]="!isEditable" />
+    <button mat-button
+            class="edit-trait"
+            (click)="toggleEdit()">
+      &#9998;
+    </button>
+    <span [hidden]="!isEditable">
+      <button mat-button
+              color="primary"
+              class="add-skill"
+              (click)="addSkill()">
+        +
+      </button>
+    </span>
   </mat-card-actions>
 </mat-card>
 

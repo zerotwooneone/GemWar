@@ -22,7 +22,7 @@
           <input matInput
                  type="text"
                  formControlName="specialization"
-                 placeholder="Specialization"/>
+                 placeholder="Specialization" />
         </mat-form-field>
       </span>
       <mat-form-field>
@@ -41,24 +41,33 @@
     </span>
   </h4>
   <p matLine>
-    <input type="button"
-           value="&#9998;"
-           class="edit-skill"
-           (click)="toggleEditable()" />
-    <input type="button"
-           class="remove-skill"
-           value="del"
-           [hidden]="!isEditable"
-           (click)="removeSkill()" />
-    <input type="button"
-           class="remove-spec"
-           value=" del :"
-           [hidden]="!isEditable || hideSpecialization"
-           (click)="removeSpecialization()" />
-    <input type="button"
-           class="add-spec"
-           value=":"
-           [hidden]="!isEditable || !hideSpecialization"
-           (click)="addSpecialization()" />
+    <button mat-button
+            class="edit-skill"
+            (click)="toggleEditable()">
+      &#9998;
+    </button>
+    <span [hidden]="!isEditable">
+      <button mat-button
+              color="warn"
+              class="remove-skill"
+              (click)="removeSkill()">
+        del
+      </button>
+      <span [hidden]="hideSpecialization">
+        <button mat-button
+                color="warn"
+                class="remove-spec"
+                (click)="removeSpecialization()">
+          del :
+        </button>
+      </span>
+      <span [hidden]="!hideSpecialization">
+        <button mat-button
+                class="add-spec"
+                (click)="addSpecialization()">
+          :
+        </button>
+      </span>
+    </span>
   </p>
 </mat-list-item>
