@@ -1,5 +1,5 @@
 <mat-list-item [formGroup]="form"
-               [hidden]="hidden">
+               *ngIf="!hidden">
   <h4 matLine>
     <span [hidden]="isEditable">
       <span>{{skillName}}</span>

@@ -42,11 +42,11 @@
   </mat-card-title>
   <mat-card-content>
     <mat-list formArrayName="skills">
-      <app-skill-component *ngFor="let skill of trait.controls.skills.controls; let index=index"
+      <app-skill-component *ngFor="let skill of skills.controls; let index=index"
                            [form]="skill"
                            [dieType]="getDieType()"
-                           [rollModifier]="getRollModifier()"></app-skill-component>
-
+                           [rollModifier]="getRollModifier()"
+                           (remove)="removeSkill(index)"></app-skill-component>
     </mat-list>
   </mat-card-content>
   <mat-card-actions>

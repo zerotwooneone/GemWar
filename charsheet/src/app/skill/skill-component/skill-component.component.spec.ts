@@ -39,10 +39,7 @@ describe('SkillComponentComponent', () => {
     fixture = TestBed.createComponent(SkillComponentComponent);
     component = fixture.componentInstance;
     matSnackBar = TestBed.get(MatSnackBar);
-    editButton = fixture.debugElement.query(By.css('.edit-skill'));
-    addSpecElement = fixture.debugElement.query(By.css('.add-spec'));
-    removeSpecElement = fixture.debugElement.query(By.css('.remove-spec'));
-
+    
     firstExpectedSkill = new FormGroup({
       skillName: new FormControl('firstExpectedSkill'),
       dieCount: new FormControl(0),
@@ -53,6 +50,10 @@ describe('SkillComponentComponent', () => {
     component.rollModifier = 0;
 
     fixture.detectChanges();
+
+    editButton = fixture.debugElement.query(By.css('.edit-skill'));
+    addSpecElement = fixture.debugElement.query(By.css('.add-spec'));
+    removeSpecElement = fixture.debugElement.query(By.css('.remove-spec'));
   });
 
   it('should create', () => {
@@ -92,13 +93,13 @@ describe('SkillComponentComponent', () => {
       
       expect(actual).toBe(true);
     });
-  it('edit should set isEditable true',
+  it('should set isEditable true',
     () => {
       click(editButton);
 
       expect(component.isEditable).toBe(true);
     });
-  it('edit should set isEditable false',
+  it('should set isEditable false',
     () => {
       component.isEditable = true;
 

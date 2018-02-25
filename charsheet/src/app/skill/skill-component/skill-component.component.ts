@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
 import "rxjs/add/operator/timeout";
@@ -31,8 +31,10 @@ export class SkillComponentComponent implements OnInit {
     return this.form.get('dieCount').value;
   }
 
-  constructor(private matSnackBar: MatSnackBar) {
+  constructor(private matSnackBar: MatSnackBar,
+    private changeDetectorRef:ChangeDetectorRef) {
     this.isEditable = false;
+    this.hidden = false;
   }
 
   ngOnInit() {
@@ -50,6 +52,7 @@ export class SkillComponentComponent implements OnInit {
       .subscribe((dismiss: MatSnackBarDismiss) => {
         if (dismiss.dismissedByAction) {
           this.hidden = false;
+          //this.changeDetectorRef.detectChanges();
         } else {
           this.remove.emit();
         }
