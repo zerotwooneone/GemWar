@@ -5,8 +5,9 @@
         Welcome to {{ title }}!
       </h1>
     </div>
-    <div class="row">
-      <div class="col-md-4">
+    <div fxLayout="row">
+      <div fxFlex="33"
+           fxFlex.lt-sm="100">
         <div formArrayName="mentalTraits"
              class="trait-block">
           <h3>Mental Traits</h3>
@@ -16,7 +17,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div fxFlex="33"
+           fxFlex.lt-sm="100">
         <div formArrayName="corporealTraits"
              class="trait-block">
           <h3>Coporeal Traits</h3>
@@ -25,7 +27,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div fxFlex="33"
+           fxFlex.lt-sm="100">
         <div>
           <h3>Edges 'n' Hinderances</h3>
         </div>
