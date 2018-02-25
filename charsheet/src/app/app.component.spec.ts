@@ -17,6 +17,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 describe('AppComponent', () => {
 
@@ -42,7 +43,8 @@ describe('AppComponent', () => {
         MatListModule,
         MatFormFieldModule,
         MatInputModule,
-        NoopAnimationsModule],
+        NoopAnimationsModule,
+        MatSidenavModule],
       providers: [TraitGroupFactory,
         FormStorageService,
         TraitFactoryService]
