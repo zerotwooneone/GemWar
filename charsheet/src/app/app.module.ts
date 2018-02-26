@@ -18,6 +18,9 @@ import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { EdgeHinderanceComponent } from './edge-hinderance/edge-hinderance.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -26,7 +29,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     TraitComponent,
     WindBubbleComponent,
     WindSelectorComponent,
-    SkillComponentComponent
+    SkillComponentComponent,
+    EdgeHinderanceComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatInputModule,
     FlexLayoutModule,
     MatButtonModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatExpansionModule,
+    MatSlideToggleModule
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService],
   bootstrap: [AppComponent]
