@@ -5,6 +5,7 @@ import { TraitGroupFactory } from './trait/trait-group-factory';
 import { FormStorageService } from './storage/form-storage.service';
 import { TraitFactoryService } from './trait/trait-factory.service';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
+import { EdgeModel } from './edge-hinderance/edge-model';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
     return this.vigorDieType;
   }
   form: FormGroup;
+  edges: EdgeModel[];
 
   constructor(private traitGroupFactory: TraitGroupFactory,
     private formBuilder: FormBuilder,
@@ -37,6 +39,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     let formModel = this.traitFactoryService.getFormDefault();
     this.form = this.traitGroupFactory.getFormGroup(formModel);
+    this.edges = [{isEdge: false, name: "", value:0},{isEdge: false, name: "", value:0}]; 
   }
 
   getTrait(traitArray: FormArray, name: string): FormGroup {

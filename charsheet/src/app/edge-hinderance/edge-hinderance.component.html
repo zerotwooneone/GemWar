@@ -4,36 +4,38 @@
   </mat-card-title>
   <mat-card-content>
     <mat-list>
-      <mat-list-item>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <span>{{type}}</span>
-              <span>:</span>
-              <span>{{name}}</span>
-            </mat-panel-title>
-            <mat-panel-description>
-              <span [ngSwitch]="isEdge">
-                <span *ngSwitchCase="true">+</span>
-                <span *ngSwitchCase="false">-</span>
-              </span>
-              <span>{{value}}</span>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
+      <mat-list-item *ngFor="let edgeGroup of edgeControls.controls; let index=index;">
+        <div>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <span>{{type(index)}}</span>
+                <span>:</span>
+                <span>{{name(index)}}</span>
+              </mat-panel-title>
+              <mat-panel-description>
+                <span [ngSwitch]="isEdge(index)">
+                  <span *ngSwitchCase="true">+</span>
+                  <span *ngSwitchCase="false">-</span>
+                </span>
+                <span>{{value(index)}}</span>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
 
-          <p [formGroup]="form">
-            <mat-form-field>
-              <input matInput type="text" formControlName="name" placeholder="Edge/Hindrance Name" />
-            </mat-form-field>
-            <mat-slide-toggle formControlName="isEdge">
-              {{type}}
-            </mat-slide-toggle>
-            <mat-form-field>
-              <input matInput type="number" formControlName="value" placeholder="Value" />
-            </mat-form-field>
-          </p>
+            <p [formGroup]="edgeGroup">
+              <mat-form-field>
+                <input matInput type="text" formControlName="name" placeholder="Edge/Hindrance Name" />
+              </mat-form-field>
+              <mat-slide-toggle formControlName="isEdge">
+                {{type(index)}}
+              </mat-slide-toggle>
+              <mat-form-field>
+                <input matInput type="number" formControlName="value" placeholder="Value" />
+              </mat-form-field>
+            </p>
 
-        </mat-expansion-panel>
+          </mat-expansion-panel>
+        </div>
       </mat-list-item>
     </mat-list>
   </mat-card-content>

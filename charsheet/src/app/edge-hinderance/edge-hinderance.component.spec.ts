@@ -7,10 +7,12 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatListModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { EdgeModel } from './edge-model';
 
 describe('EdgeHinderanceComponent', () => {
   let component: EdgeHinderanceComponent;
   let fixture: ComponentFixture<EdgeHinderanceComponent>;
+  let firstExpectedEdgeHinderance: EdgeModel = {name:"name", isEdge: true, value: 2};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,6 +25,8 @@ describe('EdgeHinderanceComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EdgeHinderanceComponent);
     component = fixture.componentInstance;
+    
+    component.edges = [firstExpectedEdgeHinderance];
     fixture.detectChanges();
   });
 

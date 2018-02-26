@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { EdgeModel } from './edge-model';
 
 @Component({
   selector: 'zer-edge-hinderance',
@@ -8,30 +9,32 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class EdgeHinderanceComponent implements OnInit {
 
-  form: FormGroup;
-  constructor(private formBuilder:FormBuilder) { }
+  edgeControls: FormArray;
+  @Input() edges: EdgeModel[]; 
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      name:'',
-      isEdge: false,
-      value: 0
-    });
+    let edgeControls = [];
+    for (const edgeModel of this.edges) {
+      edgeControls.push(this.formBuilder.group(edgeModel));
+    }
+    this.edgeControls = this.formBuilder.array(edgeControls);
   }
 
-  get isEdge():boolean{
-    return this.form.get('isEdge').value;
+  isEdge(index: number): boolean {
+    return this.edgeControls.controls[index].get('isEdge').value;
   }
 
-  get type():string{
-    return this.isEdge ? 'Edge' : 'Hinderance';
+  type(index: number): string {
+    return this.isEdge(index) ? 'Edge' : 'Hinderance';
   }
 
-  get name():string{
-    return this.form.get('name').value;
+  name(index: number): string {
+    return this.edgeControls.controls[index].get('name').value;
   }
 
-  get value():string{
-    return this.form.get('value').value;
+  value(index: number): string {
+    return this.edgeControls.controls[index].get('value').value;
   }
 }
