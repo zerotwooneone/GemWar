@@ -18,6 +18,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { EdgeHinderanceComponent } from './edge-hinderance/edge-hinderance.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 describe('AppComponent', () => {
 
@@ -36,7 +39,8 @@ describe('AppComponent', () => {
         TraitComponent,
         WindSelectorComponent,
         WindBubbleComponent,
-        SkillComponentComponent
+        SkillComponentComponent,
+        EdgeHinderanceComponent
       ],
       imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule,
         MatCardModule,
@@ -44,7 +48,9 @@ describe('AppComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         NoopAnimationsModule,
-        MatSidenavModule],
+        MatSidenavModule,
+        MatExpansionModule,
+        MatSlideToggleModule],
       providers: [TraitGroupFactory,
         FormStorageService,
         TraitFactoryService]
@@ -120,5 +126,5 @@ describe('AppComponent', () => {
 
       expect(formStorageService.saveForm).toHaveBeenCalled();
     });
-  
+
 });
