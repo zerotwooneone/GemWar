@@ -4,7 +4,7 @@ import { EdgeHinderanceComponent } from './edge-hinderance.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatFormFieldModule, MatListModule, MatInputModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EdgeModel } from './edge-model';
@@ -17,7 +17,8 @@ describe('EdgeHinderanceComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EdgeHinderanceComponent],
-      imports: [MatCardModule, MatExpansionModule, MatSlideToggleModule, ReactiveFormsModule, MatFormFieldModule, MatListModule, NoopAnimationsModule, MatInputModule]
+      imports: [MatCardModule, MatExpansionModule, MatSlideToggleModule, ReactiveFormsModule, MatFormFieldModule, MatListModule, NoopAnimationsModule, MatInputModule],
+      providers: [FormBuilder]
     })
       .compileComponents();
   }));
@@ -26,7 +27,9 @@ describe('EdgeHinderanceComponent', () => {
     fixture = TestBed.createComponent(EdgeHinderanceComponent);
     component = fixture.componentInstance;
     
-    component.edges = [firstExpectedEdgeHinderance];
+    let formBuilder = TestBed.get(FormBuilder);
+
+    component.edges = formBuilder.array([firstExpectedEdgeHinderance]);
     fixture.detectChanges();
   });
 

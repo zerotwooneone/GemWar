@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Trait } from './trait';
 import { Skill } from '../skill/skill';
 import { FormModel } from '../form/form-model';
+import { EdgeModel } from '../edge-hinderance/edge-model';
 
 @Injectable()
 export class TraitFactoryService {
@@ -130,7 +131,8 @@ export class TraitFactoryService {
   getFormDefault(): FormModel {
     let mentalTraits = this.getMentalDefaults();
     let corporealTraits = this.getCorporealDefaults();
-    let result = new FormModel(0, 0, mentalTraits, corporealTraits);
+    let edgeModels : EdgeModel[] = [];
+    let result = new FormModel(0, 0, mentalTraits, corporealTraits, edgeModels);
     return result;
   }
 }

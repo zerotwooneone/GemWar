@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
     return this.vigorDieType;
   }
   form: FormGroup;
-  edges: EdgeModel[];
 
   constructor(private traitGroupFactory: TraitGroupFactory,
     private formBuilder: FormBuilder,
@@ -38,8 +37,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     let formModel = this.traitFactoryService.getFormDefault();
+    
+    //this is just for testing
+    formModel.edgeModels.push({isEdge: false, name: "", value:0});
+    formModel.edgeModels.push({isEdge: false, name: "", value:0}); 
+
     this.form = this.traitGroupFactory.getFormGroup(formModel);
-    this.edges = [{isEdge: false, name: "", value:0},{isEdge: false, name: "", value:0}]; 
+    
   }
 
   getTrait(traitArray: FormArray, name: string): FormGroup {

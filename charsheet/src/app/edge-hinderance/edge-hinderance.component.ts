@@ -9,21 +9,16 @@ import { EdgeModel } from './edge-model';
 })
 export class EdgeHinderanceComponent implements OnInit {
 
-  edgeControls: FormArray;
-  @Input() edges: EdgeModel[]; 
+  @Input() edges: FormArray;
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    let edgeControls = [];
-    for (const edgeModel of this.edges) {
-      edgeControls.push(this.formBuilder.group(edgeModel));
-    }
-    this.edgeControls = this.formBuilder.array(edgeControls);
+    
   }
 
   isEdge(index: number): boolean {
-    return this.edgeControls.controls[index].get('isEdge').value;
+    return this.edges.controls[index].get('isEdge').value;
   }
 
   type(index: number): string {
@@ -31,10 +26,10 @@ export class EdgeHinderanceComponent implements OnInit {
   }
 
   name(index: number): string {
-    return this.edgeControls.controls[index].get('name').value;
+    return this.edges.controls[index].get('name').value;
   }
 
   value(index: number): string {
-    return this.edgeControls.controls[index].get('value').value;
+    return this.edges.controls[index].get('value').value;
   }
 }

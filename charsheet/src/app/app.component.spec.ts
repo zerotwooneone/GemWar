@@ -21,6 +21,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { EdgeHinderanceComponent } from './edge-hinderance/edge-hinderance.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { EdgeModel } from './edge-hinderance/edge-model';
 
 describe('AppComponent', () => {
 
@@ -53,13 +54,15 @@ describe('AppComponent', () => {
         MatSlideToggleModule],
       providers: [TraitGroupFactory,
         FormStorageService,
-        TraitFactoryService]
+        TraitFactoryService,
+      FormBuilder]
     }).compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.debugElement.componentInstance;
     saveElement = fixture.debugElement.query(By.css('.save-form'));
+    let formBuilder = TestBed.get(FormBuilder);
     let traitFactoryService: TraitFactoryService = (<any>app).traitFactoryService;
     spyOn(traitFactoryService, 'getFormDefault').and.returnValue({});
     let traitGroupFactory: TraitGroupFactory = (<any>app).traitGroupFactory;
@@ -91,10 +94,11 @@ describe('AppComponent', () => {
             "dieCount": new FormControl(0)
           })])
         })
-      ])
+      ]),
+      edges: formBuilder.array([formBuilder.group(new EdgeModel())])
     }));
 
-    formStorageService = (<any>app).formStorageService;
+    formStorageService = TestBed.get(FormStorageService);
     spyOn(formStorageService, 'saveForm');
 
     fixture.detectChanges();

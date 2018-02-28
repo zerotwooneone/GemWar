@@ -60,7 +60,8 @@ export class TraitGroupFactory {
       currentWind: formModel.currentWind || 0,
       currentStrain: formModel.currentStrain || 0,
       mentalTraits: this.formBuilder.array(this.buildTraitGroups(formModel.mentalTraits)),
-      corporealTraits: this.formBuilder.array(this.buildTraitGroups(formModel.corporealTraits))
+      corporealTraits: this.formBuilder.array(this.buildTraitGroups(formModel.corporealTraits)),
+      edges: this.formBuilder.array(formModel.edgeModels.map(edgeModel=>this.formBuilder.group(edgeModel)))
     });
     return result;
   }
