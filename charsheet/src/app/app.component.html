@@ -13,8 +13,7 @@
                class="trait-block">
             <h3>Mental Traits</h3>
             <div *ngFor="let trait of form.controls.mentalTraits.controls">
-              <trait [trait]="trait"
-                     (confirmRemoveSkill)="confirmRemoveSkill($event, content)"></trait>
+              <trait [trait]="trait"></trait>
             </div>
           </div>
         </div>

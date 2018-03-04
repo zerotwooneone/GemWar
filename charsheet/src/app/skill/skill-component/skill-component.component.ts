@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
 import "rxjs/add/operator/timeout";
 import "rxjs/add/operator/finally";
@@ -11,37 +11,41 @@ import "rxjs/add/operator/finally";
 })
 export class SkillComponentComponent implements OnInit {
 
-  @Input() form: FormGroup;
+  @Input() skills: FormArray;
   @Input() dieType: number;
   @Input() rollModifier: number;
-  @Output() remove: EventEmitter<void> = new EventEmitter<void>();
-  isEditable: boolean;
-  hidden: boolean;
+  hidden: {[index:number]:boolean} ;
 
-  get skillName(): string {
-    return this.form.get('skillName').value;
+  skillName(index:number): string {
+    return this.skills.controls[index].get('skillName').value;
   }
-  get specialization(): string {
-    return this.specializationControl.value;
+  specialization(index:number): string {
+    return this.specializationControl(index).value;
   }
-  get hideSpecialization(): boolean {
-    return this.specialization == null || this.specialization == undefined;
+  hideSpecialization(index:number): boolean {
+    const specialization = this.specialization(index);
+    if(specialization){
+      let x = 0;
+    }
+    if(specialization == undefined){
+      let x = 0;
+    }
+    return specialization == null || specialization == undefined;
   }
-  get dieCount(): number {
-    return this.form.get('dieCount').value;
+  dieCount(index:number): number {
+    return this.skills.controls[index].get('dieCount').value;
   }
 
   constructor(private matSnackBar: MatSnackBar,
-    private changeDetectorRef:ChangeDetectorRef) {
-    this.isEditable = false;
-    this.hidden = false;
+    private changeDetectorRef:ChangeDetectorRef) {    
   }
 
   ngOnInit() {
+    this.hidden = this.skills.controls.map(s=>false);
   }
 
-  removeSkill(): void {
-    this.hidden = true;
+  removeSkill(index:number): void {
+    this.hidden[index] = true;
     let ref = this.matSnackBar.open("Skill removed",
       "Undo",
       {
@@ -51,30 +55,31 @@ export class SkillComponentComponent implements OnInit {
       .afterDismissed()
       .subscribe((dismiss: MatSnackBarDismiss) => {
         if (dismiss.dismissedByAction) {
-          this.hidden = false;
+          this.hidden[index] = false;
           this.changeDetectorRef.detectChanges();
         } else {
-          this.remove.emit();
+          this.skills.controls.splice(index,1);
+          for (let hiddenIndex = index+1; hiddenIndex < this.skills.controls.length-1; hiddenIndex++) {
+            const element = this.skills.controls[hiddenIndex];
+            this.hidden[hiddenIndex] = this.hidden[hiddenIndex+1];
+          }
+          delete this.hidden[this.skills.controls.length-1];
         }
       }, error => {
-        this.hidden = false;
+        this.hidden[index] = false;
       });
   }
 
-  get specializationControl(): FormControl {
-    return <FormControl>this.form.get('specialization');
+  specializationControl(index:number): FormControl {
+    return <FormControl>this.skills.controls[index].get('specialization');
   }
 
-  removeSpecialization(): void {
-    this.specializationControl.setValue(null);
+  removeSpecialization(index:number): void {
+    this.specializationControl(index).setValue(null);
   }
 
-  addSpecialization(): void {
-    this.specializationControl.setValue('');
-  }
-
-  toggleEditable(): void {
-    this.isEditable = !this.isEditable;
+  addSpecialization(index:number): void {
+    this.specializationControl(index).setValue('');
   }
 
 }

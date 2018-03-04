@@ -63,9 +63,11 @@ describe('AppComponent', () => {
     app = fixture.debugElement.componentInstance;
     saveElement = fixture.debugElement.query(By.css('.save-form'));
     let formBuilder = TestBed.get(FormBuilder);
-    let traitFactoryService: TraitFactoryService = (<any>app).traitFactoryService;
-    spyOn(traitFactoryService, 'getFormDefault').and.returnValue({});
-    let traitGroupFactory: TraitGroupFactory = (<any>app).traitGroupFactory;
+    let traitFactoryService: TraitFactoryService = TestBed.get(TraitFactoryService);
+    spyOn(traitFactoryService, 'getFormDefault').and.returnValue({
+      edgeModels:[]
+    });
+    let traitGroupFactory: TraitGroupFactory = TestBed.get(TraitGroupFactory);
     spyOn(traitGroupFactory, 'getFormGroup').and.returnValue(new FormGroup({
       "currentWind": new FormControl(0),
       "currentStrain": new FormControl(0),

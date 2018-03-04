@@ -1,73 +1,71 @@
-<mat-list-item [formGroup]="form"
-               *ngIf="!hidden">
-  <h4 matLine>
-    <span [hidden]="isEditable">
-      <span>{{skillName}}</span>
-      <span [hidden]="hideSpecialization">
-        <span class="spec-seperator">:</span>
-        <span [hidden]="isEditable">{{specialization}}</span>
-      </span>
-      <span class="die-count">{{dieCount}}</span>
-
-    </span>
-    <span [hidden]="!isEditable">
-      <mat-form-field>
-        <input matInput
-               type="text"
-               formControlName="skillName" />
-      </mat-form-field>
-      <span [hidden]="hideSpecialization">
-        <mat-form-field>
-          <span matPrefix>:</span>
-          <input matInput
-                 type="text"
-                 formControlName="specialization"
-                 placeholder="Specialization" />
-        </mat-form-field>
-      </span>
-      <mat-form-field>
-        <input matInput
-               type="text"
-               formControlName="dieCount"
-               class="die-count "
-               placeholder="# of dice" />
-      </mat-form-field>
-    </span>
+<mat-expansion-panel *ngFor="let skill of skills.controls; let index=index;">
+  <mat-expansion-panel-header>
+      <mat-panel-title>
+          <span>
+              <span>{{skillName(index)}}</span>
+              <span [hidden]="hideSpecialization(index)">
+                <span class="spec-seperator">:</span>
+                <span >{{specialization(index)}}</span>
+              </span>
+            </span>    
+      </mat-panel-title>    
+    <mat-panel-description>
+        <span>
+            <span class="die-count">{{dieCount(index)}}</span>
+            <span class="die-seperator">d</span>
+            <span class="die-type">{{dieType}}</span>
+            <span class="die-seperator">+</span>
+            <span class="die-type">{{rollModifier}}</span>
+          </span>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p [formGroup]="skill">
+      <span >
+          <mat-form-field>
+            <input matInput
+                   type="text"
+                   formControlName="skillName" />
+          </mat-form-field>
+          <span [hidden]="hideSpecialization(index)">
+            <mat-form-field>
+              <span matPrefix>:</span>
+              <input matInput
+                     type="text"
+                     formControlName="specialization"
+                     placeholder="Specialization" />
+            </mat-form-field>
+          </span>
+          <mat-form-field>
+            <input matInput
+                   type="text"
+                   formControlName="dieCount"
+                   class="die-count "
+                   placeholder="# of dice" />
+          </mat-form-field>
+        </span>
+    
     <span>
-      <span class="die-seperator">d</span>
-      <span class="die-type">{{dieType}}</span>
-      <span class="die-seperator">+</span>
-      <span class="die-type">{{rollModifier}}</span>
-    </span>
-  </h4>
-  <p matLine>
-    <button mat-button
-            class="edit-skill"
-            (click)="toggleEditable()">
-      &#9998;
-    </button>
-    <span [hidden]="!isEditable">
       <button mat-button
               color="warn"
               class="remove-skill"
-              (click)="removeSkill()">
+              (click)="removeSkill(index)">
         del
       </button>
-      <span [hidden]="hideSpecialization">
+      <span [hidden]="hideSpecialization(index)">
         <button mat-button
                 color="warn"
                 class="remove-spec"
-                (click)="removeSpecialization()">
+                (click)="removeSpecialization(index)">
           del :
         </button>
       </span>
-      <span [hidden]="!hideSpecialization">
+      <span [hidden]="!hideSpecialization(index)">
         <button mat-button
                 class="add-spec"
-                (click)="addSpecialization()">
+                (click)="addSpecialization(index)">
           :
         </button>
       </span>
     </span>
   </p>
-</mat-list-item>
+</mat-expansion-panel>
