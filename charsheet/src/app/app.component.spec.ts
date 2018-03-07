@@ -25,8 +25,7 @@ import { EdgeModel } from './edge-hinderance/edge-model';
 
 describe('AppComponent', () => {
 
-  let spiritDieType = 1;
-  let vigorDieType = 2;
+  
   let saveElement: DebugElement;
 
   let fixture: ComponentFixture<AppComponent>;
@@ -108,29 +107,5 @@ describe('AppComponent', () => {
   it('should create the app', async(() => {
     expect(app).toBeTruthy();
   }));
-  it('should load mental traits',
-    () => {
-      expect(app.mentalTraits).toBeTruthy();
-    });
-  it('should load corporeal traits',
-    () => {
-      expect(app.corporealTraits).toBeTruthy();
-    });
-  it('should provide wind total',
-    () => {
-      let expected = spiritDieType + vigorDieType;
-      expect(app.windTotal).toBe(expected);
-    });
-  it('should provide strain maximum',
-    () => {
-      let expected = vigorDieType;
-      expect(app.strainMax).toBe(expected);
-    });
-  it('should call save',
-    () => {
-      click(saveElement);
-
-      expect(formStorageService.saveForm).toHaveBeenCalled();
-    });
 
 });

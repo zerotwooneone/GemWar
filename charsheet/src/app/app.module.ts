@@ -23,6 +23,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CompressionService } from './compression/compression.service';
 import { SheetIdService } from './sheet-id/sheet-id.service';
+import { SheetComponent } from './sheet/sheet.component';
+import { NewSheetComponent } from './new-sheet/new-sheet.component';
+import { ExistingSheetComponent } from './existing-sheet/existing-sheet.component';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,10 @@ import { SheetIdService } from './sheet-id/sheet-id.service';
     WindBubbleComponent,
     WindSelectorComponent,
     SkillComponentComponent,
-    EdgeHinderanceComponent
+    EdgeHinderanceComponent,
+    SheetComponent,
+    NewSheetComponent,
+    ExistingSheetComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +55,11 @@ import { SheetIdService } from './sheet-id/sheet-id.service';
     MatButtonModule,
     MatSidenavModule,
     MatExpansionModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService, CompressionService, SheetIdService],
   bootstrap: [AppComponent]
