@@ -21,7 +21,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { EdgeHinderanceComponent } from './edge-hinderance/edge-hinderance.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
+import { CompressionService } from './compression/compression.service';
+import { SheetIdService } from './sheet-id/sheet-id.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatExpansionModule,
     MatSlideToggleModule
   ],
-  providers: [TraitGroupFactory, FormStorageService, TraitFactoryService],
+  providers: [TraitGroupFactory, FormStorageService, TraitFactoryService, CompressionService, SheetIdService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

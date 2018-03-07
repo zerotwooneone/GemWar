@@ -43,7 +43,6 @@ export class AppComponent implements OnInit {
     formModel.edgeModels.push({isEdge: false, name: "", value:0}); 
 
     this.form = this.traitGroupFactory.getFormGroup(formModel);
-    
   }
 
   getTrait(traitArray: FormArray, name: string): FormGroup {
@@ -69,7 +68,7 @@ export class AppComponent implements OnInit {
   }
 
   onSave(): void {
-    this.formStorageService.saveForm('test', this.form);
+    this.formStorageService.saveNewForm(this.form);
   }
 
 }

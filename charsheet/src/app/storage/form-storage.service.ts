@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { CompressionService } from '../compression/compression.service';
+import { SheetIdService } from '../sheet-id/sheet-id.service';
 
 @Injectable()
 export class FormStorageService {
 
-  constructor() { }
-  createGuid(): string {
-    function s4() {
-      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-    }
-    return (s4() + s4() + "-" + s4() + "-4" + s4().substr(0, 3) + "-" + s4() + "-" + s4() + s4() + s4()).toLowerCase();
+  constructor(private compressionService: CompressionService,
+    private sheetIdService: SheetIdService) { }
+
+  saveNewForm(form: FormGroup):void {
+    let key = this.sheetIdService.createGuid();
+    return this.saveForm(key, form);
   }
 
   saveForm(key: string, form: FormGroup): void {
-    let value = JSON.stringify(form.value);
-    localStorage.setItem(key, value);
+    let json = JSON.stringify(form.value);
+    let compressed = this.compressionService.compress(json);
+    localStorage.setItem(key, compressed);
   }
 
   loadForm(key: string): {} {
@@ -22,7 +25,8 @@ export class FormStorageService {
     if (!data) {
       return null;
     }
-    let result = JSON.parse(data);
-    return result;
+    let json = this.compressionService.decompress(data);
+    let obj = JSON.parse(json);
+    return obj;
   }
 }
