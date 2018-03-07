@@ -5,7 +5,13 @@ import { ExistingSheetComponent } from "./existing-sheet/existing-sheet.componen
 export const appRoutes: Routes = [
     {
         path: 'new',
-        component: NewSheetComponent
+        component: NewSheetComponent,
+        children: [
+            {
+                path: 'char/:id',
+                component: ExistingSheetComponent
+            }
+        ]
     },
     {
         path: 'char/:id',
