@@ -9,9 +9,10 @@ export class FormStorageService {
   constructor(private compressionService: CompressionService,
     private sheetIdService: SheetIdService) { }
 
-  saveNewForm(form: FormGroup):void {
+  saveNewForm(form: FormGroup):string {
     let key = this.sheetIdService.createGuid();
-    return this.saveForm(key, form);
+    this.saveForm(key, form);
+    return key;
   }
 
   saveForm(key: string, form: FormGroup): void {

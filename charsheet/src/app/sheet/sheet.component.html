@@ -1,3 +1,40 @@
-<p>
-  sheet works!
-</p>
+<form [formGroup]="form" novalidate>
+  <div fxLayout="row" fxLayout.lt-sm="column">
+    <div fxFlex="33" fxFlex.lt-sm="100">
+      <div formArrayName="mentalTraits" class="trait-block">
+        <h3>Mental Traits</h3>
+        <div *ngFor="let trait of form.controls.mentalTraits.controls">
+          <trait [trait]="trait"></trait>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="33" fxFlex.lt-sm="100">
+      <div formArrayName="corporealTraits" class="trait-block">
+        <h3>Coporeal Traits</h3>
+        <div *ngFor="let trait of form.controls.corporealTraits.controls">
+          <trait [trait]="trait"></trait>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="33" fxFlex.lt-sm="100">
+      <zer-edge-hinderance [edges]="form.controls.edges"></zer-edge-hinderance>
+      <div>
+        <h3>Chips 'n' Grit</h3>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      <h4>
+        <abbr title="Vigor + Spirit die type">Wind</abbr>
+      </h4>
+      <zer-wind-selector [count]="34" [windTotal]="windTotal" formControlName="currentWind"></zer-wind-selector>
+    </div>
+    <div >
+      <h4>
+        <abbr title="Vigor die type">Strain</abbr>
+      </h4>
+      <zer-wind-selector [count]="22" [windTotal]="strainMax" formControlName="currentStrain"></zer-wind-selector>
+    </div>
+  </div>  
+</form>
