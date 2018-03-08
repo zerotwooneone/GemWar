@@ -1,10 +1,12 @@
 <mat-sidenav-container>
-  <mat-sidenav-content >
+  <mat-sidenav [mode]="menuMode" [opened]="showMenu">Sidenav content</mat-sidenav>
+  <mat-sidenav-content>
     <div style="text-align: center">
+      <pre>{{media}}</pre>
       <h1>
         Welcome to {{ title }}!
       </h1>
-    </div>    
+    </div>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

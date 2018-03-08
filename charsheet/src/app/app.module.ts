@@ -58,7 +58,7 @@ import { appRoutes } from './app.routes';
     MatSlideToggleModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      //{ enableTracing: true } // <-- debugging purposes only
     )
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService, CompressionService, SheetIdService],

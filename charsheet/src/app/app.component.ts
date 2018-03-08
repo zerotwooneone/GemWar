@@ -6,6 +6,7 @@ import { FormStorageService } from './storage/form-storage.service';
 import { TraitFactoryService } from './trait/trait-factory.service';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
 import { EdgeModel } from './edge-hinderance/edge-model';
+import { ObservableMedia } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,15 @@ import { EdgeModel } from './edge-hinderance/edge-model';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  
+  showMenu:boolean;
+  menuMode:'push'|'side';
 
-  constructor() {
-
+  constructor(private observableMedia:ObservableMedia) {
+      observableMedia.subscribe(mediaChange=>{
+        let autoShowMenu = this.observableMedia.isActive('gt-sm');
+        this.showMenu = autoShowMenu;
+        this.menuMode = autoShowMenu ? 'side': 'push';
+      })
   }
 
   ngOnInit(): void {
