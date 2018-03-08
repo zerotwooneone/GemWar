@@ -28,8 +28,6 @@ export class ExistingSheetComponent implements OnInit {
       this.id = params['id'];
       if (this.id) {
         const formModel = <FormModel>this.formStorageService.loadForm(this.id);
-        //(<any>formModel).edgeModels = formModel.edges || [];
-
         this.form = this.traitGroupFactory.getFormGroup(formModel);
       }
     });
