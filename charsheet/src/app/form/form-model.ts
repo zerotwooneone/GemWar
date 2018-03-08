@@ -6,7 +6,7 @@ export class FormModel {
   get currentStrain(): number { return this._currentStrain; }
   get mentalTraits(): Trait[] { return this._mentalTraits; }
   get corporealTraits(): Trait[] { return this._corporealTraits; }
-  get edgeModels(): EdgeModel[] { return this._edgeModels; }
+  get edges(): EdgeModel[] { return this._edgeModels; }
   constructor(private _currentWind: number,
     private _currentStrain: number,
     private _mentalTraits: Trait[],
