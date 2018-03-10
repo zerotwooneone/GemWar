@@ -22,15 +22,17 @@ import { EdgeHinderanceComponent } from './edge-hinderance/edge-hinderance.compo
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { EdgeModel } from './edge-hinderance/edge-model';
+import { FormSaveService } from './form/form-save.service';
 
 describe('AppComponent', () => {
 
-  
+
   let saveElement: DebugElement;
 
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
   let formStorageService: FormStorageService;
+  let formSaveService:FormSaveService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -54,7 +56,8 @@ describe('AppComponent', () => {
       providers: [TraitGroupFactory,
         FormStorageService,
         TraitFactoryService,
-      FormBuilder]
+        FormBuilder,
+        FormSaveService]
     }).compileComponents();
   }));
   beforeEach(() => {
@@ -64,7 +67,7 @@ describe('AppComponent', () => {
     let formBuilder = TestBed.get(FormBuilder);
     let traitFactoryService: TraitFactoryService = TestBed.get(TraitFactoryService);
     spyOn(traitFactoryService, 'getFormDefault').and.returnValue({
-      edgeModels:[]
+      edgeModels: []
     });
     let traitGroupFactory: TraitGroupFactory = TestBed.get(TraitGroupFactory);
     spyOn(traitGroupFactory, 'getFormGroup').and.returnValue(new FormGroup({
@@ -102,10 +105,24 @@ describe('AppComponent', () => {
     formStorageService = TestBed.get(FormStorageService);
     spyOn(formStorageService, 'saveForm');
 
+    formSaveService = TestBed.get(FormSaveService);
+    spyOn(formSaveService, 'save');
+    spyOn(formSaveService, 'update');
+
     fixture.detectChanges();
   });
   it('should create the app', async(() => {
     expect(app).toBeTruthy();
+  }));
+  it('should call save form', async(() => {
+    app.save();
+
+    expect(formSaveService.save).toHaveBeenCalled();
+  }));
+  it('should call update form', async(() => {
+    app.update();
+
+    expect(formSaveService.update).toHaveBeenCalled();
   }));
 
 });

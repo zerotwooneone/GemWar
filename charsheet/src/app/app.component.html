@@ -1,5 +1,12 @@
 <mat-sidenav-container>
-  <mat-sidenav [mode]="menuMode" [opened]="showMenu">Sidenav content</mat-sidenav>
+  <mat-sidenav [mode]="menuMode" [opened]="showMenu">
+    <p>
+      Sidenav content
+    </p>
+    <button mat-button color="primary" (click)="save()">
+      Save
+    </button>
+  </mat-sidenav>
   <mat-sidenav-content>
     <div style="text-align: center">
       <pre>{{media}}</pre>

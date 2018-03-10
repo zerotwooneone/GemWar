@@ -28,6 +28,7 @@ import { NewSheetComponent } from './new-sheet/new-sheet.component';
 import { ExistingSheetComponent } from './existing-sheet/existing-sheet.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
+import { FormSaveService } from './form/form-save.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { appRoutes } from './app.routes';
       //{ enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [TraitGroupFactory, FormStorageService, TraitFactoryService, CompressionService, SheetIdService],
+  providers: [TraitGroupFactory, FormStorageService, TraitFactoryService, CompressionService, SheetIdService, FormSaveService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

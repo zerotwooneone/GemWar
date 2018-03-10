@@ -5,6 +5,7 @@ import { FormStorageService } from '../storage/form-storage.service';
 import { TraitFactoryService } from '../trait/trait-factory.service';
 import { RouterLink } from '../../testing';
 import { RouterLinkActive, Router } from '@angular/router';
+import { FormSaveService } from '../form/form-save.service';
 
 @Component({
   selector: 'zer-new-sheet',
@@ -19,7 +20,12 @@ export class NewSheetComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formStorageService: FormStorageService,
     private traitFactoryService: TraitFactoryService,
-    private router: Router) { }
+    private router: Router,
+    private formSaveService: FormSaveService) {
+      this.formSaveService.saveObservable.subscribe(t=>{
+        this.save();
+      });
+     }
 
   ngOnInit() {
     let formModel = this.traitFactoryService.getFormDefault();
