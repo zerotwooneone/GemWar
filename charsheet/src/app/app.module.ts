@@ -61,7 +61,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule,
     RouterModule.forRoot(
       appRoutes,
-      //{ enableTracing: true } // <-- debugging purposes only
+      // { enableTracing: true } // <-- debugging purposes only
     )
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService, CompressionService, SheetIdService, FormSaveService],

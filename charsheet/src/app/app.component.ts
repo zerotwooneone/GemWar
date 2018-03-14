@@ -22,10 +22,10 @@ export class AppComponent implements OnInit {
   constructor(private observableMedia: ObservableMedia,
     private formSaveService: FormSaveService) {
     observableMedia.subscribe(mediaChange => {
-      let autoShowMenu = this.observableMedia.isActive('gt-sm');
+      const autoShowMenu = this.observableMedia.isActive('gt-sm');
       this.showMenu = autoShowMenu;
       this.menuMode = autoShowMenu ? 'side' : 'push';
-    })
+    });
   }
 
   ngOnInit(): void {
