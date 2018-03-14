@@ -29,6 +29,7 @@ import { ExistingSheetComponent } from './existing-sheet/existing-sheet.componen
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { FormSaveService } from './form/form-save.service';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { FormSaveService } from './form/form-save.service';
     MatSidenavModule,
     MatExpansionModule,
     MatSlideToggleModule,
+    MatIconModule,
     RouterModule.forRoot(
       appRoutes,
       //{ enableTracing: true } // <-- debugging purposes only
