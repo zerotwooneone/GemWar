@@ -1,6 +1,6 @@
-import { Routes } from "@angular/router";
-import { NewSheetComponent } from "./new-sheet/new-sheet.component";
-import { ExistingSheetComponent } from "./existing-sheet/existing-sheet.component";
+import { Routes } from '@angular/router';
+import { NewSheetComponent } from './new-sheet/new-sheet.component';
+import { ExistingSheetComponent } from './existing-sheet/existing-sheet.component';
 
 export const appRoutes: Routes = [
     {
