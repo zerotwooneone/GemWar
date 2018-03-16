@@ -6,19 +6,20 @@ describe('SheetComponent', () => {
   let component: SheetComponent;
   let fixture: ComponentFixture<SheetComponent>;
 
-  let spiritDieType = 1;
-  let vigorDieType = 2;
+  const spiritDieType = 1;
+  const vigorDieType = 2;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SheetComponent ]
+      declarations: [SheetComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SheetComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 
@@ -35,12 +36,12 @@ describe('SheetComponent', () => {
     });
   it('should provide wind total',
     () => {
-      let expected = spiritDieType + vigorDieType;
+      const expected = spiritDieType + vigorDieType;
       expect(component.windTotal).toBe(expected);
     });
   it('should provide strain maximum',
     () => {
-      let expected = vigorDieType;
+      const expected = vigorDieType;
       expect(component.strainMax).toBe(expected);
     });
 });

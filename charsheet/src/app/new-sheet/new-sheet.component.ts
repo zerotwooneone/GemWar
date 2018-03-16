@@ -17,22 +17,21 @@ export class NewSheetComponent implements OnInit {
   form: FormGroup;
 
   constructor(private traitGroupFactory: TraitGroupFactory,
-    private formBuilder: FormBuilder,
     private formStorageService: FormStorageService,
     private traitFactoryService: TraitFactoryService,
     private router: Router,
     private formSaveService: FormSaveService) {
-      this.formSaveService.saveObservable.subscribe(t=>{
-        this.save();
-      });
-     }
+    this.formSaveService.saveObservable.subscribe(t => {
+      this.save();
+    });
+  }
 
   ngOnInit() {
-    let formModel = this.traitFactoryService.getFormDefault();
+    const formModel = this.traitFactoryService.getFormDefault();
 
-    //this is just for testing
-    formModel.edges.push({ isEdge: false, name: "", value: 0 });
-    formModel.edges.push({ isEdge: false, name: "", value: 0 });
+    // this is just for testing
+    formModel.edges.push({ isEdge: false, name: '', value: 0 });
+    formModel.edges.push({ isEdge: false, name: '', value: 0 });
 
     this.form = this.traitGroupFactory.getFormGroup(formModel);
   }

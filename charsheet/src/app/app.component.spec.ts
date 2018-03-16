@@ -32,7 +32,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
   let formStorageService: FormStorageService;
-  let formSaveService:FormSaveService;
+  let formSaveService: FormSaveService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -64,50 +64,7 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.debugElement.componentInstance;
     saveElement = fixture.debugElement.query(By.css('.save-form'));
-    let formBuilder = TestBed.get(FormBuilder);
-    let traitFactoryService: TraitFactoryService = TestBed.get(TraitFactoryService);
-    spyOn(traitFactoryService, 'getFormDefault').and.returnValue({
-      edgeModels: []
-    });
-    let traitGroupFactory: TraitGroupFactory = TestBed.get(TraitGroupFactory);
-    spyOn(traitGroupFactory, 'getFormGroup').and.returnValue(new FormGroup({
-      "currentWind": new FormControl(0),
-      "currentStrain": new FormControl(0),
-      "mentalTraits": new FormArray([
-        new FormGroup({
-          "traitName": new FormControl('Spirit'),
-          "dieType": new FormControl(spiritDieType),
-          "dieCount": new FormControl(0),
-          "rollModifier": new FormControl(null),
-          "skills": new FormArray([new FormGroup({
-            "skillName": new FormControl('Faith'),
-            "specialization": new FormControl(null),
-            "dieCount": new FormControl(0)
-          })])
-        })
-      ]),
-      "corporealTraits": new FormArray([
-        new FormGroup({
-          "traitName": new FormControl('Vigor'),
-          "dieType": new FormControl(vigorDieType),
-          "dieCount": new FormControl(0),
-          "rollModifier": new FormControl(null),
-          "skills": new FormArray([new FormGroup({
-            "skillName": new FormControl('Faith'),
-            "specialization": new FormControl(null),
-            "dieCount": new FormControl(0)
-          })])
-        })
-      ]),
-      edges: formBuilder.array([formBuilder.group(new EdgeModel())])
-    }));
-
-    formStorageService = TestBed.get(FormStorageService);
-    spyOn(formStorageService, 'saveForm');
-
-    formSaveService = TestBed.get(FormSaveService);
-    spyOn(formSaveService, 'save');
-    spyOn(formSaveService, 'update');
+    const formBuilder = TestBed.get(FormBuilder);
 
     fixture.detectChanges();
   });

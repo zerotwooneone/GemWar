@@ -36,7 +36,7 @@ export class SheetComponent implements OnInit {
   }
 
   get vigorDieType(): number {
-    let vigorTrait = this.vigorTrait;
+    const vigorTrait = this.vigorTrait;
     return vigorTrait ? Number(vigorTrait.get('dieType').value) : null;
   }
 
@@ -45,7 +45,7 @@ export class SheetComponent implements OnInit {
   }
 
   get spiritDieType(): number {
-    let spiritTrait = this.spiritTrait;
+    const spiritTrait = this.spiritTrait;
     return spiritTrait ? Number(spiritTrait.get('dieType').value) : null;
   }
 
