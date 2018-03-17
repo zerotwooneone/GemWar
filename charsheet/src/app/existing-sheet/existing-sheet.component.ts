@@ -34,7 +34,7 @@ export class ExistingSheetComponent implements OnInit {
   }
 
   update(): void {
-    this.formStorageService.saveForm(this.id, this.form);
+    this.formStorageService.saveForm(this.id, 'char name', this.form.value);
   }
 
 }

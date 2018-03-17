@@ -37,7 +37,7 @@ export class NewSheetComponent implements OnInit {
   }
 
   save(): void {
-    const id = this.formStorageService.saveNewForm(this.form);
+    const id = this.formStorageService.saveNewForm('char name', this.form.value);
     this.router.navigate(['/char', id]);
   }
 

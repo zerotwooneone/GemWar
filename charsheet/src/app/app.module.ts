@@ -30,6 +30,7 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { FormSaveService } from './form/form-save.service';
 import {MatIconModule} from '@angular/material/icon';
+import { BrowserStorageService } from './storage/browser-storage.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {MatIconModule} from '@angular/material/icon';
       // { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [TraitGroupFactory, FormStorageService, TraitFactoryService, CompressionService, SheetIdService, FormSaveService],
+  providers: [TraitGroupFactory, FormStorageService, TraitFactoryService,
+    CompressionService, SheetIdService, FormSaveService, BrowserStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

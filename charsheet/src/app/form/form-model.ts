@@ -1,5 +1,5 @@
-import { Trait } from "../trait/trait";
-import { EdgeModel } from "../edge-hinderance/edge-model";
+import { Trait } from '../trait/trait';
+import { EdgeModel } from '../edge-hinderance/edge-model';
 
 export class FormModel {
   get currentWind(): number { return this._currentWind; }

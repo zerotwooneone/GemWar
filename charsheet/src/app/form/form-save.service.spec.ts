@@ -14,9 +14,9 @@ describe('FormSaveService', () => {
   }));
   it('should emit save', inject([FormSaveService], (service: FormSaveService) => {
     let emitted: boolean = null;
-    service.saveObservable.subscribe(t=>{
-        emitted = true;
-    })
+    service.saveObservable.subscribe(t => {
+      emitted = true;
+    });
 
     service.save();
 
@@ -24,9 +24,9 @@ describe('FormSaveService', () => {
   }));
   it('should emit update', inject([FormSaveService], (service: FormSaveService) => {
     let emitted: boolean = null;
-    service.updateObservable.subscribe(t=>{
-        emitted = true;
-    })
+    service.updateObservable.subscribe(t => {
+      emitted = true;
+    });
 
     service.update();
 
