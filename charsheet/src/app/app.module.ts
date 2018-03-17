@@ -31,6 +31,7 @@ import { appRoutes } from './app.routes';
 import { FormSaveService } from './form/form-save.service';
 import {MatIconModule} from '@angular/material/icon';
 import { BrowserStorageService } from './storage/browser-storage.service';
+import { SheetActionService } from './sheet/sheet-action.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { BrowserStorageService } from './storage/browser-storage.service';
     )
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService,
-    CompressionService, SheetIdService, FormSaveService, BrowserStorageService],
+    CompressionService, SheetIdService, FormSaveService, BrowserStorageService,
+    SheetActionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
