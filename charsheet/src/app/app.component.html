@@ -1,9 +1,13 @@
 <mat-sidenav-container>
   <mat-sidenav [mode]="menuMode" [opened]="showMenu">
-    <button mat-button color="primary" (click)="save()">
+    <button mat-button color="primary" (click)="save()" *ngIf="showSave">
       <mat-icon>save</mat-icon>
       Save
     </button>
+    <p><button mat-button color="primary" (click)="update()" >
+      <mat-icon>save</mat-icon>
+      Update
+    </button></p>
   </mat-sidenav>
   <mat-sidenav-content>
     <div style="text-align: center">

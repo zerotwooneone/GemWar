@@ -6,23 +6,23 @@ import { WindBubbleComponent } from './wind/wind-bubble/wind-bubble.component';
 import { TraitComponent } from './trait/trait.component';
 import { TraitGroupFactory } from './trait/trait-group-factory';
 import { FormStorageService } from './storage/form-storage.service';
-import { DebugElement } from '@angular/core';
+import { DebugElement, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { click } from '../testing/index';
+import { click, Router } from '../testing/index';
 import { TraitFactoryService } from './trait/trait-factory.service';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule, MatIcon, MatIconModule, MatFormFieldModule } from '@angular/material';
 import { SkillComponentComponent } from './skill/skill-component/skill-component.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatListModule } from '@angular/material/list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { EdgeHinderanceComponent } from './edge-hinderance/edge-hinderance.component';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { EdgeModel } from './edge-hinderance/edge-model';
 import { FormSaveService } from './form/form-save.service';
+import { SaveResult } from './form/save-result';
+import { Observable } from 'rxjs/Observable';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MockFormStorageService } from './new-sheet/new-sheet.component.spec';
 
 describe('AppComponent', () => {
 
@@ -37,24 +37,17 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent,
-        TraitComponent,
-        WindSelectorComponent,
-        WindBubbleComponent,
-        SkillComponentComponent,
-        EdgeHinderanceComponent
+        AppComponent
       ],
       imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule,
-        MatCardModule,
-        MatListModule,
-        MatFormFieldModule,
-        MatInputModule,
         NoopAnimationsModule,
         MatSidenavModule,
-        MatExpansionModule,
-        MatSlideToggleModule],
+        RouterTestingModule,
+        MatIconModule,
+        FlexLayoutModule,
+        MatFormFieldModule],
       providers: [TraitGroupFactory,
-        FormStorageService,
+        { provide: FormStorageService, useClass: MockFormStorageService },
         TraitFactoryService,
         FormBuilder,
         FormSaveService]
@@ -66,20 +59,35 @@ describe('AppComponent', () => {
     saveElement = fixture.debugElement.query(By.css('.save-form'));
     const formBuilder = TestBed.get(FormBuilder);
 
+    formSaveService = TestBed.get(FormSaveService);
+    formStorageService = TestBed.get(FormStorageService);
+
     fixture.detectChanges();
   });
   it('should create the app', async(() => {
     expect(app).toBeTruthy();
   }));
-  it('should call save form', async(() => {
-    app.save();
+  it('should call save form', async(async () => {
+    const sheetId = 'sheetId';
+    const sheetIdSubject = new BehaviorSubject<string>(sheetId);
+    const saveResult = new SaveResult(sheetIdSubject);
+    spyOn(formSaveService, 'save').and.returnValue(saveResult);
+    const router: Router = TestBed.get(Router);
+    spyOn(router, 'navigate');
 
-    expect(formSaveService.save).toHaveBeenCalled();
+    await app.save();
+
+    expect(router.navigate).toHaveBeenCalled();
   }));
   it('should call update form', async(() => {
     app.update();
 
     expect(formSaveService.update).toHaveBeenCalled();
+  }));
+  it('should show save button', async(() => {
+    const actual = app.showSave;
+
+    expect(actual).toBeTruthy();
   }));
 
 });

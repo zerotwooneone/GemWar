@@ -1,24 +1,65 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewSheetComponent } from './new-sheet.component';
-import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { FormSaveService } from '../form/form-save.service';
 import { FormStorageService } from '../storage/form-storage.service';
 import { TraitFactoryService } from '../trait/trait-factory.service';
 import { TraitGroupFactory } from '../trait/trait-group-factory';
 import { FormControl, FormArray, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Component, Input, Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { FormModel } from '../form/form-model';
+import { SaveResult } from '../form/save-result';
+import { BrowserStorageService } from '../storage/browser-storage.service';
+
+@Component({
+  selector: 'zer-sheet',
+  template: '<p>mock sheet</p>'
+})
+export class MockSheetComponent {
+  @Input() form: FormGroup;
+}
+
+@Injectable()
+export class MockTraitGroupFactory {
+  getFormGroup(formModel: FormModel): FormGroup { return <any>{ value: null }; }
+}
+
+@Injectable()
+export class MockFormStorageService {
+  saveNewForm(charName: string, formValue: FormModel): string {
+    return null;
+  }
+
+  saveForm(key: string, charName: string, formValue: FormModel): void {
+
+  }
+
+  loadForm(key: string): FormModel { return null; }
+}
+
+@Injectable()
+export class MockTraitFactoryService {
+  getFormDefault(): FormModel { return new FormModel(0, 0, [], [], []); }
+}
 
 describe('NewSheetComponent', () => {
   let component: NewSheetComponent;
   let fixture: ComponentFixture<NewSheetComponent>;
-  let router: Router;
   let formSaveService: FormSaveService;
   let formStorageService: FormStorageService;
+  let traitGroupFactory: TraitGroupFactory;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NewSheetComponent],
-      providers: [Router, FormSaveService, FormStorageService]
+      declarations: [NewSheetComponent, MockSheetComponent],
+      providers: [FormSaveService,
+        { provide: FormStorageService, useClass: MockFormStorageService },
+        { provide: TraitGroupFactory, useClass: MockTraitGroupFactory },
+        { provide: TraitFactoryService, useClass: MockTraitFactoryService }]
     })
       .compileComponents();
   }));
@@ -27,25 +68,13 @@ describe('NewSheetComponent', () => {
     fixture = TestBed.createComponent(NewSheetComponent);
     component = fixture.componentInstance;
 
-    router = TestBed.get(Router);
-    spyOn(router, 'navigate');
     formSaveService = TestBed.get(FormSaveService);
     formStorageService = TestBed.get(FormStorageService);
-    spyOn(formStorageService, 'saveNewForm');
 
     const traitFactoryService: TraitFactoryService = TestBed.get(TraitFactoryService);
-    spyOn(traitFactoryService, 'getFormDefault').and.returnValue({
-      edgeModels: []
-    });
-    const traitGroupFactory: TraitGroupFactory = TestBed.get(TraitGroupFactory);
-    spyOn(traitGroupFactory, 'getFormGroup').and.returnValue(new FormGroup({}));
-
-    /* formStorageService = TestBed.get(FormStorageService);
-    spyOn(formStorageService, 'saveForm'); */
+    traitGroupFactory = TestBed.get(TraitGroupFactory);
 
     formSaveService = TestBed.get(FormSaveService);
-    spyOn(formSaveService, 'save');
-    spyOn(formSaveService, 'update');
 
     fixture.detectChanges();
   });
@@ -54,9 +83,18 @@ describe('NewSheetComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should should call save', () => {
-    formSaveService.save();
+  it('should should call save', async () => {
+    let actual: string = null;
+    const id = 'id';
+    spyOn(formStorageService, 'saveNewForm').and.returnValue(id);
 
-    expect(formStorageService.saveForm).toHaveBeenCalled();
+    const saveResult = formSaveService.save();
+    saveResult.sheetId.subscribe(s => {
+      actual = s;
+    });
+
+    await saveResult.sheetId.first().toPromise();
+
+    expect(actual).toBe(id);
   });
 });

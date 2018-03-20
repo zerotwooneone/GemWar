@@ -1,6 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { FormSaveService } from './form-save.service';
+import { Observable } from 'rxjs/Observable';
 
 describe('FormSaveService', () => {
   beforeEach(() => {
@@ -12,15 +13,21 @@ describe('FormSaveService', () => {
   it('should be created', inject([FormSaveService], (service: FormSaveService) => {
     expect(service).toBeTruthy();
   }));
-  it('should emit save', inject([FormSaveService], (service: FormSaveService) => {
-    let emitted: boolean = null;
+  it('should emit save', inject([FormSaveService], async (service: FormSaveService) => {
+    const sheetId = 'sheetId';
     service.saveObservable.subscribe(t => {
-      emitted = true;
+      t.next(sheetId);
+    });
+    let actual: string = null;
+
+    const saveResult = service.save();
+    saveResult.sheetId.subscribe(s => {
+      actual = s;
     });
 
-    service.save();
+    await Observable.forkJoin(saveResult.sheetId, service.saveObservable.take(1)).first().toPromise();
 
-    expect(emitted).toBeTruthy;
+    expect(actual).toBe(sheetId);
   }));
   it('should emit update', inject([FormSaveService], (service: FormSaveService) => {
     let emitted: boolean = null;
@@ -30,6 +37,6 @@ describe('FormSaveService', () => {
 
     service.update();
 
-    expect(emitted).toBeTruthy;
+    expect(emitted).toBeTruthy();
   }));
 });

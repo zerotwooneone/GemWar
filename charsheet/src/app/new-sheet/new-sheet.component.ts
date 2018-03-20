@@ -3,8 +3,6 @@ import { TraitGroupFactory } from '../trait/trait-group-factory';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormStorageService } from '../storage/form-storage.service';
 import { TraitFactoryService } from '../trait/trait-factory.service';
-import { RouterLink } from '../../testing';
-import { RouterLinkActive, Router } from '@angular/router';
 import { FormSaveService } from '../form/form-save.service';
 
 @Component({
@@ -19,14 +17,13 @@ export class NewSheetComponent implements OnInit {
   constructor(private traitGroupFactory: TraitGroupFactory,
     private formStorageService: FormStorageService,
     private traitFactoryService: TraitFactoryService,
-    private router: Router,
-    private formSaveService: FormSaveService) {
-    this.formSaveService.saveObservable.subscribe(t => {
-      this.save();
-    });
-  }
+    private formSaveService: FormSaveService) { }
 
   ngOnInit() {
+    this.formSaveService.saveObservable.subscribe(callback => {
+      const id = this.formStorageService.saveNewForm('char name', this.form.value);
+      callback.next(id);
+    });
     const formModel = this.traitFactoryService.getFormDefault();
 
     // this is just for testing
@@ -35,10 +32,4 @@ export class NewSheetComponent implements OnInit {
 
     this.form = this.traitGroupFactory.getFormGroup(formModel);
   }
-
-  save(): void {
-    const id = this.formStorageService.saveNewForm('char name', this.form.value);
-    this.router.navigate(['/char', id]);
-  }
-
 }
