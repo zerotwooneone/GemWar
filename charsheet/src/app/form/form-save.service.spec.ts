@@ -29,14 +29,20 @@ describe('FormSaveService', () => {
 
     expect(actual).toBe(sheetId);
   }));
-  it('should emit update', inject([FormSaveService], (service: FormSaveService) => {
-    let emitted: boolean = null;
+  it('should emit update', inject([FormSaveService], async (service: FormSaveService) => {
+    const sheetId = 'sheetId';
     service.updateObservable.subscribe(t => {
-      emitted = true;
+      t.next(sheetId);
+    });
+    let actual: string = null;
+
+    const saveResult = service.update();
+    saveResult.sheetId.subscribe(s => {
+      actual = s;
     });
 
-    service.update();
+    await Observable.forkJoin(saveResult.sheetId, service.updateObservable.take(1)).first().toPromise();
 
-    expect(emitted).toBeTruthy();
+    expect(actual).toBe(sheetId);
   }));
 });

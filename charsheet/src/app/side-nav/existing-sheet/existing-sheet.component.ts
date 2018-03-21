@@ -15,9 +15,9 @@ export class ExistingSheetComponent implements OnInit {
   ngOnInit() {
   }
 
-/*   async update(): Promise<void> {
+  async update(): Promise<void> {
     const saveResult = this.formSaveService.update();
     const sheetId = await saveResult.sheetId.first().toPromise();
-  } */
+  }
 
 }

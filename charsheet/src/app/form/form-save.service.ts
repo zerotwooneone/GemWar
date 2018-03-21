@@ -12,8 +12,8 @@ export class FormSaveService {
   get saveObservable(): Observable<Subject<string>> {
     return this._saveSubject;
   }
-  private _updateSubject: Subject<void> = new Subject<void>();
-  get updateObservable(): Observable<void> {
+  private _updateSubject: Subject<Subject<string>> = new Subject<Subject<string>>();
+  get updateObservable(): Observable<Subject<string>> {
     return this._updateSubject;
   }
   constructor() { }
@@ -26,7 +26,12 @@ export class FormSaveService {
     });
     return result;
   }
-  update(): void {
-    this._updateSubject.next();
+  update(): SaveResult {
+    const updateSubject = new Subject<string>();
+    const result = new SaveResult(updateSubject.shareReplay(1).take(1));
+    Observable.timer(100).subscribe(s => {
+      this._updateSubject.next(updateSubject);
+    });
+    return result;
   }
 }
