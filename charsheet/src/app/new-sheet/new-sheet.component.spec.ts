@@ -14,37 +14,8 @@ import { Subject } from 'rxjs/Subject';
 import { FormModel } from '../form/form-model';
 import { SaveResult } from '../form/save-result';
 import { BrowserStorageService } from '../storage/browser-storage.service';
-
-@Component({
-  selector: 'zer-sheet',
-  template: '<p>mock sheet</p>'
-})
-export class MockSheetComponent {
-  @Input() form: FormGroup;
-}
-
-@Injectable()
-export class MockTraitGroupFactory {
-  getFormGroup(formModel: FormModel): FormGroup { return <any>{ value: null }; }
-}
-
-@Injectable()
-export class MockFormStorageService {
-  saveNewForm(charName: string, formValue: FormModel): string {
-    return null;
-  }
-
-  saveForm(key: string, charName: string, formValue: FormModel): void {
-
-  }
-
-  loadForm(key: string): FormModel { return null; }
-}
-
-@Injectable()
-export class MockTraitFactoryService {
-  getFormDefault(): FormModel { return new FormModel(0, 0, [], [], []); }
-}
+import { MockSheetComponent } from '../../testing/mock-components';
+import { MockFormStorageService, MockTraitGroupFactory, MockTraitFactoryService } from '../../testing/mock-services';
 
 describe('NewSheetComponent', () => {
   let component: NewSheetComponent;

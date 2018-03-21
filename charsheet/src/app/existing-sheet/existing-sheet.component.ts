@@ -5,6 +5,7 @@ import { FormStorageService } from '../storage/form-storage.service';
 import { TraitFactoryService } from '../trait/trait-factory.service';
 import { ActivatedRoute } from '../../testing';
 import { FormModel } from '../form/form-model';
+import { FormSaveService } from '../form/form-save.service';
 
 @Component({
   selector: 'zer-existing-sheet',
@@ -20,10 +21,10 @@ export class ExistingSheetComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formStorageService: FormStorageService,
     private traitFactoryService: TraitFactoryService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private formSaveService: FormSaveService) { }
 
   ngOnInit() {
-
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
       if (this.id) {
@@ -31,10 +32,9 @@ export class ExistingSheetComponent implements OnInit {
         this.form = this.traitGroupFactory.getFormGroup(formModel);
       }
     });
+    this.formSaveService.updateObservable.subscribe(s => {
+      this.formStorageService.saveForm(this.id, 'char name', this.form.value);
+      s.next(this.id);
+    });
   }
-
-  update(): void {
-    this.formStorageService.saveForm(this.id, 'char name', this.form.value);
-  }
-
 }
