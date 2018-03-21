@@ -4,6 +4,8 @@ import { ExistingSheetComponent } from './existing-sheet.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SaveResult } from '../../form/save-result';
 import { FormSaveService } from '../../form/form-save.service';
+import { MockFormSaveService } from '../../../testing/mock-services';
+import { MatIconModule } from '@angular/material';
 
 describe('ExistingSheetComponent', () => {
   let component: ExistingSheetComponent;
@@ -13,7 +15,9 @@ describe('ExistingSheetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ExistingSheetComponent]
+      declarations: [ExistingSheetComponent],
+      providers: [{ provide: FormSaveService, useClass: MockFormSaveService }],
+      imports: [MatIconModule]
     })
       .compileComponents();
   }));

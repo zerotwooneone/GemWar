@@ -9,8 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ExistingSheetComponent implements OnInit {
 
-  constructor(private formSaveService: FormSaveService,
-    private router: Router) { }
+  constructor(private formSaveService: FormSaveService) { }
 
   ngOnInit() {
   }
