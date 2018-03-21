@@ -20,9 +20,7 @@ export class AppComponent implements OnInit {
   showMenu: boolean;
   menuMode: 'push' | 'side';
 
-  constructor(private observableMedia: ObservableMedia,
-    private formSaveService: FormSaveService,
-    private router: Router) {
+  constructor(private observableMedia: ObservableMedia) {
     observableMedia.subscribe(mediaChange => {
       const autoShowMenu = this.observableMedia.isActive('gt-sm');
       this.showMenu = autoShowMenu;
@@ -30,22 +28,5 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-  }
-
-  async save(): Promise<void> {
-    const saveResult = this.formSaveService.save();
-    const sheetId = await saveResult.sheetId.first().toPromise();
-    this.router.navigate(['/char', sheetId]);
-  }
-
-  update(): void {
-    this.formSaveService.update();
-  }
-
-  get showSave(): boolean {
-    return this.router.url === '/new';
-  }
-
+  ngOnInit(): void { }
 }

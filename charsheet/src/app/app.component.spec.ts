@@ -31,9 +31,7 @@ describe('AppComponent', () => {
 
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
-  let formStorageService: FormStorageService;
-  let formSaveService: FormSaveService;
-
+  
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -47,10 +45,8 @@ describe('AppComponent', () => {
         FlexLayoutModule,
         MatFormFieldModule],
       providers: [TraitGroupFactory,
-        { provide: FormStorageService, useClass: MockFormStorageService },
         TraitFactoryService,
-        FormBuilder,
-        FormSaveService]
+        FormBuilder]
     }).compileComponents();
   }));
   beforeEach(() => {
@@ -59,35 +55,9 @@ describe('AppComponent', () => {
     saveElement = fixture.debugElement.query(By.css('.save-form'));
     const formBuilder = TestBed.get(FormBuilder);
 
-    formSaveService = TestBed.get(FormSaveService);
-    formStorageService = TestBed.get(FormStorageService);
-
     fixture.detectChanges();
   });
   it('should create the app', async(() => {
     expect(app).toBeTruthy();
   }));
-  it('should call save form', async(async () => {
-    const sheetId = 'sheetId';
-    const sheetIdSubject = new BehaviorSubject<string>(sheetId);
-    const saveResult = new SaveResult(sheetIdSubject);
-    spyOn(formSaveService, 'save').and.returnValue(saveResult);
-    const router: Router = TestBed.get(Router);
-    spyOn(router, 'navigate');
-
-    await app.save();
-
-    expect(router.navigate).toHaveBeenCalled();
-  }));
-  it('should call update form', async(() => {
-    app.update();
-
-    expect(formSaveService.update).toHaveBeenCalled();
-  }));
-  it('should show save button', async(() => {
-    const actual = app.showSave;
-
-    expect(actual).toBeTruthy();
-  }));
-
 });

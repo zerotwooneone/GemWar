@@ -32,6 +32,8 @@ import { FormSaveService } from './form/form-save.service';
 import {MatIconModule} from '@angular/material/icon';
 import { BrowserStorageService } from './storage/browser-storage.service';
 import { SheetActionService } from './sheet/sheet-action.service';
+import { NewSheetComponent as SideNavNewSheetComponent } from './side-nav/new-sheet/new-sheet.component';
+import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-nav/existing-sheet/existing-sheet.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { SheetActionService } from './sheet/sheet-action.service';
     EdgeHinderanceComponent,
     SheetComponent,
     NewSheetComponent,
-    ExistingSheetComponent
+    ExistingSheetComponent,
+    SideNavNewSheetComponent,
+    SideNavExistingSheetComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,7 @@ import { SheetActionService } from './sheet/sheet-action.service';
     MatIconModule,
     RouterModule.forRoot(
       appRoutes,
-      // { enableTracing: true } // <-- debugging purposes only
+       { enableTracing: true } // <-- debugging purposes only
     )
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService,
