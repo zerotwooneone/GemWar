@@ -21,7 +21,7 @@ export class FormSaveService {
   save(): SaveResult {
     const saveSubject = new Subject<string>();
     const result = new SaveResult(saveSubject.shareReplay(1).take(1));
-    Observable.timer(100).subscribe(s => {
+    Observable.timer(1).subscribe(s => {
       this._saveSubject.next(saveSubject);
     });
     return result;
@@ -29,7 +29,7 @@ export class FormSaveService {
   update(): SaveResult {
     const updateSubject = new Subject<string>();
     const result = new SaveResult(updateSubject.shareReplay(1).take(1));
-    Observable.timer(100).subscribe(s => {
+    Observable.timer(1).subscribe(s => {
       this._updateSubject.next(updateSubject);
     });
     return result;
