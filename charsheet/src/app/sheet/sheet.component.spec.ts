@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SheetComponent } from './sheet.component';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { MockTraitComponent, MockEdgeHinderanceComponent } from '../../testing/mock-components';
+import { WindSelectorComponent } from '../wind/wind-selector/wind-selector.component';
+import { WindBubbleComponent } from '../wind/wind-bubble/wind-bubble.component';
 
 describe('SheetComponent', () => {
   let component: SheetComponent;
@@ -11,7 +15,10 @@ describe('SheetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SheetComponent]
+      declarations: [SheetComponent, MockTraitComponent, MockEdgeHinderanceComponent,
+        WindSelectorComponent, WindBubbleComponent],
+      imports: [ReactiveFormsModule],
+      providers: [FormBuilder]
     })
       .compileComponents();
   }));
@@ -19,6 +26,27 @@ describe('SheetComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SheetComponent);
     component = fixture.componentInstance;
+
+    const formBuilder = TestBed.get(FormBuilder);
+    component.form = formBuilder.group({
+      currentWind: 0,
+      currentStrain: 0,
+      mentalTraits: formBuilder.array([formBuilder.group({
+        'traitName': formBuilder.control('Spirit'),
+        'dieType': formBuilder.control(spiritDieType),
+        'dieCount': formBuilder.control(0),
+        'rollModifier': formBuilder.control(null),
+        'skills': formBuilder.array([])
+      })]),
+      corporealTraits: formBuilder.array([formBuilder.group({
+        'traitName': formBuilder.control('Vigor'),
+        'dieType': formBuilder.control(vigorDieType),
+        'dieCount': formBuilder.control(0),
+        'rollModifier': formBuilder.control(null),
+        'skills': formBuilder.array([])
+      })]),
+      edges: formBuilder.array([])
+    });
 
     fixture.detectChanges();
   });

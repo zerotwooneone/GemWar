@@ -24,7 +24,7 @@ export class WindSelectorComponent implements OnInit, ControlValueAccessor {
   get pulsePoint(): number {
     return this.windTotal / 2;
   }
-  _currentWind: number = 0;
+  _currentWind = 0;
 
   get currentWind(): number {
     return this._currentWind;

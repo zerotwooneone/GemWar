@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { MatIcon } from '@angular/material';
 import { SheetComponent } from '../app/sheet/sheet.component';
+import { TraitComponent } from '../app/trait/trait.component';
+import { EdgeHinderanceComponent } from '../app/edge-hinderance/edge-hinderance.component';
+import { WindSelectorComponent } from '../app/wind/wind-selector/wind-selector.component';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
     selector: 'mat-icon',
@@ -13,3 +17,19 @@ export class MockMatIconComponent extends MatIcon { }
     template: '<p>mock sheet</p>'
 })
 export class MockSheetComponent extends SheetComponent { }
+
+@Component({
+    selector: 'trait',
+    template: '<p>mock trait</p>'
+})
+export class MockTraitComponent extends TraitComponent {
+    constructor() {
+        super(null, null);
+    }
+}
+
+@Component({
+    selector: 'zer-edge-hinderance',
+    template: '<p>mock edge hinderance</p>'
+})
+export class MockEdgeHinderanceComponent extends EdgeHinderanceComponent { }
