@@ -22,7 +22,6 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MockFormStorageService } from './new-sheet/new-sheet.component.spec';
 
 describe('AppComponent', () => {
 
@@ -31,7 +30,6 @@ describe('AppComponent', () => {
 
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
-  
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [

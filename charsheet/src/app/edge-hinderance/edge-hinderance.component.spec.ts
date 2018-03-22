@@ -12,12 +12,13 @@ import { EdgeModel } from './edge-model';
 describe('EdgeHinderanceComponent', () => {
   let component: EdgeHinderanceComponent;
   let fixture: ComponentFixture<EdgeHinderanceComponent>;
-  let firstExpectedEdgeHinderance: EdgeModel = {name:"name", isEdge: true, value: 2};
+  const firstExpectedEdgeHinderance: EdgeModel = { name: 'name', isEdge: true, value: 2 };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [EdgeHinderanceComponent],
-      imports: [MatCardModule, MatExpansionModule, MatSlideToggleModule, ReactiveFormsModule, MatFormFieldModule, MatListModule, NoopAnimationsModule, MatInputModule],
+      imports: [MatCardModule, MatExpansionModule, MatSlideToggleModule, ReactiveFormsModule,
+        MatFormFieldModule, NoopAnimationsModule, MatInputModule],
       providers: [FormBuilder]
     })
       .compileComponents();
@@ -26,10 +27,10 @@ describe('EdgeHinderanceComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EdgeHinderanceComponent);
     component = fixture.componentInstance;
-    
-    let formBuilder = TestBed.get(FormBuilder);
 
-    component.edges = formBuilder.array([firstExpectedEdgeHinderance]);
+    const formBuilder = TestBed.get(FormBuilder);
+
+    component.edges = formBuilder.array([formBuilder.group(firstExpectedEdgeHinderance)]);
     fixture.detectChanges();
   });
 

@@ -67,7 +67,7 @@ import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-
     MatIconModule,
     RouterModule.forRoot(
       appRoutes,
-       //{ enableTracing: true } // <-- debugging purposes only
+       // { enableTracing: true } // <-- debugging purposes only
     )
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService,

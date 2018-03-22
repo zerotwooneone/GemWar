@@ -14,7 +14,7 @@ export class EdgeHinderanceComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    
+
   }
 
   isEdge(index: number): boolean {
