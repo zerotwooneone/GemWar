@@ -41,4 +41,7 @@ export class EdgeHinderanceComponent implements OnInit {
     const edgeGroup = this.formBuilder.group(edgeModel);
     this.edges.push(edgeGroup);
   }
+  remove(index: number): void {
+    this.edges.controls.splice(index, 1);
+  }
 }

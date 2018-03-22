@@ -46,4 +46,13 @@ describe('EdgeHinderanceComponent', () => {
 
     expect(actual).toBe(expected);
   });
+  it('should remove', () => {
+    const initial = component.edges.length;
+    const expected = initial - 1;
+
+    component.remove(0);
+    const actual = component.edges.length;
+
+    expect(actual).toBe(expected);
+  });
 });
