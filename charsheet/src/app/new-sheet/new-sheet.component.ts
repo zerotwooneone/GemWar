@@ -26,10 +26,6 @@ export class NewSheetComponent implements OnInit {
     });
     const formModel = this.traitFactoryService.getFormDefault();
 
-    // this is just for testing
-    formModel.edges.push({ isEdge: false, name: '', value: 0 });
-    formModel.edges.push({ isEdge: false, name: '', value: 0 });
-
     this.form = this.traitGroupFactory.getFormGroup(formModel);
   }
 }

@@ -32,4 +32,13 @@ export class EdgeHinderanceComponent implements OnInit {
   value(index: number): string {
     return this.edges.controls[index].get('value').value;
   }
+
+  add(): void {
+    const edgeModel = new EdgeModel();
+    edgeModel.isEdge = false;
+    edgeModel.name = '';
+    edgeModel.value = 0;
+    const edgeGroup = this.formBuilder.group(edgeModel);
+    this.edges.push(edgeGroup);
+  }
 }
