@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SkillComponentComponent } from './skill-component.component';
-import { MatSnackBar, MatSnackBarRef, MatSnackBarModule } from '@angular/material';
+import { MatSnackBar, MatSnackBarRef, MatSnackBarModule, MatExpansionModule } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { ReactiveFormsModule, FormGroup, FormControl, FormArray } from '@angular/forms';
@@ -19,8 +19,6 @@ describe('SkillComponentComponent', () => {
   let matSnackBar: MatSnackBar;
   let firstExpectedSkill: FormGroup;
   let editButton: DebugElement;
-  let addSpecElement: DebugElement;
-  let removeSpecElement: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,7 +27,8 @@ describe('SkillComponentComponent', () => {
         MatListModule,
         MatFormFieldModule,
         MatInputModule,
-        NoopAnimationsModule],
+        NoopAnimationsModule,
+        MatExpansionModule],
       providers: [MatSnackBar]
     })
       .compileComponents();
@@ -52,8 +51,6 @@ describe('SkillComponentComponent', () => {
     fixture.detectChanges();
 
     editButton = fixture.debugElement.query(By.css('.edit-skill'));
-    addSpecElement = fixture.debugElement.query(By.css('.add-spec'));
-    removeSpecElement = fixture.debugElement.query(By.css('.remove-spec'));
   });
 
   it('should create', () => {
@@ -63,10 +60,9 @@ describe('SkillComponentComponent', () => {
     () => {
       const index = 0;
       component.removeSkill(index);
-      const actual = component.hidden;
+      const actual = component.hidden[index];
 
-      const expected = {};
-      expected[index] = true;
+      const expected = true;
       expect(actual).toBe(expected);
     });
   it('should set hidden to false when undone',
@@ -78,45 +74,28 @@ describe('SkillComponentComponent', () => {
       const index = 0;
       component.removeSkill(index);
       fixture.detectChanges();
-      const actual = component.hidden;
+      const actual = component.hidden[index];
 
-      const expected = {};
-      expected[index] = true;
+      const expected = false;
       expect(actual).toBe(expected);
     });
-  /*  it('should emit remove when not dismissed by undo',
-     () => {
-       spyOn(matSnackBar, 'open').and.returnValue({
-         afterDismissed: () => Observable.of({ dismissedByAction: false })
-       });
-
-       let actual: boolean = null;
-       component.remove.subscribe(() => {
-         actual = true;
-       });
-
-       component.removeSkill();
-
-       expect(actual).toBe(true);
-     }); */
-  it('should add specialization',
+  it('should show specialization',
     () => {
-      const specializationControl = firstExpectedSkill.get('specialization');
-      specializationControl.setValue(null);
+      const index = 0;
 
-      click(addSpecElement);
-      const actual = specializationControl.value;
+      component.addSpecialization(index);
+      const actual = component.hideSpecialization(index);
 
-      expect(actual).toBe('');
+      expect(actual).toBeFalsy();
     });
-  it('should remove specialization',
+  it('should hide specialization',
     () => {
-      const specializationControl = firstExpectedSkill.get('specialization');
-      specializationControl.setValue('something');
+      const index = 0;
 
-      click(removeSpecElement);
-      const actual = specializationControl.value;
+      component.addSpecialization(index);
+      component.removeSpecialization(index);
+      const actual = component.hideSpecialization(index);
 
-      expect(actual).toBe(null);
+      expect(actual).toBeTruthy();
     });
 });
