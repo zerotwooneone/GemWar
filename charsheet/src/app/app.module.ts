@@ -29,11 +29,13 @@ import { ExistingSheetComponent } from './existing-sheet/existing-sheet.componen
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { FormSaveService } from './form/form-save.service';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserStorageService } from './storage/browser-storage.service';
 import { SheetActionService } from './sheet/sheet-action.service';
 import { NewSheetComponent as SideNavNewSheetComponent } from './side-nav/new-sheet/new-sheet.component';
 import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-nav/existing-sheet/existing-sheet.component';
+import { NavWrapperComponent } from './side-nav/nav-wrapper/nav-wrapper.component';
+import { SideNavService } from './side-nav/side-nav.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-
     NewSheetComponent,
     ExistingSheetComponent,
     SideNavNewSheetComponent,
-    SideNavExistingSheetComponent
+    SideNavExistingSheetComponent,
+    NavWrapperComponent
   ],
   imports: [
     BrowserModule,
@@ -67,12 +70,12 @@ import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-
     MatIconModule,
     RouterModule.forRoot(
       appRoutes,
-       // { enableTracing: true } // <-- debugging purposes only
+      // { enableTracing: true } // <-- debugging purposes only
     )
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService,
     CompressionService, SheetIdService, FormSaveService, BrowserStorageService,
-    SheetActionService],
+    SheetActionService, SideNavService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

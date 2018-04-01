@@ -9,6 +9,7 @@ import { ObservableMedia } from '@angular/flex-layout';
 import { FormSaveService } from './form/form-save.service';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/first';
+import { SideNavService } from './side-nav/side-nav.service';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +21,22 @@ export class AppComponent implements OnInit {
   showMenu: boolean;
   menuMode: 'push' | 'side';
 
-  constructor(private observableMedia: ObservableMedia) {
-    observableMedia.subscribe(mediaChange => {
+  constructor(private observableMedia: ObservableMedia,
+    private sideNavService: SideNavService) { }
+
+  ngOnInit(): void {
+    this.observableMedia.subscribe(mediaChange => {
       const autoShowMenu = this.observableMedia.isActive('gt-sm');
-      this.showMenu = autoShowMenu;
+      if (autoShowMenu) {
+        this.sideNavService.show();
+      } else {
+        this.sideNavService.hide();
+      }
       this.menuMode = autoShowMenu ? 'side' : 'push';
     });
-  }
 
-  ngOnInit(): void { }
+    this.sideNavService.visibleObservable.subscribe(visible => {
+      this.showMenu = visible;
+    });
+  }
 }
