@@ -1,66 +1,41 @@
-<mat-card [formGroup]="trait"
-          class="trait-wrapper">
+<mat-card [formGroup]="trait" class="trait-wrapper">
   <mat-card-title>
-    <div [hidden]="isEditable">
-      <span>{{traitName}}</span>
-      <span class="die-count">{{dieCount}}</span>
-      <span class="die-seperator">d</span>
-      <span class="die-type">{{getDieType()}}</span>
-      <span class="die-seperator">+</span>
-      <span class="die-type">{{getRollModifier()}}</span>
-    </div>
-    <div [hidden]="!isEditable">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span>{{traitName}}</span>
+        </mat-panel-title>
+        <mat-panel-description>
+          <span class="die-count">{{dieCount}}</span>
+          <span class="die-seperator">d</span>
+          <span class="die-type">{{getDieType()}}</span>
+          <span class="die-seperator">+</span>
+          <span class="die-type">{{getRollModifier()}}</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
       <mat-form-field>
-        <input matInput
-               type="text"
-               formControlName="traitName" />
+        <input matInput type="text" formControlName="traitName" />
       </mat-form-field>
       <mat-form-field>
-        <input matInput
-               type="text"
-               formControlName="dieCount"
-               class="die-count"
-               placeholder="# of dice" />
+        <input matInput type="text" formControlName="dieCount" class="die-count" placeholder="# of dice" />
       </mat-form-field>
       <mat-form-field>
         <span matPrefix>d</span>
-        <input matInput
-               type="text"
-               class="die-type"
-               formControlName="dieType"
-               placeholder="# of sides to each die" />
+        <input matInput type="text" class="die-type" formControlName="dieType" placeholder="# of sides to each die" />
       </mat-form-field>
       <mat-form-field>
         <span matPrefix>+</span>
-        <input matInput
-               type="text"
-               formControlName="rollModifier"
-               class="die-type"
-               placeholder="modify roll value" />
+        <input matInput type="text" formControlName="rollModifier" class="die-type" placeholder="modify roll value" />
       </mat-form-field>
-    </div>
+    </mat-expansion-panel>
   </mat-card-title>
   <mat-card-content>
-    <app-skill-component [skills]="skills"
-                         [dieType]="getDieType()"
-                         [rollModifier]="getRollModifier()"></app-skill-component>
+    <app-skill-component [skills]="skills" [dieType]="getDieType()" [rollModifier]="getRollModifier()"></app-skill-component>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button
-            class="edit-trait"
-            (click)="toggleEdit()">
-      &#9998;
+    <button mat-button color="primary" class="add-skill" (click)="addSkill()">
+      <mat-icon>add_box</mat-icon>
+      add skill
     </button>
-    <span [hidden]="!isEditable">
-      <button mat-button
-              color="primary"
-              class="add-skill"
-              (click)="addSkill()">
-        +
-      </button>
-    </span>
   </mat-card-actions>
 </mat-card>
-
-
-

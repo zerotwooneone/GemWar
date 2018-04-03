@@ -19,22 +19,19 @@ export class TraitComponent implements OnInit {
   get traitName(): string {
     return this.trait.get('traitName').value;
   }
-  isEditable: boolean;
 
   constructor(private traitGroupFactory: TraitGroupFactory,
     private traitFactoryService: TraitFactoryService) { }
 
-  ngOnInit() {
-    this.isEditable = false;
-  }
+  ngOnInit() {  }
 
   addSkill() {
-    const name = "";
-    let skill = this.traitFactoryService.buildSkill(name);
-    let skillGroup = this.traitGroupFactory.buildSkillGroup(skill);
+    const name = '';
+    const skill = this.traitFactoryService.buildSkill(name);
+    const skillGroup = this.traitGroupFactory.buildSkillGroup(skill);
     this.skills.push(skillGroup);
   }
-    
+
   getDieType(): number {
     return this.trait.get('dieType').value;
   }
@@ -44,10 +41,7 @@ export class TraitComponent implements OnInit {
   getRollModifier(): number {
     return this.trait.get('rollModifier').value;
   }
-  toggleEdit(): void {
-    this.isEditable = !this.isEditable;
-  }
-  removeSkill(index:number): void {
+  removeSkill(index: number): void {
     this.skills.controls.splice(index, 1);
   }
 

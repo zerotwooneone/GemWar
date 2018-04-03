@@ -9,7 +9,7 @@ import { click } from '../../testing/index';
 import { TraitGroupFactory } from './trait-group-factory';
 import { TraitFactoryService } from './trait-factory.service';
 import { SkillComponentComponent } from '../skill/skill-component/skill-component.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material';
+import { MatSnackBar, MatSnackBarModule, MatIconModule, MatExpansionModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,7 +23,7 @@ describe('TraitComponent', () => {
   let expectedSkills: FormGroup[];
   let addSkillElement: DebugElement;
   let editElement: DebugElement;
-  
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -34,7 +34,9 @@ describe('TraitComponent', () => {
         MatListModule,
         MatFormFieldModule,
         MatInputModule,
-        NoopAnimationsModule],
+        NoopAnimationsModule,
+        MatIconModule,
+        MatExpansionModule],
       providers: [TraitGroupFactory, TraitFactoryService, MatSnackBar]
     })
       .compileComponents();
@@ -51,7 +53,7 @@ describe('TraitComponent', () => {
     });
     expectedSkills = [firstExpectedSkill];
 
-    let trait = new FormGroup({
+    const trait = new FormGroup({
       traitName: new FormControl('test attribute'),
       skills: new FormArray(expectedSkills),
       dieType: new FormControl(0),
@@ -60,14 +62,14 @@ describe('TraitComponent', () => {
     });
     component.trait = trait;
 
-    let traitFactoryService: TraitFactoryService = (<any>component).traitFactoryService;
+    const traitFactoryService: TraitFactoryService = (<any>component).traitFactoryService;
     spyOn(traitFactoryService, 'buildSkill');
 
     addSkillElement = fixture.debugElement.query(By.css('.add-skill'));
     editElement = fixture.debugElement.query(By.css('.edit-trait'));
 
     fixture.detectChanges();
-    
+
   });
 
   it('should create', () => {
@@ -81,52 +83,21 @@ describe('TraitComponent', () => {
 
   it('should add new skill',
     () => {
-      let expected = new FormGroup({});
-      let spy = spyOn((<any>component).traitGroupFactory, 'buildSkillGroup').and.returnValue(expected);
+      const expected = new FormGroup({});
+      const spy = spyOn((<any>component).traitGroupFactory, 'buildSkillGroup').and.returnValue(expected);
 
       click(addSkillElement);
-      let actual = component.skills.controls[component.skills.length - 1];
+      const actual = component.skills.controls[component.skills.length - 1];
 
       expect(actual).toBe(expected);
     });
-  it('should default isEditable',
+    it('should remove skill when called with true',
     () => {
-      expect(component.isEditable).toBe(false);
-    });
-  it('should set isEditable',
-    () => {
-      click(editElement);
-
-      expect(component.isEditable).toBe(true);
-    });
-  it('should unset isEditable',
-    () => {
-      click(editElement);
-      click(editElement);
-
-      expect(component.isEditable).toBe(false);
-    });
-  it('should remove skill when called with true',
-    () => {
-      let expected = component.skills.length - 1;
+      const expected = component.skills.length - 1;
 
       component.removeSkill(0);
-      let actual = component.skills.length;
+      const actual = component.skills.length;
 
       expect(actual).toBe(expected);
-    });
-  it('should toggle editable to true',
-    () => {
-      component.toggleEdit();;
-      
-      expect(component.isEditable).toBe(true);
-    });
-  it('should toggle editable to false',
-    () => {
-      component.isEditable = true;
-
-      component.toggleEdit();;
-
-      expect(component.isEditable).toBe(false);
     });
 });
