@@ -14,12 +14,12 @@ import { SideNavService } from './side-nav/side-nav.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'app';
   showMenu: boolean;
-  menuMode: 'push' | 'side';
+  menuMode: 'side' | 'over';
 
   constructor(private observableMedia: ObservableMedia,
     private sideNavService: SideNavService) { }
@@ -32,11 +32,15 @@ export class AppComponent implements OnInit {
       } else {
         this.sideNavService.hide();
       }
-      this.menuMode = autoShowMenu ? 'side' : 'push';
+      this.menuMode = autoShowMenu ? 'side' : 'over';
     });
 
     this.sideNavService.visibleObservable.subscribe(visible => {
       this.showMenu = visible;
     });
+  }
+
+  openMenu(): Promise<boolean> {
+    return this.sideNavService.show();
   }
 }

@@ -5,6 +5,7 @@ import { TraitComponent } from '../app/trait/trait.component';
 import { EdgeHinderanceComponent } from '../app/edge-hinderance/edge-hinderance.component';
 import { WindSelectorComponent } from '../app/wind/wind-selector/wind-selector.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NavWrapperComponent } from '../app/side-nav/nav-wrapper/nav-wrapper.component';
 
 @Component({
     selector: 'mat-icon',
@@ -33,3 +34,14 @@ export class MockTraitComponent extends TraitComponent {
     template: '<p>mock edge hinderance</p>'
 })
 export class MockEdgeHinderanceComponent extends EdgeHinderanceComponent { }
+
+@Component({
+    selector: 'zer-nav-wrapper',
+    template: '<p>mock nav wrapper</p>'
+})
+export class MockNavWrapperComponent extends NavWrapperComponent {
+
+    constructor() {
+        super(null);
+    }
+}

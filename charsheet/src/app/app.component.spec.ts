@@ -22,18 +22,21 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MockNavWrapperComponent } from '../testing/mock-components';
+import { SideNavService } from './side-nav/side-nav.service';
 
 describe('AppComponent', () => {
 
-
   let saveElement: DebugElement;
-
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
+  let sideNavService: SideNavService;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        MockNavWrapperComponent
       ],
       imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule,
         NoopAnimationsModule,
@@ -44,7 +47,8 @@ describe('AppComponent', () => {
         MatFormFieldModule],
       providers: [TraitGroupFactory,
         TraitFactoryService,
-        FormBuilder]
+        FormBuilder,
+        SideNavService]
     }).compileComponents();
   }));
   beforeEach(() => {
@@ -53,9 +57,21 @@ describe('AppComponent', () => {
     saveElement = fixture.debugElement.query(By.css('.save-form'));
     const formBuilder = TestBed.get(FormBuilder);
 
+    sideNavService = TestBed.get(SideNavService);
+
     fixture.detectChanges();
   });
   it('should create the app', async(() => {
     expect(app).toBeTruthy();
+  }));
+  it('should emit show menu', async(async () => {
+    let actual: boolean = null;
+    sideNavService.visibleObservable.subscribe(v => {
+      actual = v;
+    });
+
+    await app.openMenu();
+
+    expect(actual).toBeTruthy();
   }));
 });

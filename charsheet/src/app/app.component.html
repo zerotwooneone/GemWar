@@ -13,3 +13,8 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<div class="menu-button-wrapper" [hidden]="showMenu">
+  <button mat-fab (click)="openMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</div>
