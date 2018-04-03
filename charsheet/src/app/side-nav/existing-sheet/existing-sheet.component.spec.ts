@@ -6,6 +6,7 @@ import { SaveResult } from '../../form/save-result';
 import { FormSaveService } from '../../form/form-save.service';
 import { MockFormSaveService } from '../../../testing/mock-services';
 import { MatIconModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ExistingSheetComponent', () => {
   let component: ExistingSheetComponent;
@@ -17,7 +18,7 @@ describe('ExistingSheetComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ExistingSheetComponent],
       providers: [{ provide: FormSaveService, useClass: MockFormSaveService }],
-      imports: [MatIconModule]
+      imports: [MatIconModule, RouterTestingModule]
     })
       .compileComponents();
   }));
