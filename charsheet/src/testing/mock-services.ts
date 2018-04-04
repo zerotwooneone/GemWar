@@ -5,6 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { TraitGroupFactory } from '../app/trait/trait-group-factory';
 import { FormStorageService } from '../app/storage/form-storage.service';
 import { TraitFactoryService } from '../app/trait/trait-factory.service';
+import { ISheetsStorageModel } from '../app/sheet/isheets-storage.model';
 
 @Injectable()
 export class MockFormSaveService extends FormSaveService { }
@@ -31,6 +32,8 @@ export class MockFormStorageService extends FormStorageService {
     }
 
     loadForm(key: string): FormModel { return null; }
+
+    getSheets(): ISheetsStorageModel { return null; }
 }
 
 @Injectable()

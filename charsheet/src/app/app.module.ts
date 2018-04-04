@@ -36,6 +36,7 @@ import { NewSheetComponent as SideNavNewSheetComponent } from './side-nav/new-sh
 import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-nav/existing-sheet/existing-sheet.component';
 import { NavWrapperComponent } from './side-nav/nav-wrapper/nav-wrapper.component';
 import { SideNavService } from './side-nav/side-nav.service';
+import { SavedCharactersComponent } from './saved-characters/saved-characters.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { SideNavService } from './side-nav/side-nav.service';
     ExistingSheetComponent,
     SideNavNewSheetComponent,
     SideNavExistingSheetComponent,
-    NavWrapperComponent
+    NavWrapperComponent,
+    SavedCharactersComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { NewSheetComponent } from './new-sheet/new-sheet.component';
 import { ExistingSheetComponent } from './existing-sheet/existing-sheet.component';
 import { NewSheetComponent as SideNavNewSheetComponent } from './side-nav/new-sheet/new-sheet.component';
 import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-nav/existing-sheet/existing-sheet.component';
+import { SavedCharactersComponent } from './saved-characters/saved-characters.component';
 
 export const appRoutes: Routes = [
     {
@@ -29,6 +30,20 @@ export const appRoutes: Routes = [
             {
                 path: '',
                 component: SideNavExistingSheetComponent,
+                outlet: 'side-nav'
+            }
+        ]
+    },
+    {
+        path: 'saved',
+        children: [
+            {
+                path: '',
+                component: SavedCharactersComponent
+            },
+            {
+                path: '',
+                component: SideNavNewSheetComponent,
                 outlet: 'side-nav'
             }
         ]

@@ -1,0 +1,8 @@
+<mat-nav-list>
+  <mat-list-item *ngFor="let char of chars">
+     <a matLine [routerLink]="['/char', char.key]">{{ char.name }}</a>
+     <button mat-icon-button >
+      <mat-icon>delete</mat-icon>
+   </button>
+  </mat-list-item>
+</mat-nav-list>
