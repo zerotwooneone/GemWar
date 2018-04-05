@@ -37,6 +37,7 @@ import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-
 import { NavWrapperComponent } from './side-nav/nav-wrapper/nav-wrapper.component';
 import { SideNavService } from './side-nav/side-nav.service';
 import { SavedCharactersComponent } from './saved-characters/saved-characters.component';
+import { NewSheetService } from './new-sheet/new-sheet.service';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,7 @@ import { SavedCharactersComponent } from './saved-characters/saved-characters.co
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService,
     CompressionService, SheetIdService, FormSaveService, BrowserStorageService,
-    SheetActionService, SideNavService],
+    SheetActionService, SideNavService, NewSheetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

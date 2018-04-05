@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormSaveService } from '../../form/form-save.service';
 import { Router } from '@angular/router';
+import { NewSheetService } from '../../new-sheet/new-sheet.service';
 
 @Component({
   selector: 'zer-new-sheet',
@@ -10,7 +11,8 @@ import { Router } from '@angular/router';
 export class NewSheetComponent implements OnInit {
 
   constructor(private formSaveService: FormSaveService,
-    private router: Router) { }
+    private router: Router,
+    private newSheetService: NewSheetService) { }
 
   ngOnInit() {
   }
@@ -19,6 +21,10 @@ export class NewSheetComponent implements OnInit {
     const saveResult = this.formSaveService.save();
     const sheetId = await saveResult.sheetId.first().toPromise();
     this.router.navigate(['/char', sheetId]);
+  }
+
+  startOver(): void {
+    this.newSheetService.startOver();
   }
 
 }
