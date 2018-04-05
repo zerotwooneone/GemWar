@@ -25,7 +25,7 @@ export class NewSheetComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.formSaveService.saveObservable.subscribe(callback => {
-      const id = this.formStorageService.saveNewForm('char name', this.form.value);
+      const id = this.formStorageService.saveNewForm(this.form.get('name').value, this.form.value);
       callback.next(id);
     });
     this.reloadForm();

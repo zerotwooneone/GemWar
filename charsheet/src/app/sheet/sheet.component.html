@@ -1,4 +1,15 @@
 <form [formGroup]="form" novalidate>
+  <p>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <h2>{{name}}</h2>
+      </mat-expansion-panel-header>
+      <mat-form-field>
+        <input matInput type="text" formControlName="name" />
+        <mat-placeholder>Character Name</mat-placeholder>
+      </mat-form-field>
+    </mat-expansion-panel>
+  </p>
   <div fxLayout="row" fxLayout.lt-sm="column">
     <div fxFlex="33" fxFlex.lt-sm="100">
       <div formArrayName="mentalTraits" class="trait-block">
@@ -30,11 +41,11 @@
       </h4>
       <zer-wind-selector [count]="34" [windTotal]="windTotal" formControlName="currentWind"></zer-wind-selector>
     </div>
-    <div >
+    <div>
       <h4>
         <abbr title="Vigor die type">Strain</abbr>
       </h4>
       <zer-wind-selector [count]="22" [windTotal]="strainMax" formControlName="currentStrain"></zer-wind-selector>
     </div>
-  </div>  
+  </div>
 </form>

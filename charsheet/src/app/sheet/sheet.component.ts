@@ -49,4 +49,8 @@ export class SheetComponent implements OnInit {
     return spiritTrait ? Number(spiritTrait.get('dieType').value) : null;
   }
 
+  get name(): string {
+    return this.form.get('name').value;
+  }
+
 }

@@ -38,5 +38,5 @@ export class MockFormStorageService extends FormStorageService {
 
 @Injectable()
 export class MockTraitFactoryService extends TraitFactoryService {
-    getFormDefault(): FormModel { return new FormModel(0, 0, [], [], []); }
+    getFormDefault(): FormModel { return new FormModel(0, 0, [], [], [], null); }
 }

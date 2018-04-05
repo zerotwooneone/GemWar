@@ -33,7 +33,7 @@ export class ExistingSheetComponent implements OnInit {
       }
     });
     this.formSaveService.updateObservable.subscribe(s => {
-      this.formStorageService.saveForm(this.id, 'char name', this.form.value);
+      this.formStorageService.saveForm(this.id, this.form.get('name').value, this.form.value);
       s.next(this.id);
     });
   }

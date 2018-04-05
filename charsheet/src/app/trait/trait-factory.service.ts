@@ -8,8 +8,9 @@ import { EdgeModel } from '../edge-hinderance/edge-model';
 export class TraitFactoryService {
 
   constructor() { }
+
   getMentalDefaults(): Trait[] {
-    let traits: Trait[] = [];
+    const traits: Trait[] = [];
 
     let trait = this.buildTrait('Cognition',
       [
@@ -70,23 +71,23 @@ export class TraitFactoryService {
 
   buildTrait(traitName: string, skillsData: { name: string, spec?: string, count?: number }[],
     count?: number, type?: number, mod?: number): Trait {
-    let skills: Skill[] = [];
-    for (let skillData of skillsData) {
-      let skill = this.buildSkill(skillData.name, skillData.spec, skillData.count);
+    const skills: Skill[] = [];
+    for (const skillData of skillsData) {
+      const skill = this.buildSkill(skillData.name, skillData.spec, skillData.count);
       skills.push(skill);
     }
-    let result = new Trait(traitName, type || 0, count || 0, mod || null, skills);
+    const result = new Trait(traitName, type || 0, count || 0, mod || null, skills);
     return result;
   }
 
   buildSkill(name: string, spec?: string, count?: number): Skill {
-    let specializtionValue = spec == undefined || spec == null ? null : spec;
-    let result = new Skill(name, count || 0, specializtionValue);
+    const specializtionValue = spec === undefined || spec == null ? null : spec;
+    const result = new Skill(name, count || 0, specializtionValue);
     return result;
   }
-  
+
   getCorporealDefaults(): Trait[] {
-    let traits: Trait[] = [];
+    const traits: Trait[] = [];
 
     let trait = this.buildTrait('Deftness',
       [
@@ -129,10 +130,11 @@ export class TraitFactoryService {
   }
 
   getFormDefault(): FormModel {
-    let mentalTraits = this.getMentalDefaults();
-    let corporealTraits = this.getCorporealDefaults();
-    let edgeModels : EdgeModel[] = [];
-    let result = new FormModel(0, 0, mentalTraits, corporealTraits, edgeModels);
+    const mentalTraits = this.getMentalDefaults();
+    const corporealTraits = this.getCorporealDefaults();
+    const edgeModels: EdgeModel[] = [];
+    const now = new Date().getTime();
+    const result = new FormModel(0, 0, mentalTraits, corporealTraits, edgeModels, `new character ${now}`);
     return result;
   }
 }
