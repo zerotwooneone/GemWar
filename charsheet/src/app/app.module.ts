@@ -31,7 +31,6 @@ import { appRoutes } from './app.routes';
 import { FormSaveService } from './form/form-save.service';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserStorageService } from './storage/browser-storage.service';
-import { SheetActionService } from './sheet/sheet-action.service';
 import { NewSheetComponent as SideNavNewSheetComponent } from './side-nav/new-sheet/new-sheet.component';
 import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-nav/existing-sheet/existing-sheet.component';
 import { NavWrapperComponent } from './side-nav/nav-wrapper/nav-wrapper.component';
@@ -78,7 +77,7 @@ import { NewSheetService } from './new-sheet/new-sheet.service';
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService,
     CompressionService, SheetIdService, FormSaveService, BrowserStorageService,
-    SheetActionService, SideNavService, NewSheetService],
+    SideNavService, NewSheetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
