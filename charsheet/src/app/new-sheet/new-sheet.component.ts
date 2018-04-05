@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TraitGroupFactory } from '../trait/trait-group-factory';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormStorageService } from '../storage/form-storage.service';
 import { TraitFactoryService } from '../trait/trait-factory.service';
 import { FormSaveService } from '../form/form-save.service';
 import { NewSheetService } from './new-sheet.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'zer-new-sheet',
   templateUrl: './new-sheet.component.html',
   styleUrls: ['./new-sheet.component.scss']
 })
-export class NewSheetComponent implements OnInit {
+export class NewSheetComponent implements OnInit, OnDestroy {
 
+  startOverSubscription: Subscription;
   form: FormGroup;
 
   constructor(private traitGroupFactory: TraitGroupFactory,
@@ -28,9 +30,12 @@ export class NewSheetComponent implements OnInit {
     });
     this.reloadForm();
 
-    this.newSheetService.startOverObservable.subscribe(v => {
+    this.startOverSubscription = this.newSheetService.startOverObservable.subscribe(v => {
       this.reloadForm();
     });
+  }
+  ngOnDestroy(): void {
+    this.startOverSubscription.unsubscribe();
   }
 
   reloadForm(): void {
