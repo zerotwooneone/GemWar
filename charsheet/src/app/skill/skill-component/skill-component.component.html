@@ -1,53 +1,55 @@
-<mat-expansion-panel *ngFor="let skill of skills.controls; let index=index;">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      <span>
-        <span>{{skillName(index)}}</span>
-        <span [hidden]="hideSpecialization(index)">
-          <span class="spec-seperator">:</span>
-          <span>{{specialization(index)}}</span>
+<p *ngFor="let skill of skills.controls; let index=index;">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span>
+          <span>{{skillName(index)}}</span>
+          <span [hidden]="hideSpecialization(index)">
+            <span class="spec-seperator">:</span>
+            <span>{{specialization(index)}}</span>
+          </span>
         </span>
-      </span>
-    </mat-panel-title>
-    <mat-panel-description>
+      </mat-panel-title>
+      <mat-panel-description>
+        <span>
+          <span class="die-count">{{dieCount(index)}}</span>
+          <span class="die-seperator">d</span>
+          <span class="die-type">{{dieType}}</span>
+          <span class="die-seperator">+</span>
+          <span class="die-type">{{rollModifier}}</span>
+        </span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div [formGroup]="skill">
       <span>
-        <span class="die-count">{{dieCount(index)}}</span>
-        <span class="die-seperator">d</span>
-        <span class="die-type">{{dieType}}</span>
-        <span class="die-seperator">+</span>
-        <span class="die-type">{{rollModifier}}</span>
-      </span>
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <div [formGroup]="skill">
-    <span>
-      <mat-form-field>
-        <input matInput type="text" formControlName="skillName" />
-      </mat-form-field>
-      <span [hidden]="hideSpecialization(index)">
         <mat-form-field>
-          <span matPrefix>:</span>
-          <input matInput type="text" formControlName="specialization" placeholder="Specialization" />
+          <input matInput type="text" formControlName="skillName" />
+        </mat-form-field>
+        <span [hidden]="hideSpecialization(index)">
+          <mat-form-field>
+            <span matPrefix>:</span>
+            <input matInput type="text" formControlName="specialization" placeholder="Specialization" />
+          </mat-form-field>
+        </span>
+        <mat-form-field>
+          <input matInput type="text" formControlName="dieCount" class="die-count " placeholder="# of dice" />
         </mat-form-field>
       </span>
-      <mat-form-field>
-        <input matInput type="text" formControlName="dieCount" class="die-count " placeholder="# of dice" />
-      </mat-form-field>
-    </span>
-    <div>
-      <button mat-button color="warn" class="remove-skill" (click)="removeSkill(index)">
-        delete skill
-      </button>
-      <span [hidden]="hideSpecialization(index)">
-        <button mat-button color="warn" class="remove-spec" (click)="removeSpecialization(index)">
-          remove spec
+      <div>
+        <button mat-button color="warn" class="remove-skill" (click)="removeSkill(index)">
+          delete skill
         </button>
-      </span>
-      <span [hidden]="!hideSpecialization(index)">
-        <button mat-button color="primary" class="add-spec" (click)="addSpecialization(index)">
-          add spec
-        </button>
-      </span>
+        <span [hidden]="hideSpecialization(index)">
+          <button mat-button color="warn" class="remove-spec" (click)="removeSpecialization(index)">
+            remove spec
+          </button>
+        </span>
+        <span [hidden]="!hideSpecialization(index)">
+          <button mat-button color="primary" class="add-spec" (click)="addSpecialization(index)">
+            add spec
+          </button>
+        </span>
+      </div>
     </div>
-  </div>
-</mat-expansion-panel>
+  </mat-expansion-panel>
+</p>
