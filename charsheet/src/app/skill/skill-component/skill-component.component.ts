@@ -14,7 +14,6 @@ export class SkillComponentComponent implements OnInit {
   @Input() skills: FormArray;
   @Input() dieType: number;
   @Input() rollModifier: number;
-  hidden: { [index: number]: boolean };
 
   skillName(index: number): string {
     return this.skills.controls[index].get('skillName').value;
@@ -35,11 +34,15 @@ export class SkillComponentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.hidden = this.skills.controls.map(s => false);
+
   }
 
   removeSkill(index: number): void {
-    this.hidden[index] = true;
+    const removed = this.skills.controls[index];
+    this.skills.removeAt(index);
+    const undoDelete = (): void => {
+      this.skills.controls.splice(index, 0, removed);
+    };
     const ref = this.matSnackBar.open('Skill removed',
       'Undo',
       {
@@ -47,20 +50,14 @@ export class SkillComponentComponent implements OnInit {
       });
     ref
       .afterDismissed()
+      .first()
+      .finally(() => this.changeDetectorRef.detectChanges())
       .subscribe((dismiss: MatSnackBarDismiss) => {
         if (dismiss.dismissedByAction) {
-          this.hidden[index] = false;
-          this.changeDetectorRef.detectChanges();
-        } else {
-          this.skills.controls.splice(index, 1);
-          for (let hiddenIndex = index + 1; hiddenIndex < this.skills.controls.length - 1; hiddenIndex++) {
-            const element = this.skills.controls[hiddenIndex];
-            this.hidden[hiddenIndex] = this.hidden[hiddenIndex + 1];
-          }
-          delete this.hidden[this.skills.controls.length - 1];
+          undoDelete();
         }
       }, error => {
-        this.hidden[index] = false;
+        undoDelete();
       });
   }
 
