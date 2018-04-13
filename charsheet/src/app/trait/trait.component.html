@@ -3,14 +3,16 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span>{{traitName}}</span>
+          <h3>{{traitName}}</h3>
         </mat-panel-title>
         <mat-panel-description>
-          <span class="die-count">{{dieCount}}</span>
-          <span class="die-seperator">d</span>
-          <span class="die-type">{{getDieType()}}</span>
-          <span class="die-seperator">+</span>
-          <span class="die-type">{{getRollModifier()}}</span>
+          <h3>
+            <span class="die-count">{{dieCount}}</span>
+            <span class="die-seperator">d</span>
+            <span class="die-type">{{getDieType()}}</span>
+            <span class="die-seperator">+</span>
+            <span class="die-type">{{getRollModifier()}}</span>
+          </h3>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-form-field>
