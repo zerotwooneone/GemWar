@@ -2,6 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { FormSaveService } from './form-save.service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
 
 describe('FormSaveService', () => {
   beforeEach(() => {

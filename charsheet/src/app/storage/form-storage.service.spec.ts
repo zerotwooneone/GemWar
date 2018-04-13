@@ -30,7 +30,7 @@ describe('FormStorageService', () => {
     spyOn(compressionService, 'compress').and.returnValue(compressed);
     spyOn(browserStorageService, 'setItem');
     spyOn(browserStorageService, 'getItem').and.returnValue(null);
-    const formValue: FormModel = new FormModel(0, 0, [], [], []);
+    const formValue: FormModel = new FormModel(0, 0, [], [], [], null);
     const sheetId = 'sheetId';
     const sheets: ISheetsStorageModel = { sheetId: { name: charName, value: formValue } };
 
@@ -46,7 +46,7 @@ describe('FormStorageService', () => {
     const compressed = 'compressed';
     spyOn(compressionService, 'compress').and.returnValue(compressed);
     spyOn(browserStorageService, 'setItem');
-    const formValue = new FormModel(0, 0, [], [], []);
+    const formValue = new FormModel(0, 0, [], [], [], null);
     const sheetId = 'sheetId';
     const sheets: ISheetsStorageModel = { sheetId: { name: charName, value: formValue } };
     const origSheets = { sheetId: { name: 'old char name', formValue: formValue } };

@@ -5,6 +5,8 @@ import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MockTraitComponent, MockEdgeHinderanceComponent } from '../../testing/mock-components';
 import { WindSelectorComponent } from '../wind/wind-selector/wind-selector.component';
 import { WindBubbleComponent } from '../wind/wind-bubble/wind-bubble.component';
+import { MatExpansionModule, MatInputModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SheetComponent', () => {
   let component: SheetComponent;
@@ -17,7 +19,10 @@ describe('SheetComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SheetComponent, MockTraitComponent, MockEdgeHinderanceComponent,
         WindSelectorComponent, WindBubbleComponent],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule,
+        MatExpansionModule,
+        MatInputModule,
+        NoopAnimationsModule],
       providers: [FormBuilder]
     })
       .compileComponents();

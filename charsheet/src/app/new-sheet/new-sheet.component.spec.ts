@@ -16,6 +16,7 @@ import { SaveResult } from '../form/save-result';
 import { BrowserStorageService } from '../storage/browser-storage.service';
 import { MockSheetComponent } from '../../testing/mock-components';
 import { MockFormStorageService, MockTraitGroupFactory, MockTraitFactoryService } from '../../testing/mock-services';
+import { NewSheetService } from './new-sheet.service';
 
 describe('NewSheetComponent', () => {
   let component: NewSheetComponent;
@@ -30,7 +31,8 @@ describe('NewSheetComponent', () => {
       providers: [FormSaveService,
         { provide: FormStorageService, useClass: MockFormStorageService },
         { provide: TraitGroupFactory, useClass: MockTraitGroupFactory },
-        { provide: TraitFactoryService, useClass: MockTraitFactoryService }]
+        { provide: TraitFactoryService, useClass: MockTraitFactoryService },
+        NewSheetService]
     })
       .compileComponents();
   }));

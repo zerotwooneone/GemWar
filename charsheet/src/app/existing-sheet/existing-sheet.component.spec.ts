@@ -10,6 +10,7 @@ import { MockTraitFactoryService, MockTraitGroupFactory, MockFormStorageService 
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/observable/from';
 
 describe('ExistingSheetComponent', () => {
   let component: ExistingSheetComponent;
@@ -29,7 +30,7 @@ describe('ExistingSheetComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: Observable.from([{id: id}]),
+            params: Observable.from([{ id: id }]),
           },
         }]
     })
