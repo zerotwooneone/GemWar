@@ -11,7 +11,7 @@
               <span class="die-count">{{dieCount}}</span>
               <span class="die-seperator">d</span>
               <span class="die-type">{{getDieType()}}</span>
-              <span class="die-seperator">+</span>
+              <span class="die-seperator" [hidden]="!getRollModifier()">+</span>
               <span class="die-type">{{getRollModifier()}}</span>
             </h3>
           </mat-panel-description>

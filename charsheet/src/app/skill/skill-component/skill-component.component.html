@@ -15,7 +15,7 @@
           <span class="die-count">{{dieCount(index)}}</span>
           <span class="die-seperator">d</span>
           <span class="die-type">{{dieType}}</span>
-          <span class="die-seperator">+</span>
+          <span class="die-seperator" [hidden]="!rollModifier">+</span>
           <span class="die-type">{{rollModifier}}</span>
         </span>
       </mat-panel-description>
