@@ -6,6 +6,8 @@ import { TraitGroupFactory } from '../app/trait/trait-group-factory';
 import { FormStorageService } from '../app/storage/form-storage.service';
 import { TraitFactoryService } from '../app/trait/trait-factory.service';
 import { ISheetsStorageModel } from '../app/sheet/isheets-storage.model';
+import { BrowserStorageService } from '../app/storage/browser-storage.service';
+import { MostRecentService } from '../app/most-recent/most-recent.service';
 
 @Injectable()
 export class MockFormSaveService extends FormSaveService { }
@@ -39,4 +41,22 @@ export class MockFormStorageService extends FormStorageService {
 @Injectable()
 export class MockTraitFactoryService extends TraitFactoryService {
     getFormDefault(): FormModel { return new FormModel(0, 0, [], [], [], null); }
+}
+
+@Injectable()
+export class MockBrowserStorageService extends BrowserStorageService {
+    private storage: { [key: string]: string } = {};
+    getItem(key: string): string {
+        return this.storage[key];
+    }
+    setItem(key: string, data: string): void {
+        this.storage[key] = data;
+    }
+}
+
+@Injectable()
+export class MockMostRecentService extends MostRecentService {
+    constructor() {
+        super(new MockBrowserStorageService);
+    }
 }

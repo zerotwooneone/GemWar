@@ -4,6 +4,7 @@ import { ExistingSheetComponent } from './existing-sheet/existing-sheet.componen
 import { NewSheetComponent as SideNavNewSheetComponent } from './side-nav/new-sheet/new-sheet.component';
 import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-nav/existing-sheet/existing-sheet.component';
 import { SavedCharactersComponent } from './saved-characters/saved-characters.component';
+import { MostRecentComponent } from './most-recent/most-recent.component';
 
 export const appRoutes: Routes = [
     {
@@ -50,7 +51,7 @@ export const appRoutes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/new',
+        component: MostRecentComponent,
         pathMatch: 'full'
     }
 ];

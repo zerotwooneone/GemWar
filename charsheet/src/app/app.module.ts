@@ -37,6 +37,8 @@ import { NavWrapperComponent } from './side-nav/nav-wrapper/nav-wrapper.componen
 import { SideNavService } from './side-nav/side-nav.service';
 import { SavedCharactersComponent } from './saved-characters/saved-characters.component';
 import { NewSheetService } from './new-sheet/new-sheet.service';
+import { MostRecentComponent } from './most-recent/most-recent.component';
+import { MostRecentService } from './most-recent/most-recent.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { NewSheetService } from './new-sheet/new-sheet.service';
     SideNavNewSheetComponent,
     SideNavExistingSheetComponent,
     NavWrapperComponent,
-    SavedCharactersComponent
+    SavedCharactersComponent,
+    MostRecentComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,7 @@ import { NewSheetService } from './new-sheet/new-sheet.service';
   ],
   providers: [TraitGroupFactory, FormStorageService, TraitFactoryService,
     CompressionService, SheetIdService, FormSaveService, BrowserStorageService,
-    SideNavService, NewSheetService],
+    SideNavService, NewSheetService, MostRecentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

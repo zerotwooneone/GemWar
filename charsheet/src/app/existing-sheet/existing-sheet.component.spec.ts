@@ -6,11 +6,12 @@ import { FormSaveService } from '../form/form-save.service';
 import { MockSheetComponent } from '../../testing/mock-components';
 import { TraitGroupFactory } from '../trait/trait-group-factory';
 import { TraitFactoryService } from '../trait/trait-factory.service';
-import { MockTraitFactoryService, MockTraitGroupFactory, MockFormStorageService } from '../../testing/mock-services';
+import { MockTraitFactoryService, MockTraitGroupFactory, MockFormStorageService, MockMostRecentService } from '../../testing/mock-services';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/observable/from';
+import { MostRecentService } from '../most-recent/most-recent.service';
 
 describe('ExistingSheetComponent', () => {
   let component: ExistingSheetComponent;
@@ -18,6 +19,8 @@ describe('ExistingSheetComponent', () => {
   let formStorageService: FormStorageService;
   let formSaveService: FormSaveService;
   const id = 'id';
+  let mostRecentService: MostRecentService;
+  let activatedRoute: ActivatedRoute;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -26,6 +29,7 @@ describe('ExistingSheetComponent', () => {
         { provide: FormStorageService, useClass: MockFormStorageService },
         { provide: TraitGroupFactory, useClass: MockTraitGroupFactory },
         { provide: TraitFactoryService, useClass: MockTraitFactoryService },
+        { provide: MostRecentService, useClass: MockMostRecentService },
         FormBuilder,
         {
           provide: ActivatedRoute,
@@ -40,8 +44,12 @@ describe('ExistingSheetComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ExistingSheetComponent);
     component = fixture.componentInstance;
+
     formStorageService = TestBed.get(FormStorageService);
     formSaveService = TestBed.get(FormSaveService);
+    mostRecentService = TestBed.get(MostRecentService);
+    activatedRoute = TestBed.get(ActivatedRoute);
+
     fixture.detectChanges();
   });
 
@@ -63,4 +71,12 @@ describe('ExistingSheetComponent', () => {
 
       expect(actual).toBe(id);
     });
+  it('should update most recent', () => {
+    spyOn(mostRecentService, 'set');
+
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(mostRecentService.set).toHaveBeenCalledWith(id);
+  });
 });

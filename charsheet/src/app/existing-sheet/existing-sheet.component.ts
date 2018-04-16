@@ -6,6 +6,7 @@ import { TraitFactoryService } from '../trait/trait-factory.service';
 import { ActivatedRoute } from '../../testing';
 import { FormModel } from '../form/form-model';
 import { FormSaveService } from '../form/form-save.service';
+import { MostRecentService } from '../most-recent/most-recent.service';
 
 @Component({
   selector: 'zer-existing-sheet',
@@ -22,7 +23,8 @@ export class ExistingSheetComponent implements OnInit {
     private formStorageService: FormStorageService,
     private traitFactoryService: TraitFactoryService,
     private activatedRoute: ActivatedRoute,
-    private formSaveService: FormSaveService) { }
+    private formSaveService: FormSaveService,
+    private mostRecentService: MostRecentService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -30,6 +32,7 @@ export class ExistingSheetComponent implements OnInit {
       if (this.id) {
         const formModel = <FormModel>this.formStorageService.loadForm(this.id);
         this.form = this.traitGroupFactory.getFormGroup(formModel);
+        this.mostRecentService.set(this.id);
       }
     });
     this.formSaveService.updateObservable.subscribe(s => {
