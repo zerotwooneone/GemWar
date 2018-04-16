@@ -2,10 +2,17 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SheetComponent } from './sheet.component';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { MockTraitComponent, MockEdgeHinderanceComponent } from '../../testing/mock-components';
+import {
+  MockTraitComponent,
+  MockEdgeHinderanceComponent
+} from '../../testing/mock-components';
 import { WindSelectorComponent } from '../wind/wind-selector/wind-selector.component';
 import { WindBubbleComponent } from '../wind/wind-bubble/wind-bubble.component';
-import { MatExpansionModule, MatInputModule } from '@angular/material';
+import {
+  MatExpansionModule,
+  MatInputModule,
+  MatCardModule
+} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SheetComponent', () => {
@@ -17,15 +24,22 @@ describe('SheetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SheetComponent, MockTraitComponent, MockEdgeHinderanceComponent,
-        WindSelectorComponent, WindBubbleComponent],
-      imports: [ReactiveFormsModule,
+      declarations: [
+        SheetComponent,
+        MockTraitComponent,
+        MockEdgeHinderanceComponent,
+        WindSelectorComponent,
+        WindBubbleComponent
+      ],
+      imports: [
+        ReactiveFormsModule,
         MatExpansionModule,
         MatInputModule,
-        NoopAnimationsModule],
+        NoopAnimationsModule,
+        MatCardModule
+      ],
       providers: [FormBuilder]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -36,20 +50,24 @@ describe('SheetComponent', () => {
     component.form = formBuilder.group({
       currentWind: 0,
       currentStrain: 0,
-      mentalTraits: formBuilder.array([formBuilder.group({
-        'traitName': formBuilder.control('Spirit'),
-        'dieType': formBuilder.control(spiritDieType),
-        'dieCount': formBuilder.control(0),
-        'rollModifier': formBuilder.control(null),
-        'skills': formBuilder.array([])
-      })]),
-      corporealTraits: formBuilder.array([formBuilder.group({
-        'traitName': formBuilder.control('Vigor'),
-        'dieType': formBuilder.control(vigorDieType),
-        'dieCount': formBuilder.control(0),
-        'rollModifier': formBuilder.control(null),
-        'skills': formBuilder.array([])
-      })]),
+      mentalTraits: formBuilder.array([
+        formBuilder.group({
+          traitName: formBuilder.control('Spirit'),
+          dieType: formBuilder.control(spiritDieType),
+          dieCount: formBuilder.control(0),
+          rollModifier: formBuilder.control(null),
+          skills: formBuilder.array([])
+        })
+      ]),
+      corporealTraits: formBuilder.array([
+        formBuilder.group({
+          traitName: formBuilder.control('Vigor'),
+          dieType: formBuilder.control(vigorDieType),
+          dieCount: formBuilder.control(0),
+          rollModifier: formBuilder.control(null),
+          skills: formBuilder.array([])
+        })
+      ]),
       edges: formBuilder.array([])
     });
 
@@ -59,22 +77,18 @@ describe('SheetComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should load mental traits',
-    () => {
-      expect(component.mentalTraits).toBeTruthy();
-    });
-  it('should load corporeal traits',
-    () => {
-      expect(component.corporealTraits).toBeTruthy();
-    });
-  it('should provide wind total',
-    () => {
-      const expected = spiritDieType + vigorDieType;
-      expect(component.windTotal).toBe(expected);
-    });
-  it('should provide strain maximum',
-    () => {
-      const expected = vigorDieType;
-      expect(component.strainMax).toBe(expected);
-    });
+  it('should load mental traits', () => {
+    expect(component.mentalTraits).toBeTruthy();
+  });
+  it('should load corporeal traits', () => {
+    expect(component.corporealTraits).toBeTruthy();
+  });
+  it('should provide wind total', () => {
+    const expected = spiritDieType + vigorDieType;
+    expect(component.windTotal).toBe(expected);
+  });
+  it('should provide strain maximum', () => {
+    const expected = vigorDieType;
+    expect(component.strainMax).toBe(expected);
+  });
 });
