@@ -32,20 +32,18 @@
       <div>
         <h3>Chips 'n' Grit</h3>
       </div>
-    </div>
-  </div>
-  <div>
-    <div>
-      <h4>
-        <abbr title="Vigor + Spirit die type">Wind</abbr>
-      </h4>
-      <zer-wind-selector [count]="34" [windTotal]="windTotal" formControlName="currentWind"></zer-wind-selector>
-    </div>
-    <div>
-      <h4>
-        <abbr title="Vigor die type">Strain</abbr>
-      </h4>
-      <zer-wind-selector [count]="22" [windTotal]="strainMax" formControlName="currentStrain"></zer-wind-selector>
+      <div>
+        <h4>
+          <span>Wind (Vigor + Spirit die type)</span>
+        </h4>
+        <zer-wind-selector [count]="34" [windTotal]="windTotal" formControlName="currentWind"></zer-wind-selector>
+      </div>
+      <div>
+        <h4>
+          <span>Strain (Vigor die type)</span>
+        </h4>
+        <zer-wind-selector [count]="22" [windTotal]="strainMax" formControlName="currentStrain"></zer-wind-selector>
+      </div>
     </div>
   </div>
 </form>
