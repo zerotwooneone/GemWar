@@ -1,8 +1,11 @@
 <mat-nav-list>
   <mat-list-item *ngFor="let char of chars; let index=index">
-     <a matLine [routerLink]="['/char', char.key]">{{ char.name }}</a>
-     <button mat-icon-button (click)="delete(index)">
+    <a matLine [routerLink]="['/char', char.key]">{{ char.name }}</a>
+    <button mat-button (click)="export(index)" matToolTip="Export Character">
+      <mat-icon matTooltip="Export Character">open_in_new</mat-icon>
+    </button>
+    <button mat-button (click)="delete(index)" color="warn" matTooltip="Delete Character">
       <mat-icon>delete</mat-icon>
-   </button>
+    </button>
   </mat-list-item>
 </mat-nav-list>

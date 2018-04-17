@@ -5,7 +5,13 @@ import { MockFormStorageService } from '../../testing/mock-services';
 import { FormStorageService } from '../storage/form-storage.service';
 import { ISheetsStorageModel } from '../sheet/isheets-storage.model';
 import { FormModel } from '../form/form-model';
-import { MatListModule, MatIconModule, MatSnackBarModule, MatSnackBar } from '@angular/material';
+import {
+  MatListModule,
+  MatIconModule,
+  MatSnackBarModule,
+  MatSnackBar,
+  MatTooltipModule
+} from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,14 +26,18 @@ describe('SavedCharactersComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SavedCharactersComponent],
-      providers: [{ provide: FormStorageService, useClass: MockFormStorageService }],
-      imports: [MatListModule,
+      providers: [
+        { provide: FormStorageService, useClass: MockFormStorageService }
+      ],
+      imports: [
+        MatListModule,
         MatIconModule,
         RouterTestingModule,
         MatSnackBarModule,
-        NoopAnimationsModule]
-    })
-      .compileComponents();
+        NoopAnimationsModule,
+        MatTooltipModule
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -36,8 +46,14 @@ describe('SavedCharactersComponent', () => {
     formStorageService = TestBed.get(FormStorageService);
     matSnackBar = TestBed.get(MatSnackBar);
 
-    expectedSheets['one'] = { name: 'char one', value: new FormModel(null, null, null, null, null, null) };
-    expectedSheets['two'] = { name: 'char one', value: new FormModel(null, null, null, null, null, null) };
+    expectedSheets['one'] = {
+      name: 'char one',
+      value: new FormModel(null, null, null, null, null, null)
+    };
+    expectedSheets['two'] = {
+      name: 'char one',
+      value: new FormModel(null, null, null, null, null, null)
+    };
 
     spyOn(formStorageService, 'getSheets').and.returnValue(expectedSheets);
 
@@ -48,7 +64,6 @@ describe('SavedCharactersComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should list saved characters', () => {
-
     expect(component.chars.length).toBe(Object.keys(expectedSheets).length);
   });
   it('should remove when delete called', () => {

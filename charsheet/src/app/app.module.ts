@@ -9,7 +9,7 @@ import { TraitGroupFactory } from './trait/trait-group-factory';
 import { FormStorageService } from './storage/form-storage.service';
 import { TraitFactoryService } from './trait/trait-factory.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SkillComponentComponent } from './skill/skill-component/skill-component.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -39,6 +39,7 @@ import { SavedCharactersComponent } from './saved-characters/saved-characters.co
 import { NewSheetService } from './new-sheet/new-sheet.service';
 import { MostRecentComponent } from './most-recent/most-recent.component';
 import { MostRecentService } from './most-recent/most-recent.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { MostRecentService } from './most-recent/most-recent.service';
     MatExpansionModule,
     MatSlideToggleModule,
     MatIconModule,
+    MatTooltipModule,
     RouterModule.forRoot(
       appRoutes,
       // { enableTracing: true } // <-- debugging purposes only
