@@ -3,14 +3,13 @@ import LZString = require('lz-string');
 
 @Injectable()
 export class CompressionService {
+  constructor() {}
 
-  constructor() { }
-
-  compress(uncompressed:string):string{
+  compress(uncompressed: string): string {
     return LZString.compress(uncompressed);
   }
 
-  decompress(compressed:string):string{
+  decompress(compressed: string): string {
     return LZString.decompress(compressed);
   }
 }
