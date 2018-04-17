@@ -1,7 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SavedCharactersComponent } from './saved-characters.component';
-import { MockFormStorageService } from '../../testing/mock-services';
+import {
+  MockFormStorageService,
+  MockSheetStorageService
+} from '../../testing/mock-services';
 import { FormStorageService } from '../storage/form-storage.service';
 import { ISheetsStorageModel } from '../sheet/isheets-storage.model';
 import { FormModel } from '../form/form-model';
@@ -15,19 +18,24 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SheetStorageService } from '../storage/sheet-storage.service';
 
 describe('SavedCharactersComponent', () => {
   let component: SavedCharactersComponent;
   let fixture: ComponentFixture<SavedCharactersComponent>;
   let formStorageService: FormStorageService;
   const expectedSheets: ISheetsStorageModel = {};
+  const firstCharName = 'firstCharName';
+  const firstCharKey = 'firstCharKey';
   let matSnackBar: MatSnackBar;
+  let sheetStorageService: SheetStorageService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SavedCharactersComponent],
       providers: [
-        { provide: FormStorageService, useClass: MockFormStorageService }
+        { provide: FormStorageService, useClass: MockFormStorageService },
+        { provide: SheetStorageService, useClass: MockSheetStorageService }
       ],
       imports: [
         MatListModule,
@@ -45,17 +53,18 @@ describe('SavedCharactersComponent', () => {
     component = fixture.componentInstance;
     formStorageService = TestBed.get(FormStorageService);
     matSnackBar = TestBed.get(MatSnackBar);
+    sheetStorageService = TestBed.get(SheetStorageService);
 
-    expectedSheets['one'] = {
-      name: 'char one',
+    expectedSheets[firstCharKey] = {
+      name: firstCharName,
       value: new FormModel(null, null, null, null, null, null)
     };
     expectedSheets['two'] = {
-      name: 'char one',
+      name: 'char two',
       value: new FormModel(null, null, null, null, null, null)
     };
 
-    spyOn(formStorageService, 'getSheets').and.returnValue(expectedSheets);
+    spyOn(sheetStorageService, 'get').and.returnValue(expectedSheets);
 
     fixture.detectChanges();
   });
@@ -73,6 +82,17 @@ describe('SavedCharactersComponent', () => {
     const actual = component.chars[index];
 
     expect(actual).not.toBe(notExpected);
+  });
+  it('should call delete sheet when undo expires', () => {
+    const index = 0;
+    spyOn(formStorageService, 'deleteForm');
+    spyOn(matSnackBar, 'open').and.returnValue({
+      afterDismissed: () => Observable.of({ dismissedByAction: false })
+    });
+    component.delete(index);
+    fixture.detectChanges();
+
+    expect(formStorageService.deleteForm).toHaveBeenCalledWith(firstCharKey);
   });
   it('should replace when delete is undone', () => {
     const index = 0;

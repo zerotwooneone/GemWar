@@ -3,6 +3,8 @@ import { FormStorageService } from '../storage/form-storage.service';
 import { ISheetStorageModel } from '../sheet/isheet-storage.model';
 import { SavedCharacterModel } from './saved-character-model';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
+import { ISheetsStorageModel } from '../sheet/isheets-storage.model';
+import { SheetStorageService } from '../storage/sheet-storage.service';
 
 @Component({
   selector: 'zer-saved-characters',
@@ -10,14 +12,16 @@ import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
   styleUrls: ['./saved-characters.component.scss']
 })
 export class SavedCharactersComponent implements OnInit {
-
   chars: SavedCharacterModel[];
-  constructor(private formStorageService: FormStorageService,
+  constructor(
+    private formStorageService: FormStorageService,
     private matSnackBar: MatSnackBar,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef,
+    private sheetStorageService: SheetStorageService
+  ) {}
 
   ngOnInit() {
-    const sheetsObj = this.formStorageService.getSheets();
+    const sheetsObj = this.sheetStorageService.get();
     this.chars = Object.keys(sheetsObj).map(key => {
       const sheet = sheetsObj[key];
       return { key: key, name: sheet.name, form: sheet.value };
@@ -30,23 +34,25 @@ export class SavedCharactersComponent implements OnInit {
     const undoDelete = (): void => {
       this.chars.splice(index, 0, removed);
     };
-    const ref = this.matSnackBar
-      .open('Character Deleted',
-        'Undo',
-        {
-          duration: 6000
-        });
+
+    const ref = this.matSnackBar.open('Character Deleted', 'Undo', {
+      duration: 6000
+    });
     ref
       .afterDismissed()
       .first()
       .finally(() => this.changeDetectorRef.detectChanges())
-      .subscribe((dismiss: MatSnackBarDismiss) => {
-        if (dismiss.dismissedByAction) {
+      .subscribe(
+        (dismiss: MatSnackBarDismiss) => {
+          if (dismiss.dismissedByAction) {
+            undoDelete();
+          } else {
+            this.formStorageService.deleteForm(removed.key);
+          }
+        },
+        error => {
           undoDelete();
         }
-      }, error => {
-        undoDelete();
-      });
+      );
   }
-
 }

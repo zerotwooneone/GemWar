@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { CompressionService } from '../compression/compression.service';
 import { SheetIdService } from '../sheet-id/sheet-id.service';
-import { BrowserStorageService } from './browser-storage.service';
 import { ISheetsStorageModel } from '../sheet/isheets-storage.model';
 import { ISheetStorageModel } from '../sheet/isheet-storage.model';
 import { FormModel } from '../form/form-model';
+import { SheetStorageService } from './sheet-storage.service';
 
 @Injectable()
 export class FormStorageService {
-
-  private sheetsKey = 'character sheets';
-  constructor(private compressionService: CompressionService,
+  constructor(
     private sheetIdService: SheetIdService,
-    private browserStorageService: BrowserStorageService) { }
+    private sheetStorageService: SheetStorageService
+  ) {}
 
   saveNewForm(charName: string, formValue: FormModel): string {
     const key = this.sheetIdService.createGuid();
@@ -22,28 +20,24 @@ export class FormStorageService {
   }
 
   saveForm(key: string, charName: string, formValue: FormModel): void {
-    const sheets = this.getSheets() || {};
+    const sheets = this.sheetStorageService.get() || {};
     sheets[key] = { name: charName, value: formValue };
-    const json = JSON.stringify(sheets);
-    const compressed = this.compressionService.compress(json);
-    this.browserStorageService.setItem(this.sheetsKey, compressed);
+    this.sheetStorageService.set(sheets);
   }
 
   loadForm(key: string): FormModel {
-    const obj = this.getSheets();
-    if (obj == null) {
+    const sheets = this.sheetStorageService.get();
+    if (sheets == null) {
       return null;
     }
-    return obj[key].value;
+    return sheets[key].value;
   }
 
-  getSheets(): ISheetsStorageModel {
-    const data = this.browserStorageService.getItem(this.sheetsKey);
-    if (!data) {
-      return null;
-    }
-    const json = this.compressionService.decompress(data);
-    const obj: ISheetsStorageModel = JSON.parse(json);
-    return obj;
+  deleteForm(key: string): ISheetStorageModel {
+    const sheets = this.sheetStorageService.get() || {};
+    const deleted = sheets[key];
+    delete sheets[key];
+    this.sheetStorageService.set(sheets);
+    return deleted;
   }
 }

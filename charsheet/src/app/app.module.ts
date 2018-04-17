@@ -40,6 +40,8 @@ import { NewSheetService } from './new-sheet/new-sheet.service';
 import { MostRecentComponent } from './most-recent/most-recent.component';
 import { MostRecentService } from './most-recent/most-recent.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { JsonService } from './json/json.service';
+import { SheetStorageService } from './storage/sheet-storage.service';
 
 @NgModule({
   declarations: [
@@ -76,13 +78,24 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     MatTooltipModule,
     RouterModule.forRoot(
-      appRoutes,
+      appRoutes
       // { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [TraitGroupFactory, FormStorageService, TraitFactoryService,
-    CompressionService, SheetIdService, FormSaveService, BrowserStorageService,
-    SideNavService, NewSheetService, MostRecentService],
+  providers: [
+    TraitGroupFactory,
+    FormStorageService,
+    TraitFactoryService,
+    CompressionService,
+    SheetIdService,
+    FormSaveService,
+    BrowserStorageService,
+    SideNavService,
+    NewSheetService,
+    MostRecentService,
+    JsonService,
+    SheetStorageService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
