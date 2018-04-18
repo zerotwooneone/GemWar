@@ -5,6 +5,8 @@ import { SavedCharacterModel } from './saved-character-model';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
 import { ISheetsStorageModel } from '../sheet/isheets-storage.model';
 import { SheetStorageService } from '../storage/sheet-storage.service';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { JsonLinkService } from '../json/json-link.service';
 
 @Component({
   selector: 'zer-saved-characters',
@@ -17,7 +19,8 @@ export class SavedCharactersComponent implements OnInit {
     private formStorageService: FormStorageService,
     private matSnackBar: MatSnackBar,
     private changeDetectorRef: ChangeDetectorRef,
-    private sheetStorageService: SheetStorageService
+    private sheetStorageService: SheetStorageService,
+    private jsonLinkService: JsonLinkService
   ) {}
 
   ngOnInit() {
@@ -54,5 +57,15 @@ export class SavedCharactersComponent implements OnInit {
           undoDelete();
         }
       );
+  }
+
+  getUrl(char: SavedCharacterModel): SafeResourceUrl {
+    const result = this.jsonLinkService.getObjectUrl(char);
+    return result;
+  }
+
+  getFileName(char: SavedCharacterModel): SafeResourceUrl {
+    const exportFileDefaultName = encodeURIComponent(`${char.name}.json`);
+    return exportFileDefaultName;
   }
 }

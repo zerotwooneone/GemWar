@@ -42,6 +42,7 @@ import { MostRecentService } from './most-recent/most-recent.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { JsonService } from './json/json.service';
 import { SheetStorageService } from './storage/sheet-storage.service';
+import { JsonLinkService } from './json/json-link.service';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { SheetStorageService } from './storage/sheet-storage.service';
     NewSheetService,
     MostRecentService,
     JsonService,
-    SheetStorageService
+    SheetStorageService,
+    JsonLinkService
   ],
   bootstrap: [AppComponent]
 })
