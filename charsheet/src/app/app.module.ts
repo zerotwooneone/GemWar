@@ -43,6 +43,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { JsonService } from './json/json.service';
 import { SheetStorageService } from './storage/sheet-storage.service';
 import { JsonLinkService } from './json/json-link.service';
+import { SavedCharacterModelService } from './file/saved-character-model.service';
+import { FileReaderService } from './file/file-reader.service';
 
 @NgModule({
   declarations: [
@@ -96,7 +98,9 @@ import { JsonLinkService } from './json/json-link.service';
     MostRecentService,
     JsonService,
     SheetStorageService,
-    JsonLinkService
+    JsonLinkService,
+    SavedCharacterModelService,
+    FileReaderService
   ],
   bootstrap: [AppComponent]
 })

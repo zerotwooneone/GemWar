@@ -3,7 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SavedCharactersComponent } from './saved-characters.component';
 import {
   MockFormStorageService,
-  MockSheetStorageService
+  MockSheetStorageService,
+  MockJsonLinkService,
+  MockSavedCharacterModelService
 } from '../../testing/mock-services';
 import { FormStorageService } from '../storage/form-storage.service';
 import { ISheetsStorageModel } from '../sheet/isheets-storage.model';
@@ -13,12 +15,15 @@ import {
   MatIconModule,
   MatSnackBarModule,
   MatSnackBar,
-  MatTooltipModule
+  MatTooltipModule,
+  MatCardModule
 } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SheetStorageService } from '../storage/sheet-storage.service';
+import { JsonLinkService } from '../json/json-link.service';
+import { SavedCharacterModelService } from '../file/saved-character-model.service';
 
 describe('SavedCharactersComponent', () => {
   let component: SavedCharactersComponent;
@@ -35,7 +40,9 @@ describe('SavedCharactersComponent', () => {
       declarations: [SavedCharactersComponent],
       providers: [
         { provide: FormStorageService, useClass: MockFormStorageService },
-        { provide: SheetStorageService, useClass: MockSheetStorageService }
+        { provide: SheetStorageService, useClass: MockSheetStorageService },
+        { provide: JsonLinkService, useClass: MockJsonLinkService },
+        { provide: SavedCharacterModelService, useClass: MockSavedCharacterModelService }
       ],
       imports: [
         MatListModule,
@@ -43,7 +50,8 @@ describe('SavedCharactersComponent', () => {
         RouterTestingModule,
         MatSnackBarModule,
         NoopAnimationsModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatCardModule
       ]
     }).compileComponents();
   }));
