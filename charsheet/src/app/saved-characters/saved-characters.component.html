@@ -3,7 +3,7 @@
     <mat-nav-list>
       <mat-list-item *ngFor="let char of chars; let index=index; trackBy: trackCharBy">
         <a matLine [routerLink]="['/char', char.key]">{{ char.name }}</a>
-        <a mat-button matToolTip="Export Character" [href]="getUrl(char)" [download]="getFileName(char)">
+        <a mat-button [href]="getUrl(char)" [download]="getFileName(char)">
           <mat-icon matTooltip="Export Character as JSON">open_in_new</mat-icon>
         </a>
         <button mat-button (click)="delete(index)" color="warn" matTooltip="Delete Character">
@@ -12,7 +12,6 @@
       </mat-list-item>
     </mat-nav-list>
   </mat-card-content>
-  <mat-card-actions>    
+  <mat-card-actions>
   </mat-card-actions>
 </mat-card>
-

@@ -16,7 +16,8 @@ import {
   MatSnackBarModule,
   MatSnackBar,
   MatTooltipModule,
-  MatCardModule
+  MatCardModule,
+  MatInputModule
 } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
@@ -25,6 +26,7 @@ import { SheetStorageService } from '../storage/sheet-storage.service';
 import { JsonLinkService } from '../json/json-link.service';
 import { SavedCharacterModelService } from '../file/saved-character-model.service';
 import { SavedCharactersService } from './saved-characters.service';
+import { SavedCharacterModel } from './saved-character-model';
 
 describe('SavedCharactersComponent', () => {
   let component: SavedCharactersComponent;
@@ -35,6 +37,7 @@ describe('SavedCharactersComponent', () => {
   const firstCharKey = 'firstCharKey';
   let matSnackBar: MatSnackBar;
   let sheetStorageService: SheetStorageService;
+  let jsonLinkService: JsonLinkService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -52,7 +55,8 @@ describe('SavedCharactersComponent', () => {
         MatSnackBarModule,
         NoopAnimationsModule,
         MatTooltipModule,
-        MatCardModule
+        MatCardModule,
+        MatInputModule
       ]
     }).compileComponents();
   }));
@@ -62,8 +66,8 @@ describe('SavedCharactersComponent', () => {
     component = fixture.componentInstance;
     formStorageService = TestBed.get(FormStorageService);
     matSnackBar = TestBed.get(MatSnackBar);
-    sheetStorageService = TestBed.get(SheetStorageService);
 
+    sheetStorageService = TestBed.get(SheetStorageService);
     expectedSheets[firstCharKey] = {
       name: firstCharName,
       value: new FormModel(null, null, null, null, null, null)
@@ -72,8 +76,10 @@ describe('SavedCharactersComponent', () => {
       name: 'char two',
       value: new FormModel(null, null, null, null, null, null)
     };
-
     spyOn(sheetStorageService, 'get').and.returnValue(expectedSheets);
+
+    jsonLinkService = TestBed.get(JsonLinkService);
+    spyOn(jsonLinkService, 'getObjectUrl').and.callFake((c: SavedCharacterModel) => c.name);
 
     fixture.detectChanges();
   });
