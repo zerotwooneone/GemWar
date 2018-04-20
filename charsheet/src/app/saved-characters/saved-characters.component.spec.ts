@@ -24,6 +24,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SheetStorageService } from '../storage/sheet-storage.service';
 import { JsonLinkService } from '../json/json-link.service';
 import { SavedCharacterModelService } from '../file/saved-character-model.service';
+import { SavedCharactersService } from './saved-characters.service';
 
 describe('SavedCharactersComponent', () => {
   let component: SavedCharactersComponent;
@@ -42,7 +43,7 @@ describe('SavedCharactersComponent', () => {
         { provide: FormStorageService, useClass: MockFormStorageService },
         { provide: SheetStorageService, useClass: MockSheetStorageService },
         { provide: JsonLinkService, useClass: MockJsonLinkService },
-        { provide: SavedCharacterModelService, useClass: MockSavedCharacterModelService }
+        SavedCharactersService
       ],
       imports: [
         MatListModule,

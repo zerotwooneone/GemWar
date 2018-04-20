@@ -5,6 +5,7 @@ import { NewSheetComponent as SideNavNewSheetComponent } from './side-nav/new-sh
 import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-nav/existing-sheet/existing-sheet.component';
 import { SavedCharactersComponent } from './saved-characters/saved-characters.component';
 import { MostRecentComponent } from './most-recent/most-recent.component';
+import { SavedCharactersComponent as SideNavSavedCharactersComponent } from './side-nav/saved-characters/saved-characters.component';
 
 export const appRoutes: Routes = [
     {
@@ -44,7 +45,7 @@ export const appRoutes: Routes = [
             },
             {
                 path: '',
-                component: SideNavNewSheetComponent,
+                component: SideNavSavedCharactersComponent,
                 outlet: 'side-nav'
             }
         ]

@@ -45,6 +45,8 @@ import { SheetStorageService } from './storage/sheet-storage.service';
 import { JsonLinkService } from './json/json-link.service';
 import { SavedCharacterModelService } from './file/saved-character-model.service';
 import { FileReaderService } from './file/file-reader.service';
+import { SavedCharactersComponent as SideNavSavedCharactersComponent } from './side-nav/saved-characters/saved-characters.component';
+import { SavedCharactersService } from './saved-characters/saved-characters.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { FileReaderService } from './file/file-reader.service';
     SideNavExistingSheetComponent,
     NavWrapperComponent,
     SavedCharactersComponent,
-    MostRecentComponent
+    MostRecentComponent,
+    SideNavSavedCharactersComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +103,8 @@ import { FileReaderService } from './file/file-reader.service';
     SheetStorageService,
     JsonLinkService,
     SavedCharacterModelService,
-    FileReaderService
+    FileReaderService,
+    SavedCharactersService
   ],
   bootstrap: [AppComponent]
 })

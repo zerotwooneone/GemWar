@@ -8,6 +8,7 @@ import { SheetStorageService } from '../storage/sheet-storage.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { JsonLinkService } from '../json/json-link.service';
 import { SavedCharacterModelService } from '../file/saved-character-model.service';
+import { SavedCharactersService } from './saved-characters.service';
 
 @Component({
   selector: 'zer-saved-characters',
@@ -22,11 +23,14 @@ export class SavedCharactersComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private sheetStorageService: SheetStorageService,
     private jsonLinkService: JsonLinkService,
-    private savedCharacterModelService: SavedCharacterModelService
+    private saveCharacterService: SavedCharactersService
   ) {}
 
   ngOnInit() {
     this.reload();
+    this.saveCharacterService.reloadObservable.subscribe(v => {
+      this.reload();
+    });
   }
 
   reload(): void {
@@ -75,20 +79,7 @@ export class SavedCharactersComponent implements OnInit {
     return exportFileDefaultName;
   }
 
-  async onFileChange($event: FileChangeEvent): Promise<void> {
-    const fileList = $event.target.files;
-
-    const models = this.savedCharacterModelService.getFromFiles(fileList);
-    await this.savedCharacterModelService.saveNewCharacters(models);
-    $event.target.value = '';
-    this.reload();
-  }
-
   trackCharBy(index: number, item: SavedCharacterModel): any {
     return item.key;
   }
-}
-
-export class FileChangeEvent {
-  target: HTMLInputElement;
 }
