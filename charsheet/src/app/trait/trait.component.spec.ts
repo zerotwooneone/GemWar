@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MockSkillComponentComponent } from '../../testing/mock-components';
 
 describe('TraitComponent', () => {
   let component: TraitComponent;
@@ -28,7 +29,7 @@ describe('TraitComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TraitComponent,
-        SkillComponentComponent],
+        MockSkillComponentComponent],
       imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule,
         MatCardModule,
         MatListModule,
