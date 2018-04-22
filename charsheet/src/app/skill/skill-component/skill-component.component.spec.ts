@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SkillComponentComponent } from './skill-component.component';
-import { MatSnackBar, MatSnackBarRef, MatSnackBarModule, MatExpansionModule } from '@angular/material';
+import { MatSnackBar, MatSnackBarRef, MatSnackBarModule, MatExpansionModule, MatIconModule } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { ReactiveFormsModule, FormGroup, FormControl, FormArray } from '@angular/forms';
 import { DebugElement } from '@angular/core';
@@ -12,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import 'rxjs/add/observable/of';
+import { ClipboardModule } from 'ngx-clipboard';
+import { MacroService } from '../../macro/macro.service';
 
 describe('SkillComponentComponent', () => {
   let component: SkillComponentComponent;
@@ -28,8 +30,10 @@ describe('SkillComponentComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         NoopAnimationsModule,
-        MatExpansionModule],
-      providers: [MatSnackBar]
+        MatExpansionModule,
+        ClipboardModule,
+        MatIconModule],
+      providers: [MatSnackBar, MacroService]
     })
       .compileComponents();
   }));
@@ -81,20 +85,16 @@ describe('SkillComponentComponent', () => {
     });
   it('should show specialization',
     () => {
-      const index = 0;
-
-      component.addSpecialization(index);
-      const actual = component.hideSpecialization(index);
+      component.addSpecialization(firstExpectedSkill);
+      const actual = component.hideSpecialization(firstExpectedSkill);
 
       expect(actual).toBeFalsy();
     });
   it('should hide specialization',
     () => {
-      const index = 0;
-
-      component.addSpecialization(index);
-      component.removeSpecialization(index);
-      const actual = component.hideSpecialization(index);
+      component.addSpecialization(firstExpectedSkill);
+      component.removeSpecialization(firstExpectedSkill);
+      const actual = component.hideSpecialization(firstExpectedSkill);
 
       expect(actual).toBeTruthy();
     });

@@ -47,6 +47,8 @@ import { SavedCharacterModelService } from './file/saved-character-model.service
 import { FileReaderService } from './file/file-reader.service';
 import { SavedCharactersComponent as SideNavSavedCharactersComponent } from './side-nav/saved-characters/saved-characters.component';
 import { SavedCharactersService } from './saved-characters/saved-characters.service';
+import { ClipboardModule } from 'ngx-clipboard';
+import { MacroService } from './macro/macro.service';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,7 @@ import { SavedCharactersService } from './saved-characters/saved-characters.serv
     MatSlideToggleModule,
     MatIconModule,
     MatTooltipModule,
+    ClipboardModule,
     RouterModule.forRoot(
       appRoutes
       // { enableTracing: true } // <-- debugging purposes only
@@ -104,7 +107,8 @@ import { SavedCharactersService } from './saved-characters/saved-characters.serv
     JsonLinkService,
     SavedCharacterModelService,
     FileReaderService,
-    SavedCharactersService
+    SavedCharactersService,
+    MacroService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, AbstractControl } from '@angular/forms';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/operator/finally';
+import { MacroService } from '../../macro/macro.service';
 
 @Component({
   selector: 'app-skill-component',
@@ -15,22 +16,23 @@ export class SkillComponentComponent implements OnInit {
   @Input() dieType: number;
   @Input() rollModifier: number;
 
-  skillName(index: number): string {
-    return this.skills.controls[index].get('skillName').value;
+  skillName(skill: FormGroup): string {
+    return skill.get('skillName').value;
   }
-  specialization(index: number): string {
-    return this.specializationControl(index).value;
+  specialization(skill: FormGroup): string {
+    return this.specializationControl(skill).value;
   }
-  hideSpecialization(index: number): boolean {
-    const specialization = this.specialization(index);
+  hideSpecialization(skill: FormGroup): boolean {
+    const specialization = this.specialization(skill);
     return specialization == null || specialization === undefined;
   }
-  dieCount(index: number): number {
-    return this.skills.controls[index].get('dieCount').value;
+  dieCount(skill: FormGroup): number {
+    return skill.get('dieCount').value;
   }
 
   constructor(private matSnackBar: MatSnackBar,
-    private changeDetectorRef: ChangeDetectorRef) {
+    private changeDetectorRef: ChangeDetectorRef,
+    private macroService: MacroService) {
   }
 
   ngOnInit() {
@@ -61,16 +63,21 @@ export class SkillComponentComponent implements OnInit {
       });
   }
 
-  specializationControl(index: number): FormControl {
-    return <FormControl>this.skills.controls[index].get('specialization');
+  specializationControl(skill: FormGroup): FormControl {
+    return <FormControl>skill.get('specialization');
   }
 
-  removeSpecialization(index: number): void {
-    this.specializationControl(index).setValue(null);
+  removeSpecialization(skill: FormGroup): void {
+    this.specializationControl(skill).setValue(null);
   }
 
-  addSpecialization(index: number): void {
-    this.specializationControl(index).setValue('');
+  addSpecialization(skill: FormGroup): void {
+    this.specializationControl(skill).setValue('');
+  }
+
+  macro(skill: FormGroup): string {
+    return this.macroService.GetSkillMacro(this.skillName(skill),
+    this.dieType, this.dieCount(skill), this.rollModifier, this.specialization(skill));
   }
 
 }

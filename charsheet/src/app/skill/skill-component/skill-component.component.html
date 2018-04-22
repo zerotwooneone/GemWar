@@ -3,16 +3,16 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         <span>
-          <span>{{skillName(index)}}</span>
-          <span [hidden]="hideSpecialization(index)">
+          <span>{{skillName(skill)}}</span>
+          <span [hidden]="hideSpecialization(skill)">
             <span class="spec-seperator">:</span>
-            <span>{{specialization(index)}}</span>
+            <span>{{specialization(skill)}}</span>
           </span>
         </span>
       </mat-panel-title>
       <mat-panel-description>
         <span>
-          <span class="die-count">{{dieCount(index)}}</span>
+          <span class="die-count">{{dieCount(skill)}}</span>
           <span class="die-seperator">d</span>
           <span class="die-type">{{dieType}}</span>
           <span class="die-seperator" [hidden]="!rollModifier">+</span>
@@ -25,7 +25,7 @@
         <mat-form-field>
           <input matInput type="text" formControlName="skillName" placeholder="Skill Name"/>
         </mat-form-field>
-        <span [hidden]="hideSpecialization(index)">
+        <span [hidden]="hideSpecialization(skill)">
           <mat-form-field>
             <span matPrefix>:</span>
             <input matInput type="text" formControlName="specialization" placeholder="Specialization" />
@@ -36,20 +36,23 @@
         </mat-form-field>
       </span>
       <div>
-        <button mat-button color="warn" class="remove-skill" (click)="removeSkill(index)">
+        <button mat-button color="warn" class="remove-skill" (click)="removeSkill(skill)">
           delete skill
         </button>
-        <span [hidden]="hideSpecialization(index)">
-          <button mat-button color="warn" class="remove-spec" (click)="removeSpecialization(index)">
+        <span [hidden]="hideSpecialization(skill)">
+          <button mat-button color="warn" class="remove-spec" (click)="removeSpecialization(skill)">
             remove spec
           </button>
         </span>
-        <span [hidden]="!hideSpecialization(index)">
-          <button mat-button color="primary" class="add-spec" (click)="addSpecialization(index)">
+        <span [hidden]="!hideSpecialization(skill)">
+          <button mat-button color="primary" class="add-spec" (click)="addSpecialization(skill)">
             add spec
           </button>
-        </span>
+        </span>        
       </div>
     </div>
   </mat-expansion-panel>
+  <button mat-button color="primary" matTooltip="Copy Roll20 macro to clipboard" ngxClipboard [cbContent]="macro(skill)" >
+    <mat-icon>casino</mat-icon>
+  </button>
 </p>
