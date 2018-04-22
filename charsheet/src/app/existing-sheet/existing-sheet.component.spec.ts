@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/observable/from';
 import { MostRecentService } from '../most-recent/most-recent.service';
+import { FormModel } from '../form/form-model';
 
 describe('ExistingSheetComponent', () => {
   let component: ExistingSheetComponent;
@@ -21,6 +22,8 @@ describe('ExistingSheetComponent', () => {
   const id = 'id';
   let mostRecentService: MostRecentService;
   let activatedRoute: ActivatedRoute;
+  let traitGroupFactory: TraitGroupFactory;
+  let formBuilder: FormBuilder;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -45,10 +48,16 @@ describe('ExistingSheetComponent', () => {
     fixture = TestBed.createComponent(ExistingSheetComponent);
     component = fixture.componentInstance;
 
-    formStorageService = TestBed.get(FormStorageService);
     formSaveService = TestBed.get(FormSaveService);
     mostRecentService = TestBed.get(MostRecentService);
     activatedRoute = TestBed.get(ActivatedRoute);
+
+    formStorageService = TestBed.get(FormStorageService);
+    spyOn(formStorageService, 'loadForm').and.returnValue(new FormModel(null, null, null, null, null, null));
+
+    formBuilder = TestBed.get(FormBuilder);
+    traitGroupFactory = TestBed.get(TraitGroupFactory);
+    spyOn(traitGroupFactory, 'getFormGroup').and.returnValue(formBuilder.group({name: 'name'}));
 
     fixture.detectChanges();
   });

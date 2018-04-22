@@ -22,32 +22,12 @@ export class MockTraitGroupFactory extends TraitGroupFactory {
   constructor() {
     super(null);
   }
-  getFormGroup(formModel: FormModel): FormGroup {
-    return <any>{ value: null };
-  }
 }
 
 @Injectable()
 export class MockFormStorageService extends FormStorageService {
   constructor() {
     super(null, null);
-  }
-  saveNewForm(charName: string, formValue: FormModel): string {
-    return null;
-  }
-
-  saveForm(key: string, charName: string, formValue: FormModel): void {}
-
-  loadForm(key: string): FormModel {
-    return null;
-  }
-
-  getSheets(): ISheetsStorageModel {
-    return null;
-  }
-
-  deleteForm(key: string): ISheetStorageModel {
-    return null;
   }
 }
 
