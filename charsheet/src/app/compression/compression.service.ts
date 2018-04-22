@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import LZString = require('lz-string');
+import {LZStringService} from 'ng-lz-string';
 
 @Injectable()
 export class CompressionService {
-  constructor() {}
+  constructor(private lzStringService: LZStringService) {}
 
   compress(uncompressed: string): string {
-    return LZString.compress(uncompressed);
+    return this.lzStringService.compress(uncompressed);
   }
 
   decompress(compressed: string): string {
-    return LZString.decompress(compressed);
+    return this.lzStringService.decompress(compressed);
   }
 }

@@ -49,6 +49,7 @@ import { SavedCharactersComponent as SideNavSavedCharactersComponent } from './s
 import { SavedCharactersService } from './saved-characters/saved-characters.service';
 import { ClipboardModule } from 'ngx-clipboard';
 import { MacroService } from './macro/macro.service';
+import { LZStringModule, LZStringService } from 'ng-lz-string';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { MacroService } from './macro/macro.service';
     MatIconModule,
     MatTooltipModule,
     ClipboardModule,
+    LZStringModule,
     RouterModule.forRoot(
       appRoutes
       // { enableTracing: true } // <-- debugging purposes only
@@ -108,7 +110,8 @@ import { MacroService } from './macro/macro.service';
     SavedCharacterModelService,
     FileReaderService,
     SavedCharactersService,
-    MacroService
+    MacroService,
+    LZStringService
   ],
   bootstrap: [AppComponent]
 })
