@@ -14,7 +14,7 @@
     <div fxFlex="33" fxFlex.lt-sm="100">
       <div formArrayName="mentalTraits" class="trait-block">
         <div class="trait-column-title">Mental Traits</div>
-        <div *ngFor="let trait of form.controls.mentalTraits.controls">
+        <div *ngFor="let trait of form.controls.mentalTraits['controls']">
           <trait [trait]="trait"></trait>
         </div>
       </div>
@@ -22,7 +22,7 @@
     <div fxFlex="33" fxFlex.lt-sm="100">
       <div formArrayName="corporealTraits" class="trait-block">
         <div class="trait-column-title">Coporeal Traits</div>
-        <div *ngFor="let trait of form.controls.corporealTraits.controls">
+        <div *ngFor="let trait of form.controls.corporealTraits['controls']">
           <trait [trait]="trait"></trait>
         </div>
       </div>
