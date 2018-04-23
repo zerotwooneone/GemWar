@@ -17,7 +17,6 @@ import { SideNavService } from './side-nav/side-nav.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
   showMenu: boolean;
   menuMode: 'side' | 'over';
 
