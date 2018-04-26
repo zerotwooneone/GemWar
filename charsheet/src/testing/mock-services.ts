@@ -13,6 +13,7 @@ import { SheetStorageService } from '../app/storage/sheet-storage.service';
 import { FileReaderService } from '../app/file/file-reader.service';
 import { JsonLinkService } from '../app/json/json-link.service';
 import { SavedCharacterModelService } from '../app/file/saved-character-model.service';
+import { CompressionService } from '../app/compression/compression.service';
 
 @Injectable()
 export class MockFormSaveService extends FormSaveService {}
@@ -81,5 +82,12 @@ export class MockJsonLinkService extends JsonLinkService {
 export class MockSavedCharacterModelService extends SavedCharacterModelService {
   constructor() {
     super(null, null, null);
+  }
+}
+
+@Injectable()
+export class MockCompressionService extends CompressionService {
+  constructor() {
+    super(null);
   }
 }

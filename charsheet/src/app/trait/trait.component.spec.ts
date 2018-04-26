@@ -16,6 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockSkillComponentComponent } from '../../testing/mock-components';
+import { ClipboardModule } from 'ngx-clipboard';
+import { MacroService } from '../macro/macro.service';
 
 describe('TraitComponent', () => {
   let component: TraitComponent;
@@ -37,8 +39,9 @@ describe('TraitComponent', () => {
         MatInputModule,
         NoopAnimationsModule,
         MatIconModule,
-        MatExpansionModule],
-      providers: [TraitGroupFactory, TraitFactoryService, MatSnackBar]
+        MatExpansionModule,
+        ClipboardModule],
+      providers: [TraitGroupFactory, TraitFactoryService, MatSnackBar, MacroService]
     })
       .compileComponents();
   }));

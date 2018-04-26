@@ -1,36 +1,45 @@
 <div class="trait-wrapper">
   <mat-card [formGroup]="trait">
     <mat-card-title>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <h3>{{traitName}}</h3>
-          </mat-panel-title>
-          <mat-panel-description>
-            <h3>
-              <span class="die-count">{{dieCount}}</span>
-              <span class="die-seperator">d</span>
-              <span class="die-type">{{getDieType()}}</span>
-              <span class="die-seperator" [hidden]="!getRollModifier()">+</span>
-              <span class="die-type">{{getRollModifier()}}</span>
-            </h3>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <mat-form-field>
-          <input matInput type="text" formControlName="traitName" placeholder="Trait Name" />
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="text" formControlName="dieCount" class="die-count" placeholder="# of dice" />
-        </mat-form-field>
-        <mat-form-field>
-          <span matPrefix>d</span>
-          <input matInput type="text" class="die-type" formControlName="dieType" placeholder="# of sides to each die" />
-        </mat-form-field>
-        <mat-form-field>
-          <span matPrefix>+</span>
-          <input matInput type="text" formControlName="rollModifier" class="die-type" placeholder="modify roll value" />
-        </mat-form-field>
-      </mat-expansion-panel>
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <div>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h3>{{traitName}}</h3>
+              </mat-panel-title>
+              <mat-panel-description>
+                <h3>
+                  <span class="die-count">{{dieCount}}</span>
+                  <span class="die-seperator">d</span>
+                  <span class="die-type">{{getDieType()}}</span>
+                  <span class="die-seperator" [hidden]="!getRollModifier()">+</span>
+                  <span class="die-type">{{getRollModifier()}}</span>
+                </h3>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <input matInput type="text" formControlName="traitName" placeholder="Trait Name" />
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="text" formControlName="dieCount" class="die-count" placeholder="# of dice" />
+            </mat-form-field>
+            <mat-form-field>
+              <span matPrefix>d</span>
+              <input matInput type="text" class="die-type" formControlName="dieType" placeholder="# of sides to each die" />
+            </mat-form-field>
+            <mat-form-field>
+              <span matPrefix>+</span>
+              <input matInput type="text" formControlName="rollModifier" class="die-type" placeholder="modify roll value" />
+            </mat-form-field>
+          </mat-expansion-panel>
+        </div>
+        <div>
+          <button mat-button color="accent" matTooltip="Copy Roll20 macro to clipboard" ngxClipboard [cbContent]="macro()">
+            <mat-icon>casino</mat-icon>
+          </button>
+        </div>
+      </div>
     </mat-card-title>
     <mat-card-content>
       <app-skill-component [skills]="skills" [dieType]="getDieType()" [rollModifier]="getRollModifier()"></app-skill-component>

@@ -4,7 +4,7 @@ import { SheetStorageService } from './sheet-storage.service';
 import { CompressionService } from '../compression/compression.service';
 import { BrowserStorageService } from './browser-storage.service';
 import { JsonService } from '../json/json.service';
-import { MockBrowserStorageService } from '../../testing/mock-services';
+import { MockBrowserStorageService, MockCompressionService } from '../../testing/mock-services';
 import { ISheetsStorageModel } from '../sheet/isheets-storage.model';
 
 describe('SheetStorageService', () => {
@@ -17,7 +17,7 @@ describe('SheetStorageService', () => {
         SheetStorageService,
         { provide: BrowserStorageService, useClass: MockBrowserStorageService },
         JsonService,
-        CompressionService
+        {provide: CompressionService, useClass: MockCompressionService }
       ]
     });
     compressionService = TestBed.get(CompressionService);

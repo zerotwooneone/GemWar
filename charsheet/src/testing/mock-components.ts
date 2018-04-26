@@ -1,5 +1,4 @@
 import { Component, forwardRef } from '@angular/core';
-import { MatIcon } from '@angular/material';
 import { SheetComponent } from '../app/sheet/sheet.component';
 import { TraitComponent } from '../app/trait/trait.component';
 import { EdgeHinderanceComponent } from '../app/edge-hinderance/edge-hinderance.component';
@@ -7,12 +6,6 @@ import { WindSelectorComponent } from '../app/wind/wind-selector/wind-selector.c
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NavWrapperComponent } from '../app/side-nav/nav-wrapper/nav-wrapper.component';
 import { SkillComponentComponent } from '../app/skill/skill-component/skill-component.component';
-
-@Component({
-    selector: 'mat-icon',
-    template: '<p>mat-icon</p>'
-})
-export class MockMatIconComponent extends MatIcon { }
 
 @Component({
     selector: 'zer-sheet',
@@ -26,7 +19,7 @@ export class MockSheetComponent extends SheetComponent { }
 })
 export class MockTraitComponent extends TraitComponent {
     constructor() {
-        super(null, null);
+        super(null, null, null);
     }
 }
 

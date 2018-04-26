@@ -6,7 +6,6 @@ import * as x from './mock-components';
     declarations: [
         RouterOutletStubComponent,
         RouterLinkStubDirective,
-        x.MockMatIconComponent,
         x.MockSheetComponent,
         x.MockTraitComponent,
         x.MockEdgeHinderanceComponent,

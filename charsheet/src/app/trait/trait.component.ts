@@ -4,6 +4,7 @@ import { Trait } from '../trait/trait';
 import { FormGroup, FormArray, FormControl } from '@angular/forms';
 import { TraitGroupFactory } from './trait-group-factory';
 import { TraitFactoryService } from './trait-factory.service';
+import { MacroService } from '../macro/macro.service';
 
 @Component({
   selector: 'trait',
@@ -11,7 +12,6 @@ import { TraitFactoryService } from './trait-factory.service';
   styleUrls: ['./trait.component.scss']
 })
 export class TraitComponent implements OnInit {
-
   @Input() trait: FormGroup;
   get skills(): FormArray {
     return <FormArray>this.trait.get('skills');
@@ -20,10 +20,13 @@ export class TraitComponent implements OnInit {
     return this.trait.get('traitName').value;
   }
 
-  constructor(private traitGroupFactory: TraitGroupFactory,
-    private traitFactoryService: TraitFactoryService) { }
+  constructor(
+    private traitGroupFactory: TraitGroupFactory,
+    private traitFactoryService: TraitFactoryService,
+    private macroService: MacroService
+  ) {}
 
-  ngOnInit() {  }
+  ngOnInit() {}
 
   addSkill() {
     const name = '';
@@ -45,4 +48,12 @@ export class TraitComponent implements OnInit {
     this.skills.controls.splice(index, 1);
   }
 
+  macro(): string {
+    return this.macroService.GetSkillMacro(
+      this.traitName,
+      this.getDieType(),
+      this.dieCount,
+      this.getRollModifier()
+    );
+  }
 }
