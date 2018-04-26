@@ -1,58 +1,62 @@
-<p *ngFor="let skill of skills.controls; let index=index;">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <span>
-          <span>{{skillName(skill)}}</span>
-          <span [hidden]="hideSpecialization(skill)">
-            <span class="spec-seperator">:</span>
-            <span>{{specialization(skill)}}</span>
+<div *ngFor="let skill of skills.controls; let index=index;" fxLayout="row" fxLayout.lt-md="column" class="skill-wrapper">
+  <div>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span>
+            <span>{{skillName(skill)}}</span>
+            <span [hidden]="hideSpecialization(skill)">
+              <span class="spec-seperator">:</span>
+              <span>{{specialization(skill)}}</span>
+            </span>
           </span>
-        </span>
-      </mat-panel-title>
-      <mat-panel-description>
+        </mat-panel-title>
+        <mat-panel-description>
+          <span>
+            <span class="die-count">{{dieCount(skill)}}</span>
+            <span class="die-seperator">d</span>
+            <span class="die-type">{{dieType}}</span>
+            <span class="die-seperator" [hidden]="!rollModifier">+</span>
+            <span class="die-type">{{rollModifier}}</span>
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div [formGroup]="skill">
         <span>
-          <span class="die-count">{{dieCount(skill)}}</span>
-          <span class="die-seperator">d</span>
-          <span class="die-type">{{dieType}}</span>
-          <span class="die-seperator" [hidden]="!rollModifier">+</span>
-          <span class="die-type">{{rollModifier}}</span>
-        </span>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div [formGroup]="skill">
-      <span>
-        <mat-form-field>
-          <input matInput type="text" formControlName="skillName" placeholder="Skill Name"/>
-        </mat-form-field>
-        <span [hidden]="hideSpecialization(skill)">
           <mat-form-field>
-            <span matPrefix>:</span>
-            <input matInput type="text" formControlName="specialization" placeholder="Specialization" />
+            <input matInput type="text" formControlName="skillName" placeholder="Skill Name" />
+          </mat-form-field>
+          <span [hidden]="hideSpecialization(skill)">
+            <mat-form-field>
+              <span matPrefix>:</span>
+              <input matInput type="text" formControlName="specialization" placeholder="Specialization" />
+            </mat-form-field>
+          </span>
+          <mat-form-field>
+            <input matInput type="text" formControlName="dieCount" class="die-count " placeholder="# of dice" />
           </mat-form-field>
         </span>
-        <mat-form-field>
-          <input matInput type="text" formControlName="dieCount" class="die-count " placeholder="# of dice" />
-        </mat-form-field>
-      </span>
-      <div>
-        <button mat-button color="warn" class="remove-skill" (click)="removeSkill(skill)">
-          delete skill
-        </button>
-        <span [hidden]="hideSpecialization(skill)">
-          <button mat-button color="warn" class="remove-spec" (click)="removeSpecialization(skill)">
-            remove spec
+        <div>
+          <button mat-button color="warn" class="remove-skill" (click)="removeSkill(skill)">
+            delete skill
           </button>
-        </span>
-        <span [hidden]="!hideSpecialization(skill)">
-          <button mat-button color="primary" class="add-spec" (click)="addSpecialization(skill)">
-            add spec
-          </button>
-        </span>        
+          <span [hidden]="hideSpecialization(skill)">
+            <button mat-button color="warn" class="remove-spec" (click)="removeSpecialization(skill)">
+              remove spec
+            </button>
+          </span>
+          <span [hidden]="!hideSpecialization(skill)">
+            <button mat-button color="primary" class="add-spec" (click)="addSpecialization(skill)">
+              add spec
+            </button>
+          </span>
+        </div>
       </div>
-    </div>
-  </mat-expansion-panel>
-  <button mat-button color="primary" matTooltip="Copy Roll20 macro to clipboard" ngxClipboard [cbContent]="macro(skill)" >
-    <mat-icon>casino</mat-icon>
-  </button>
-</p>
+    </mat-expansion-panel>
+  </div>
+  <div>
+    <button mat-button color="primary" matTooltip="Copy Roll20 macro to clipboard" ngxClipboard [cbContent]="macro(skill)">
+      <mat-icon>casino</mat-icon>
+    </button>
+  </div>
+</div>
