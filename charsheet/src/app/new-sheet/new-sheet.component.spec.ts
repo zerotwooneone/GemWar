@@ -6,7 +6,7 @@ import { FormSaveService } from '../form/form-save.service';
 import { FormStorageService } from '../storage/form-storage.service';
 import { TraitFactoryService } from '../trait/trait-factory.service';
 import { TraitGroupFactory } from '../trait/trait-group-factory';
-import { FormControl, FormArray, FormGroup } from '@angular/forms';
+import { FormControl, FormArray, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, Input, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -32,6 +32,7 @@ describe('NewSheetComponent', () => {
         { provide: FormStorageService, useClass: MockFormStorageService },
         { provide: TraitGroupFactory, useClass: MockTraitGroupFactory },
         { provide: TraitFactoryService, useClass: MockTraitFactoryService },
+        FormBuilder,
         NewSheetService]
     })
       .compileComponents();
@@ -46,6 +47,8 @@ describe('NewSheetComponent', () => {
 
     const traitFactoryService: TraitFactoryService = TestBed.get(TraitFactoryService);
     traitGroupFactory = TestBed.get(TraitGroupFactory);
+    const formBuilder = TestBed.get(FormBuilder);
+    spyOn(traitGroupFactory, 'getFormGroup').and.returnValue(formBuilder.group({name: 'name'}));
 
     formSaveService = TestBed.get(FormSaveService);
 
