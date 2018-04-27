@@ -68,7 +68,8 @@ describe('SheetComponent', () => {
           skills: formBuilder.array([])
         })
       ]),
-      edges: formBuilder.array([])
+      edges: formBuilder.array([]),
+      name: 'name'
     });
 
     fixture.detectChanges();
