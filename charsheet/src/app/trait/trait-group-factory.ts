@@ -3,7 +3,6 @@ import { Skill } from '../skill/skill';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { CustomValidators } from './custom.validators';
 import { Injectable } from '@angular/core';
-import { TraitFactoryService } from './trait-factory.service';
 import { FormModel } from '../form/form-model';
 
 @Injectable()

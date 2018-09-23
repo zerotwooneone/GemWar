@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export class SaveResult {
     constructor(private _sheetId: Observable<string>) { }

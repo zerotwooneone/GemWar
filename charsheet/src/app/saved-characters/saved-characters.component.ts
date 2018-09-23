@@ -1,17 +1,15 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormStorageService } from '../storage/form-storage.service';
-import { ISheetStorageModel } from '../sheet/isheet-storage.model';
 import { SavedCharacterModel } from './saved-character-model';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material/snack-bar';
-import { ISheetsStorageModel } from '../sheet/isheets-storage.model';
 import { SheetStorageService } from '../storage/sheet-storage.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { JsonLinkService } from '../json/json-link.service';
-import { SavedCharacterModelService } from '../file/saved-character-model.service';
 import { SavedCharactersService } from './saved-characters.service';
+import { first, finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'zer-saved-characters',
+  selector: 'zh-saved-characters',
   templateUrl: './saved-characters.component.html',
   styleUrls: ['./saved-characters.component.scss']
 })
@@ -35,7 +33,7 @@ export class SavedCharactersComponent implements OnInit {
 
   reload(): void {
     const sheetsObj = this.sheetStorageService.get();
-    this.chars = Object.keys(sheetsObj).map(key => {
+    this.chars = sheetsObj == null ? [] : Object.keys(sheetsObj).map(key => {
       const sheet = sheetsObj[key];
       return { key: key, name: sheet.name, form: sheet.value };
     });
@@ -53,8 +51,7 @@ export class SavedCharactersComponent implements OnInit {
     });
     ref
       .afterDismissed()
-      .first()
-      .finally(() => this.changeDetectorRef.detectChanges())
+      .pipe(first(), finalize(() => this.changeDetectorRef.detectChanges()))
       .subscribe(
         (dismiss: MatSnackBarDismiss) => {
           if (dismiss.dismissedByAction) {

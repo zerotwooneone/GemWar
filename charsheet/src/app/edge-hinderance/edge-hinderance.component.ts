@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { EdgeModel } from './edge-model';
 
 @Component({
-  selector: 'zer-edge-hinderance',
+  selector: 'zh-edge-hinderance',
   templateUrl: './edge-hinderance.component.html',
   styleUrls: ['./edge-hinderance.component.scss']
 })

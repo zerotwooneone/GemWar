@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/timer';
-import 'rxjs/add/operator/shareReplay';
-import 'rxjs/add/operator/take';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject, timer } from 'rxjs';
+import { shareReplay, take } from 'rxjs/operators';
 import { SaveResult } from './save-result';
 
 @Injectable()
@@ -20,16 +17,16 @@ export class FormSaveService {
 
   save(): SaveResult {
     const saveSubject = new Subject<string>();
-    const result = new SaveResult(saveSubject.shareReplay(1).take(1));
-    Observable.timer(1).subscribe(s => {
+    const result = new SaveResult(saveSubject.pipe(shareReplay(1), take(1)));
+    timer(1).subscribe(s => {
       this._saveSubject.next(saveSubject);
     });
     return result;
   }
   update(): SaveResult {
     const updateSubject = new Subject<string>();
-    const result = new SaveResult(updateSubject.shareReplay(1).take(1));
-    Observable.timer(1).subscribe(s => {
+    const result = new SaveResult(updateSubject.pipe(shareReplay(1), take(1)));
+    timer(1).subscribe(s => {
       this._updateSubject.next(updateSubject);
     });
     return result;

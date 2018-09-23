@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MostRecentService } from './most-recent.service';
-import { Router } from '../../testing';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'zer-most-recent',
+  selector: 'zh-most-recent',
   templateUrl: './most-recent.component.html',
   styleUrls: ['./most-recent.component.scss']
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SideNavService } from '../side-nav.service';
 
 @Component({
-  selector: 'zer-nav-wrapper',
+  selector: 'zh-nav-wrapper',
   templateUrl: './nav-wrapper.component.html',
   styleUrls: ['./nav-wrapper.component.scss']
 })

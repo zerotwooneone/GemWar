@@ -8,11 +8,10 @@ import { EdgeModel } from './edge-hinderance/edge-model';
 import { ObservableMedia } from '@angular/flex-layout';
 import { FormSaveService } from './form/form-save.service';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/first';
 import { SideNavService } from './side-nav/side-nav.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'zh-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

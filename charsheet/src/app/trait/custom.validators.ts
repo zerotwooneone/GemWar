@@ -1,4 +1,4 @@
-import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { FormArray, FormControl, ValidationErrors } from '@angular/forms';
 
 export class CustomValidators {
 
@@ -76,7 +76,7 @@ export class CustomValidators {
     };
     return new Promise(resolve => {
       let hash = {};
-      //for (var control of a.controls) {
+      // for (var control of a.controls) {
       //  let group = <FormGroup>(control);
       //  let traitNameControl = group.get('traitName');
       //  const strValue = String(traitNameControl.value);
@@ -85,7 +85,7 @@ export class CustomValidators {
       //    return;
       //  }
       //  hash[strValue] = null;
-      //}
+      // }
       resolve(null);
     });
   }
@@ -97,8 +97,8 @@ export class CustomValidators {
       }
     };
     return new Promise(resolve => {
-      //let hash = {};
-      //for (var control of a.controls) {
+      // let hash = {};
+      // for (var control of a.controls) {
       //  let group = <FormGroup>(control);
       //  let skillNameControl = group.get('skillName');
       //  const strValue = String(skillNameControl.value);
@@ -107,7 +107,7 @@ export class CustomValidators {
       //    return;
       //  }
       //  hash[strValue] = null;
-      //}
+      // }
       resolve(null);
     });
   }

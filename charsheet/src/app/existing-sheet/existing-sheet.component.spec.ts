@@ -8,9 +8,9 @@ import { TraitGroupFactory } from '../trait/trait-group-factory';
 import { TraitFactoryService } from '../trait/trait-factory.service';
 import { MockTraitFactoryService, MockTraitGroupFactory, MockFormStorageService, MockMostRecentService } from '../../testing/mock-services';
 import { FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { Observable, from } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/observable/from';
 import { MostRecentService } from '../most-recent/most-recent.service';
 import { FormModel } from '../form/form-model';
 
@@ -37,7 +37,7 @@ describe('ExistingSheetComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: Observable.from([{ id: id }]),
+            params: from([{ id: id }]),
           },
         }]
     })
@@ -76,7 +76,7 @@ describe('ExistingSheetComponent', () => {
         actual = s;
       });
 
-      await saveResult.sheetId.first().toPromise();
+      await saveResult.sheetId.pipe(first()).toPromise();
 
       expect(actual).toBe(id);
     });

@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TraitGroupFactory } from '../trait/trait-group-factory';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { FormStorageService } from '../storage/form-storage.service';
 import { TraitFactoryService } from '../trait/trait-factory.service';
 import { FormSaveService } from '../form/form-save.service';
 import { NewSheetService } from './new-sheet.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'zer-new-sheet',
+  selector: 'zh-new-sheet',
   templateUrl: './new-sheet.component.html',
   styleUrls: ['./new-sheet.component.scss']
 })

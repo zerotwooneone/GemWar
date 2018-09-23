@@ -3,7 +3,7 @@ import { SavedCharacterModelService } from '../../file/saved-character-model.ser
 import { SavedCharactersService } from '../../saved-characters/saved-characters.service';
 
 @Component({
-  selector: 'zer-saved-characters',
+  selector: 'zh-saved-characters',
   templateUrl: './saved-characters.component.html',
   styleUrls: ['./saved-characters.component.scss']
 })

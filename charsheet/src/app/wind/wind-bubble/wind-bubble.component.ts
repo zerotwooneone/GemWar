@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'zer-wind-bubble',
+  selector: 'zh-wind-bubble',
   templateUrl: './wind-bubble.component.html',
   styleUrls: ['./wind-bubble.component.scss']
 })
 export class WindBubbleComponent implements OnInit {
 
   @Input() checked: boolean;
-  @Output() onClicked = new EventEmitter<boolean>();
+  @Output() zclicked = new EventEmitter<boolean>();
 
   get checkedHidden(): boolean {
     return !this.checked;
@@ -22,8 +22,8 @@ export class WindBubbleComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClick():void {
-    this.onClicked.emit();
+  onClick(): void {
+    this.zclicked.emit();
   }
 
 }

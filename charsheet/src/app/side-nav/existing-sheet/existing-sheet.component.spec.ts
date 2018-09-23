@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExistingSheetComponent } from './existing-sheet.component';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { SaveResult } from '../../form/save-result';
 import { FormSaveService } from '../../form/form-save.service';
 import { MockFormSaveService } from '../../../testing/mock-services';

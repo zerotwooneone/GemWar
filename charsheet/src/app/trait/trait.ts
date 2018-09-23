@@ -1,4 +1,4 @@
-import { Skill } from "../skill/skill";
+import { Skill } from '../skill/skill';
 
 export class Trait {
   get traitName(): string { return this._traitName; }

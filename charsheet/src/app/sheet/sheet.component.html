@@ -15,7 +15,7 @@
       <div formArrayName="mentalTraits" class="trait-block">
         <div class="trait-column-title">Mental Traits</div>
         <div *ngFor="let trait of form.controls.mentalTraits['controls']">
-          <trait [trait]="trait"></trait>
+          <zh-trait [trait]="trait"></zh-trait>
         </div>
       </div>
     </div>
@@ -23,12 +23,12 @@
       <div formArrayName="corporealTraits" class="trait-block">
         <div class="trait-column-title">Coporeal Traits</div>
         <div *ngFor="let trait of form.controls.corporealTraits['controls']">
-          <trait [trait]="trait"></trait>
+          <zh-trait [trait]="trait"></zh-trait>
         </div>
       </div>
     </div>
     <div fxFlex="33" fxFlex.lt-sm="100">
-      <zer-edge-hinderance [edges]="form.controls.edges"></zer-edge-hinderance>
+      <zh-edge-hinderance [edges]="form.controls.edges"></zh-edge-hinderance>
       <p>
         <mat-card>
           <mat-card-title>
@@ -40,13 +40,13 @@
         <mat-card-title>
           <span>Wind (Vigor + Spirit die type)</span>
         </mat-card-title>
-        <zer-wind-selector [count]="34" [windTotal]="windTotal" formControlName="currentWind"></zer-wind-selector>
+        <zh-wind-selector [count]="34" [windTotal]="windTotal" formControlName="currentWind"></zh-wind-selector>
       </mat-card>
       <mat-card>
         <mat-card-title>
           <span>Strain (Vigor die type)</span>
         </mat-card-title>
-        <zer-wind-selector [count]="22" [windTotal]="strainMax" formControlName="currentStrain"></zer-wind-selector>
+        <zh-wind-selector [count]="22" [windTotal]="strainMax" formControlName="currentStrain"></zh-wind-selector>
       </mat-card>
     </div>
   </div>

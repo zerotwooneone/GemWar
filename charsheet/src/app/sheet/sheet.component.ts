@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'zer-sheet',
+  selector: 'zh-sheet',
   templateUrl: './sheet.component.html',
   styleUrls: ['./sheet.component.scss']
 })

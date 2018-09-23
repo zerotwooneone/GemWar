@@ -1,16 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, FormArray, AbstractControl } from '@angular/forms';
 import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
-import 'rxjs/add/operator/timeout';
-import 'rxjs/add/operator/finally';
+import { finalize, first } from 'rxjs/operators';
 import { MacroService } from '../../macro/macro.service';
 
 @Component({
-  selector: 'app-skill-component',
+  selector: 'zh-skill',
   templateUrl: './skill-component.component.html',
   styleUrls: ['./skill-component.component.scss']
 })
-export class SkillComponentComponent implements OnInit {
+export class SkillComponent implements OnInit {
 
   @Input() skills: FormArray;
   @Input() dieType: number;
@@ -52,8 +51,7 @@ export class SkillComponentComponent implements OnInit {
       });
     ref
       .afterDismissed()
-      .first()
-      .finally(() => this.changeDetectorRef.detectChanges())
+      .pipe(first(), finalize(() => this.changeDetectorRef.detectChanges()))
       .subscribe((dismiss: MatSnackBarDismiss) => {
         if (dismiss.dismissedByAction) {
           undoDelete();

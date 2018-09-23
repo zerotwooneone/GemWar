@@ -1,13 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Skill } from '../skill/skill';
-import { Trait } from '../trait/trait';
-import { FormGroup, FormArray, FormControl } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormArray } from '@angular/forms';
 import { TraitGroupFactory } from './trait-group-factory';
 import { TraitFactoryService } from './trait-factory.service';
 import { MacroService } from '../macro/macro.service';
 
 @Component({
-  selector: 'trait',
+  selector: 'zh-trait',
   templateUrl: './trait.component.html',
   styleUrls: ['./trait.component.scss']
 })

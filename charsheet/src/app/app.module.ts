@@ -1,118 +1,93 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WindBubbleComponent } from './wind/wind-bubble/wind-bubble.component';
-import { WindSelectorComponent } from './wind/wind-selector/wind-selector.component';
-import { TraitComponent } from './trait/trait.component';
-import { TraitGroupFactory } from './trait/trait-group-factory';
-import { FormStorageService } from './storage/form-storage.service';
-import { TraitFactoryService } from './trait/trait-factory.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SkillComponentComponent } from './skill/skill-component/skill-component.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatListModule } from '@angular/material/list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { EdgeHinderanceComponent } from './edge-hinderance/edge-hinderance.component';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CompressionService } from './compression/compression.service';
-import { SheetIdService } from './sheet-id/sheet-id.service';
-import { SheetComponent } from './sheet/sheet.component';
-import { NewSheetComponent } from './new-sheet/new-sheet.component';
-import { ExistingSheetComponent } from './existing-sheet/existing-sheet.component';
-import { RouterModule } from '@angular/router';
-import { appRoutes } from './app.routes';
-import { FormSaveService } from './form/form-save.service';
-import { MatIconModule } from '@angular/material/icon';
-import { BrowserStorageService } from './storage/browser-storage.service';
-import { NewSheetComponent as SideNavNewSheetComponent } from './side-nav/new-sheet/new-sheet.component';
-import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-nav/existing-sheet/existing-sheet.component';
+import { MaterialModule } from './material/material.module';
+import { HttpClientModule } from '@angular/common/http';
 import { NavWrapperComponent } from './side-nav/nav-wrapper/nav-wrapper.component';
 import { SideNavService } from './side-nav/side-nav.service';
-import { SavedCharactersComponent } from './saved-characters/saved-characters.component';
-import { NewSheetService } from './new-sheet/new-sheet.service';
 import { MostRecentComponent } from './most-recent/most-recent.component';
 import { MostRecentService } from './most-recent/most-recent.service';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { JsonService } from './json/json.service';
+import { BrowserStorageService } from './storage/browser-storage.service';
+import { NewSheetService } from './new-sheet/new-sheet.service';
+import { NewSheetComponent } from './new-sheet/new-sheet.component';
+import { NewSheetComponent as SideNavNewSheetComponent } from './side-nav/new-sheet/new-sheet.component';
+import { FormSaveService } from './form/form-save.service';
+import { FormStorageService } from './storage/form-storage.service';
+import { SheetIdService } from './sheet-id/sheet-id.service';
 import { SheetStorageService } from './storage/sheet-storage.service';
+import { CompressionService } from './compression/compression.service';
+import { JsonService } from './json/json.service';
+import { TraitFactoryService } from './trait/trait-factory.service';
+import { SheetComponent } from './sheet/sheet.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TraitComponent } from './trait/trait.component';
+import { MacroService } from './macro/macro.service';
+import { EdgeHinderanceComponent } from './edge-hinderance/edge-hinderance.component';
+import { WindSelectorComponent } from './wind/wind-selector/wind-selector.component';
+import { ClipboardModule } from 'ngx-clipboard';
+import { SkillComponent } from './skill/skill-component/skill-component.component';
+import { WindBubbleComponent } from './wind/wind-bubble/wind-bubble.component';
+import { TraitGroupFactory } from './trait/trait-group-factory';
+import { SavedCharactersComponent } from './saved-characters/saved-characters.component';
+import { SavedCharactersService } from './saved-characters/saved-characters.service';
 import { JsonLinkService } from './json/json-link.service';
+import { SavedCharactersComponent as SideNavSavedCharactersComponent } from './side-nav/saved-characters/saved-characters.component';
 import { SavedCharacterModelService } from './file/saved-character-model.service';
 import { FileReaderService } from './file/file-reader.service';
-import { SavedCharactersComponent as SideNavSavedCharactersComponent } from './side-nav/saved-characters/saved-characters.component';
-import { SavedCharactersService } from './saved-characters/saved-characters.service';
-import { ClipboardModule } from 'ngx-clipboard';
-import { MacroService } from './macro/macro.service';
-import { LZStringModule, LZStringService } from 'ng-lz-string';
+import { ExistingSheetComponent } from './existing-sheet/existing-sheet.component';
+import { ExistingSheetComponent as SideNavExistingSheetComponent } from './side-nav/existing-sheet/existing-sheet.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TraitComponent,
-    WindBubbleComponent,
-    WindSelectorComponent,
-    SkillComponentComponent,
-    EdgeHinderanceComponent,
-    SheetComponent,
-    NewSheetComponent,
-    ExistingSheetComponent,
-    SideNavNewSheetComponent,
-    SideNavExistingSheetComponent,
     NavWrapperComponent,
-    SavedCharactersComponent,
     MostRecentComponent,
-    SideNavSavedCharactersComponent
+    NewSheetComponent,
+    SideNavNewSheetComponent,
+    SheetComponent,
+    TraitComponent,
+    EdgeHinderanceComponent,
+    WindSelectorComponent,
+    SkillComponent,
+    WindBubbleComponent,
+    SavedCharactersComponent,
+    SideNavSavedCharactersComponent,
+    ExistingSheetComponent,
+    SideNavExistingSheetComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
-    MatSnackBarModule,
-    MatCardModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule,
     FlexLayoutModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatExpansionModule,
-    MatSlideToggleModule,
-    MatIconModule,
-    MatTooltipModule,
-    ClipboardModule,
-    LZStringModule,
-    RouterModule.forRoot(
-      appRoutes
-      // { enableTracing: true } // <-- debugging purposes only
-    )
+    MaterialModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    ClipboardModule
   ],
-  providers: [
-    TraitGroupFactory,
-    FormStorageService,
-    TraitFactoryService,
-    CompressionService,
-    SheetIdService,
-    FormSaveService,
-    BrowserStorageService,
-    SideNavService,
-    NewSheetService,
+  providers: [SideNavService,
     MostRecentService,
-    JsonService,
+    BrowserStorageService,
+    NewSheetService,
+    FormSaveService,
+    FormStorageService,
+    SheetIdService,
     SheetStorageService,
+    CompressionService,
+    JsonService,
+    TraitFactoryService,
+    MacroService,
+    TraitGroupFactory,
+    SavedCharactersService,
     JsonLinkService,
     SavedCharacterModelService,
-    FileReaderService,
-    SavedCharactersService,
-    MacroService,
-    LZStringService
-  ],
+    FileReaderService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
