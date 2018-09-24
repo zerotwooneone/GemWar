@@ -37,10 +37,10 @@ namespace server
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
-            app.UseDefaultFiles();
             app.UseStaticFiles();
-
+            app.UseDefaultFiles();
+            app.UseMvc();
+                        
             //handle client side routes
             app.Run(async (context) =>
             {
